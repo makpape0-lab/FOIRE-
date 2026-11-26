@@ -133,32 +133,38 @@ function form(){nav();
  if(!open())return v(`<div class="card"><h2>Inscriptions closes</h2><p>La date limite (${limTxt()}) est dépassée.</p><p><a href="#" id="lg">J'ai déjà un compte</a></p></div>`),$("lg").onclick=e=>{e.preventDefault();login()};
  const P=CFG.photos?.length?CFG.photos:[FLYER],S=P.length<2?[P[0],P[0]]:P;ST=1;
  v(`<section class="hero"><div class="sl">${S.map(u=>`<img src="${esc(u)}" alt="">`).join("")}</div><div class="ov"><span class="kick">DÉPARTEMENT DE GUINGUINÉO · FASECA-KB 2026</span><h1>OPPORTUNITÉ COMMERCIALE RURALE</h1><p>${QUOTE}</p><p><b>${esc(CFG.dates)}</b> · ${esc(CFG.lieu)}<br>Inscriptions jusqu'au ${limTxt()} · ${CFG.stands} stands</p><a class="btn y" href="#f" id="go">S'inscrire maintenant</a></div></section>
- <form class="card" id="f" novalidate style="max-width:780px;margin:0 auto"><h2 class="ttl">OPPORTUNITÉ COMMERCIALE RURALE</h2><p class="mu" style="margin-top:-6px;font-size:14px">${QUOTE}</p><p id="sp" style="font-weight:700;color:var(--g)"></p>
+ <form class="card" id="f" novalidate style="max-width:780px;margin:0 auto"><h2 class="ttl">OPPORTUNITÉ COMMERCIALE RURALE</h2><p class="mu" style="margin-top:-6px;font-size:14px">${QUOTE}</p>${user?`<p class="ok" style="margin:8px 0">Connecté : ${esc(user.email)}. Aucun dossier n'est encore enregistré pour ce compte : complétez le formulaire pour créer votre dossier.</p>`:""}<p id="sp" style="font-weight:700;color:var(--g)"></p>
  ${body()}
  <div data-s="3" class="hide"><p style="font-weight:600;margin:0">Formule choisie *</p><div class="packs" style="margin:8px 0 12px">${Object.entries(PK).map(([k,p])=>`<label class="pack"><input type="radio" name="formule" value="${k}" required><strong>${p.n}</strong><b>${fcfa(price(k))}</b><ul>${p.d.map(x=>`<li>${x}</li>`).join("")}</ul><small>Cible : ${p.c}<br>Réservation (50 %) : ${fcfa(price(k)/2)}</small></label>`).join("")}</div>
  <p class="mu" style="font-size:14px">Paiement : 50 % à la réservation, solde avant le ${esc(CFG.solde)}, ou en une fois. Espèces au Secrétariat de la Mairie ou mobile money au ${esc(CFG.tel)}.</p>
  <label>Mode de paiement prévu<select name="mode_paiement"><option value=""></option>${PAY.map(p=>`<option>${p}</option>`).join("")}</select></label>
  <div class="f2"><label>Photographie principale de présentation<input type="file" name="photo_main" accept="image/*"></label><label>Photos de vos produits / de votre activité (5 max.)<input type="file" name="photos" accept="image/*" multiple></label></div>
- <h3>Votre accès (pour retrouver votre dossier)</h3><div class="f2"><label>E-mail *<input name="email" type="email" required autocomplete="email"></label><label>Mot de passe * (8 caractères min., lettres et chiffres)<span class="pwr"><input name="pw" type="password" required minlength="8" maxlength="72" autocomplete="new-password"><button type="button" class="btn o s" id="pt">Afficher</button></span><span class="meter" id="pm"><i></i></span><small class="mu"></small></label></div>
+ <div id="acc"><h3>Votre accès (pour retrouver votre dossier)</h3><div class="f2"><label>E-mail *<input name="email" type="email" required autocomplete="email"></label><label>Mot de passe * (8 caractères min., lettres et chiffres)<span class="pwr"><input name="pw" type="password" required minlength="8" maxlength="72" autocomplete="new-password"><button type="button" class="btn o s" id="pt">Afficher</button></span><span class="meter" id="pm"><i></i></span><small class="mu"></small></label></div></div>
  <label style="display:flex;gap:8px"><input type="checkbox" name="ok" style="width:auto;margin-top:4px" required><span>Je certifie l'exactitude de ces informations. Le montant versé et le numéro de stand sont enregistrés par le Comité après réception du paiement ; la réservation n'est ferme qu'après sa confirmation.</span></label><input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
  <div class="err" id="e" role="alert"></div><div style="display:flex;gap:8px"><button type="button" class="btn o" id="pv">Précédent</button><button type="submit" class="btn" id="nx" style="flex:1">Suivant</button></div>
- <p class="mu" style="text-align:center;margin-bottom:0">Déjà inscrit ? <a href="#" id="lg">Accéder à mon espace</a></p></form>`);
+ <p class="mu" style="text-align:center;margin-bottom:0">${user?"":`Déjà inscrit ? <a href="#" id="lg">Accéder à mon espace</a>`}</p></form>`);
  document.querySelectorAll(".pack input").forEach(i=>i.onchange=()=>document.querySelectorAll("label.pack").forEach(l=>l.classList.toggle("on",l.querySelector("input").checked)));
- $("lg").onclick=e=>{e.preventDefault();login()};$("go").onclick=e=>{e.preventDefault();$("f").scrollIntoView({behavior:"smooth"})};$("pv").onclick=()=>step(ST-1);
+ if($("lg"))$("lg").onclick=e=>{e.preventDefault();login()};$("go").onclick=e=>{e.preventDefault();$("f").scrollIntoView({behavior:"smooth"})};$("pv").onclick=()=>step(ST-1);
  $("f").onsubmit=e=>{e.preventDefault();if(!okStep())return;ST<3?step(ST+1):submit()};
- enhance();step(1);heroInit()}
+ enhance();
+ // Utilisateur déjà connecté sans dossier : pas besoin d'e-mail ni de mot de passe
+ if(user){$("acc").classList.add("hide");$("f").email.required=false;$("f").pw.required=false;$("f").pw.minLength=0}
+ step(1);heroInit()}
 async function submit(){
  if(PREVIEW)return toast("Aperçu : l'inscription est désactivée.");
  const f=new FormData($("f")),g=k=>String(f.get(k)||"").trim();
  if(g("website"))return;
- if(!pwOK(g("pw")))return $("e").textContent="Mot de passe trop faible : 8 caractères minimum, avec lettres et chiffres.";
- const row={...collect(f),email:g("email").toLowerCase(),formule:g("formule"),mode_paiement:g("mode_paiement")};
+ if(!user&&!pwOK(g("pw")))return $("e").textContent="Mot de passe trop faible : 8 caractères minimum, avec lettres et chiffres.";
+ const row={...collect(f),email:(user?user.email:g("email")).toLowerCase(),formule:g("formule"),mode_paiement:g("mode_paiement")};
  if(!/^\+?[0-9 ().-]{9,18}$/.test(row.telephone)){step(1);return $("e").textContent="Numéro de téléphone invalide."}
  const b=$("nx");b.disabled=true;
- const {data,error}=await sb.auth.signUp({email:row.email,password:g("pw"),options:{data:{nom:row.responsable,telephone:row.telephone}}});
- if(error||data?.user?.identities?.length===0){b.disabled=false;return $("e").textContent=error?"Inscription impossible : "+error.message:"Un compte existe déjà avec cet e-mail : connectez-vous."}
- let s=data.session;if(!s){const r=await sb.auth.signInWithPassword({email:row.email,password:g("pw")});s=r.data?.session}
- if(!s){try{localStorage.setItem("faseca_pending_"+row.email,JSON.stringify(row))}catch{}b.disabled=false;return login("Compte créé. Confirmez votre e-mail, puis connectez-vous : votre inscription sera enregistrée (vous pourrez alors ajouter vos photos).")}
+ let s;
+ if(user){s={user}}else{
+  const {data,error}=await sb.auth.signUp({email:row.email,password:g("pw"),options:{data:{nom:row.responsable,telephone:row.telephone}}});
+  if(error||data?.user?.identities?.length===0){b.disabled=false;return $("e").textContent=error?"Inscription impossible : "+error.message:"Un compte existe déjà avec cet e-mail : connectez-vous."}
+  s=data.session;if(!s){const r=await sb.auth.signInWithPassword({email:row.email,password:g("pw")});s=r.data?.session}
+  if(!s){try{localStorage.setItem("faseca_pending_"+row.email,JSON.stringify(row))}catch{}b.disabled=false;return login("Compte créé. Confirmez votre e-mail, puis connectez-vous : votre inscription sera enregistrée (vous pourrez alors ajouter vos photos).")}
+ }
  const ins=await sb.from("faseca_inscriptions").insert(row).select().single();if(ins.error){b.disabled=false;return $("e").textContent="Enregistrement impossible : "+ins.error.message}
  const fl=[f.get("photo_main"),...f.getAll("photos")].filter(x=>x&&x.size);
  if(fl.length){const ph=await upPhotos(fl,s.user.id);if(ph.length)await sb.from("faseca_inscriptions").update({photos:ph}).eq("id",ins.data.id)}
