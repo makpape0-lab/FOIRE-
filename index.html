@@ -1,1310 +1,369 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://pbkpohfkiayaujupzkxs.supabase.co wss://pbkpohfkiayaujupzkxs.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
-<title>ADEL INVEST – Espace porteur de projet</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230b6b3a%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2738%27 text-anchor=%27middle%27 fill=%27white%27 font-family=%27Arial%27 font-weight=%27bold%27%3EA%3C/text%3E%3C/svg%3E">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
-<style>
-:root{--g:#0b6b3a;--gd:#084d2a;--gl:#e8f5ec;--y:#f4c20d;--r:#d62828;--ink:#14281d;--mu:#5d6f64;--bg:#f4f7f5;--card:#fff;--bd:#dbe5df}
-@media(prefers-color-scheme:dark){:root{--ink:#e8f1ec;--mu:#9fb3a7;--bg:#0f1a14;--card:#16251c;--bd:#27402f;--gl:#1b3326}}
-*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
-button{font:inherit;cursor:pointer}a{color:inherit}
-.hide{display:none!important}
-/* login */
-#login,#signup,#sup,#recovery{max-width:440px;margin:6vh auto;background:var(--card);padding:28px;border-radius:14px;border:1px solid var(--bd)}
-#login h1,#signup h1,#sup h1,#recovery h1{margin:0 0 4px;color:var(--g);font-size:24px}
-input,select,textarea{width:100%;padding:10px 12px;margin:6px 0 12px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
-.btn{background:var(--g);color:#fff;border:0;padding:10px 16px;border-radius:8px;font-weight:600}
-.btn.o{background:transparent;color:var(--g);border:1.5px solid var(--g)}
-.btn.d{background:transparent;color:var(--r);border:1.5px solid var(--r)}
-.err{color:var(--r);font-size:14px;min-height:18px}
-/* layout */
-#app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
-aside{background:linear-gradient(180deg,#0b6b3a,#073d22);color:#fff;padding:16px 12px;display:flex;flex-direction:column;gap:4px}
-.logo{background:#fff;color:var(--gd);border-radius:0 0 40px 0;margin:-16px -12px 14px;padding:18px;font-weight:800;font-size:22px;letter-spacing:2px}
-.logo small{display:block;font-size:11px;font-weight:500;letter-spacing:0}
-aside a{display:block;padding:11px 14px;border-radius:8px;text-decoration:none;color:#e6f3ea}
-aside a.on{background:#2fa84f;font-weight:700;color:#fff}
-aside a:hover{background:rgba(255,255,255,.12)}
-main{min-width:0}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 24px;background:var(--card);border-bottom:1px solid var(--bd)}
-.top h2{margin:0;font-size:20px}.top p{margin:2px 0 0;color:var(--mu);font-size:14px}
-.space{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--mu)}
-.space select{margin:0;width:auto;min-width:180px;font-weight:700;color:var(--g);border:1.5px solid var(--g)}
-.banner{height:110px;background:linear-gradient(90deg,rgba(8,77,42,.92),rgba(8,77,42,.5)),repeating-linear-gradient(100deg,#2e8b3d 0 14px,#3da04c 14px 28px);color:#fff;padding:22px 24px;position:relative;overflow:hidden}
-.banner h3{margin:0;font-size:26px}.banner em{opacity:.9}
-.banner:after{content:"";position:absolute;right:-40px;top:0;width:260px;height:100%;background:linear-gradient(110deg,transparent 20%,var(--g) 20% 40%,var(--y) 40% 65%,var(--r) 65%);transform:skewX(-20deg)}
-.grid{padding:18px 24px;display:grid;gap:16px;grid-template-columns:270px 1fr}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px}
-.card h4{margin:0 0 10px;font-size:17px;color:var(--g)}
-.prof{text-align:center}
-.av{width:96px;height:96px;border-radius:50%;background:var(--gl);border:3px solid var(--g);margin:0 auto 8px;display:grid;place-items:center;font-size:34px;font-weight:700;color:var(--g)}
-.tag{display:inline-block;background:#2fa84f;color:#fff;border-radius:99px;padding:3px 12px;font-size:13px;margin:6px 0}
-.prof p{margin:4px 0;font-size:14px;color:var(--mu)}
-.proj{background:var(--g);color:#fff;border-radius:12px;display:flex;justify-content:space-between;padding:12px 16px;font-size:19px;font-weight:600}
-.proj span{background:#2fa84f;border-radius:99px;padding:3px 14px;font-size:14px}
-.pbody{display:grid;grid-template-columns:1fr 210px;gap:16px;margin-top:12px}
-.rows div{display:flex;padding:6px 0;font-size:15px}.rows b{width:140px;flex:none}
-.acts{display:flex;flex-direction:column;gap:8px}
-.steps{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.st{flex:1;min-width:130px;display:flex;gap:8px;align-items:center;font-size:13px}
-.st i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:var(--bd);color:var(--mu);font-weight:700;flex:none}
-.st.ok i{background:#2fa84f;color:#fff}.st.cur i{background:var(--gd);color:#fff;box-shadow:0 0 0 4px var(--gl)}
-.three{grid-column:1/-1;display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}
-.li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--bd);font-size:14px}
-.li small{display:block;color:var(--mu)}
-.li .btn{padding:6px 10px;font-size:13px;flex:none}
-.avw{position:relative;width:96px;margin:0 auto 8px}.avw .av{margin:0;overflow:hidden}.av img{width:100%;height:100%;object-fit:cover}
-.cam{position:absolute;right:-4px;bottom:0;width:32px;height:32px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;cursor:pointer;border:2px solid var(--card);font-size:15px}
-.cam:hover{background:var(--gd)}
-table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--bd);vertical-align:top}
-th{color:var(--mu);font-weight:600}td small{display:block;color:var(--mu)}td .btn{padding:6px 10px;font-size:13px}td select{margin:0;padding:6px}
+-- =====================================================================
+-- FASECA-KB 2026 : script SQL COMPLET (Supabase)
+-- Rôles : porteur (exposant) | lecteur | admin (superviseur) | super_admin
+-- À exécuter dans Supabase > SQL Editor (réexécutable sans danger)
+-- =====================================================================
 
-/* Messagerie et journal des échanges */
-.msg-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
-.msg-bubble{padding:11px 13px;border:1px solid var(--bd);border-radius:12px;max-width:88%;overflow-wrap:anywhere}
-.msg-bubble.mine{margin-left:auto;background:var(--gl)}
-.msg-bubble.theirs{margin-right:auto;background:var(--bg)}
-.wa-link{display:inline-flex;align-items:center;gap:7px;background:#128c4a;color:#fff!important;text-decoration:none;padding:9px 12px;border-radius:8px;font-weight:700;font-size:13px}
-.wa-link:hover{filter:brightness(.94)}
-/* catégories */
-.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:12px 0}
-.cat{border:2px solid var(--bd);border-radius:12px;padding:14px;background:var(--card);text-align:left;color:var(--ink)}
-.cat b{display:block;color:var(--g);margin:4px 0}.cat.on{border-color:var(--g);background:var(--gl)}
-.cat span{font-size:12px;color:var(--mu)}
-.letter{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;font-weight:700}
-/* ===== TABLEAUX DE BORD SUPERVISION / SUPER ADMIN ===== */
-.dash{display:grid;gap:16px;grid-template-columns:repeat(12,minmax(0,1fr));grid-column:1/-1}
-.dash>.card{grid-column:span 12;min-width:0;box-shadow:0 1px 3px rgba(8,77,42,.06)}
-.dash>.c4{grid-column:span 4}.dash>.c6{grid-column:span 6}
-.dash h4{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.dash h4 small{font-size:12px;font-weight:500;color:var(--mu)}
-.hist{display:grid;grid-template-columns:30px 1fr;column-gap:10px}
-.yax{display:flex;flex-direction:column;justify-content:space-between;height:200px;text-align:right;font-size:11px;color:var(--mu)}
-.plot{display:flex;gap:6px;height:200px;border-left:1px solid var(--bd);border-bottom:1px solid var(--bd);background:linear-gradient(var(--bd) 1px,transparent 1px) 0 0/100% 25%}
-.col{flex:1;display:flex;align-items:flex-end;min-width:0;cursor:default}
-.stk{width:100%;max-width:42px;margin:0 auto;height:100%;display:flex;flex-direction:column-reverse;justify-content:flex-start}
-.stk i{display:block;width:100%;transition:filter .2s}.stk i:last-child{border-radius:7px 7px 0 0}.col:hover .stk i{filter:brightness(1.12)}
-.labs{display:flex;gap:6px;margin-left:40px;padding-top:6px;grid-column:1/-1}.labs small{flex:1;text-align:center;font-size:11px;color:var(--mu);min-width:0}
-.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:13px}
-.lg{display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0}.lg .v{margin-left:auto;color:var(--mu);white-space:nowrap}
-.dot{width:12px;height:12px;border-radius:4px;flex:none}
-.kpis{grid-column:span 12;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
-.kpi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;border-top:4px solid var(--g);box-shadow:0 1px 3px rgba(8,77,42,.06)}
-.kpi.y{border-top-color:var(--y)}.kpi.r{border-top-color:var(--r)}.kpi.l{border-top-color:#2fa84f}
-.kpi small{display:block;color:var(--mu);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
-.kpi b{display:block;font-size:30px;line-height:1.15;margin:4px 0;color:var(--ink)}.kpi span{font-size:12px;color:var(--mu)}
-.up{color:#2fa84f!important;font-weight:700}.dn{color:var(--r)!important;font-weight:700}
-.donut{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.ring{width:160px;height:160px;border-radius:50%;display:grid;place-items:center;flex:none}
-.ring>div{width:102px;height:102px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center;font-size:28px;font-weight:800;line-height:1}
-.ring small{display:block;font-size:11px;font-weight:500;color:var(--mu)}
-.hb{height:9px;background:var(--bd);border-radius:9px;overflow:hidden;margin:4px 0 2px}.hb i{display:block;height:100%;border-radius:9px;background:var(--g)}
-.sub{font-size:12px;color:var(--mu);margin:0 0 10px}
-.al{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--bd);font-size:14px}.al:last-child{border:0}
-.al b{min-width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;background:var(--g);flex:none}
-.al.w b{background:var(--y);color:#14281d}.al.x b{background:var(--r)}
-.chip{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;white-space:nowrap}
-.s-enregistre{background:#fff4c2;color:#7a5c00}.s-etude{background:#dff2e5;color:#0b6b3a}.s-validation{background:#fde2e2;color:#a31d1d}.s-approuve{background:#0b6b3a;color:#fff}
-.cn{display:inline-flex;align-items:center;gap:6px}
-.pwd-hint{font-size:12px;color:var(--mu);margin:-6px 0 10px}
-@media(max-width:1000px){.dash>.c4,.dash>.c6{grid-column:span 12}}
-@media(max-width:900px){#app{grid-template-columns:1fr}aside{flex-direction:row;overflow-x:auto}.logo{display:none}.grid,.pbody,.three{grid-template-columns:1fr}.hist{grid-template-columns:26px 1fr}.labs{margin-left:36px}.labs small:nth-child(even){visibility:hidden}}
-@media print{aside,.space,.btn,.acts,.banner,select,input{display:none!important}#app{display:block}.grid{padding:0}}
-</style>
-</head>
-<body>
+-- ---------------------------------------------------------------------
+-- 1. PROFILS
+-- ---------------------------------------------------------------------
+create table if not exists public.profiles (
+  id uuid primary key references auth.users(id) on delete cascade,
+  email text,
+  prenom text,
+  nom text,
+  telephone text,
+  role text not null default 'porteur',
+  actif boolean not null default true,
+  created_at timestamptz not null default now()
+);
+alter table public.profiles add column if not exists email text;
+alter table public.profiles add column if not exists prenom text;
+alter table public.profiles add column if not exists nom text;
+alter table public.profiles add column if not exists telephone text;
+alter table public.profiles add column if not exists actif boolean not null default true;
+alter table public.profiles add column if not exists created_at timestamptz not null default now();
+alter table public.profiles drop constraint if exists profiles_role_check;
+alter table public.profiles add constraint profiles_role_check
+  check (role in ('porteur','lecteur','admin','super_admin'));
 
-<form id="login">
-  <h1>ADEL INVEST</h1><p style="color:var(--mu);margin-top:0">Connexion à votre espace</p>
-  <label>E-mail<input id="em" type="email" required autocomplete="email"></label>
-  <label>Mot de passe<input id="pw" type="password" required autocomplete="current-password"></label>
-  <div class="err" id="lerr"></div>
-  <button class="btn" style="width:100%">Se connecter</button>
-  <p style="text-align:center;margin:14px 0 0"><a href="#" id="toForgot" style="color:var(--mu)">Mot de passe oublié ?</a></p>
-  <p style="text-align:center;margin:8px 0 0"><a href="#" id="toSignup" style="color:var(--g);font-weight:600">Nouveau ? Créer mon espace</a></p>
-  <p style="text-align:center;margin:8px 0 0"><a href="#" id="toSup" style="color:var(--mu);font-size:13px">Accès superviseur</a></p>
-</form>
+-- ---------------------------------------------------------------------
+-- 2. ÉQUIPE : rôles pré-attribués par e-mail (appliqués à la création du compte)
+-- ---------------------------------------------------------------------
+create table if not exists public.faseca_equipe (
+  email text primary key,
+  role text not null check (role in ('lecteur','admin','super_admin')),
+  prenom text,
+  nom text
+);
+alter table public.faseca_equipe enable row level security;   -- aucune policy : invisible depuis l'application
+revoke all on public.faseca_equipe from anon, authenticated;
 
-<form id="sup" class="hide">
-  <h1>Accès superviseur</h1><p style="color:var(--mu);margin-top:0">Réservé aux superviseurs autorisés d'ADEL INVEST. Utilisez votre e-mail professionnel et votre propre mot de passe.</p>
-  <label>Prénom<input id="u_pre" autocomplete="given-name"></label>
-  <label>Nom<input id="u_nom" autocomplete="family-name"></label>
-  <label>E-mail<input id="u_em" type="email" required autocomplete="email"></label>
-  <label>Mot de passe<input id="u_pw" type="password" required autocomplete="current-password"></label>
-  <div class="pwd-hint">Première inscription : 8 caractères minimum, avec lettres et chiffres.</div>
-  <label>Code d'accès superviseur<input id="u_code" type="password" required autocomplete="off"></label>
-  <div class="err" id="uerr"></div>
-  <button class="btn" style="width:100%">Accéder à la supervision</button>
-  <p style="text-align:center;margin:14px 0 0"><a href="#" id="supBack" style="color:var(--g);font-weight:600">Retour à la connexion</a></p>
-</form>
+insert into public.faseca_equipe (email, role, prenom, nom) values
+  ('makaladielediele@gmail.com', 'super_admin', 'Makala', 'DIELE'),
+  ('makhtoume15@gmail.com',      'admin',       'Cheikh Tidiane', 'CAMARA')
+on conflict (email) do update
+  set role = excluded.role, prenom = excluded.prenom, nom = excluded.nom;
 
-<form id="recovery" class="hide">
-  <h1>Nouveau mot de passe</h1><p style="color:var(--mu);margin-top:0">Choisissez un nouveau mot de passe (8 caractères minimum, lettres et chiffres).</p>
-  <label>Nouveau mot de passe<input id="r_pw" type="password" minlength="8" required autocomplete="new-password"></label>
-  <div class="err" id="rerr"></div>
-  <button class="btn" style="width:100%">Enregistrer</button>
-</form>
+-- Création automatique du profil à chaque nouveau compte :
+-- exposant (porteur) par défaut, ou rôle prévu dans faseca_equipe
+create or replace function public.handle_new_user()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare e public.faseca_equipe;
+begin
+  select * into e from public.faseca_equipe where email = lower(new.email);
+  insert into public.profiles (id, email, prenom, nom, telephone, role)
+  values (
+    new.id, lower(new.email),
+    coalesce(e.prenom, null),
+    coalesce(e.nom, new.raw_user_meta_data->>'nom'),
+    new.raw_user_meta_data->>'telephone',
+    coalesce(e.role, 'porteur'))
+  on conflict (id) do update set email = excluded.email;
+  return new;
+end $$;
 
-<form id="signup" class="hide" style="max-width:640px">
-  <h1>ADEL INVEST</h1><p style="color:var(--mu);margin-top:0">Enregistrez votre projet foncier : votre espace personnel sera créé automatiquement.</p>
-  <p style="margin:0;font-weight:600">1. Quelle est votre situation ?</p>
-  <div class="cats" id="sCats"></div>
-  <p style="margin:12px 0 0;font-weight:600">2. Votre projet</p>
-  <label>Titre du projet<input id="s_titre" required placeholder="Ex. Terrain de 2 ha à vendre"></label>
-  <label>Type de projet<input id="s_type" placeholder="Agriculture, habitat, élevage…"></label>
-  <label>Localisation<input id="s_loc" placeholder="Dakar, Sénégal"></label>
-  <label>Superficie (hectares)<input id="s_sup" type="number" min="0" step="0.01"></label>
-  <label>À propos de mon projet<textarea id="s_desc" rows="3"></textarea></label>
-  <p style="margin:12px 0 0;font-weight:600">3. Vos informations et votre accès</p>
-  <label>Prénom<input id="s_pre" required autocomplete="given-name"></label>
-  <label>Nom<input id="s_nom" required autocomplete="family-name"></label>
-  <label>Téléphone<input id="s_tel" type="tel" autocomplete="tel" placeholder="+221 77 123 45 67"></label>
-  <label>E-mail<input id="s_em" type="email" required autocomplete="email"></label>
-  <label>Mot de passe (8 caractères minimum, lettres et chiffres)<input id="s_pw" type="password" minlength="8" required autocomplete="new-password"></label>
-  <div class="err" id="serr"></div>
-  <button class="btn" style="width:100%">Enregistrer mon projet et créer mon espace</button>
-  <p style="text-align:center;margin:14px 0 0"><a href="#" id="toLogin" style="color:var(--g);font-weight:600">J'ai déjà un compte</a></p>
-</form>
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
 
-<div id="app" class="hide">
-  <aside>
-    <div class="logo">ADEL INVEST<small>Ensemble pour un foncier sécurisé</small></div>
-    <a class="on" href="#" data-v="dash">Tableau de bord</a><a href="#" data-v="projet">Mon projet</a><a href="#" data-v="docs">Mes documents</a>
-    <a href="#" data-v="archivage" id="mArch" class="hide">Archivage</a><a href="#" data-v="journal" id="mJour" class="hide">Journal des téléchargements</a>
-    <a href="#" data-v="messages">Mes messages</a><a href="#" data-v="journal_messages" id="mJournalMessages" class="hide">Journal des échanges</a><a href="#" data-v="actualites">Actualités</a><a href="#" data-v="support">Support</a><a href="#" data-v="settings">Paramètres</a>
-    <a href="#" id="out">Déconnexion</a>
-  </aside>
-  <main>
-    <div class="top">
-      <div><h2 id="hello"></h2><p id="subHello">Bienvenue sur votre espace porteur de projet</p></div>
-      <label class="space hide" id="spaceWrap" for="spaceSel">Changer d'espace<select id="spaceSel"></select></label>
-    </div>
-    <div class="banner"><h3>Base de données foncière ADEL INVEST</h3><em>Enregistrez, gérez et valorisez vos projets fonciers</em></div>
-    <div class="grid" id="grid"></div>
-  </main>
-</div>
+-- Rattrapage des comptes déjà existants
+insert into public.profiles (id, email, nom, telephone)
+select id, lower(email), raw_user_meta_data->>'nom', raw_user_meta_data->>'telephone'
+from auth.users
+on conflict (id) do update set email = excluded.email;
 
-<script>
-// ====== À REMPLIR ======
-const SUPABASE_URL = "https://pbkpohfkiayaujupzkxs.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_LmkcXtcLSXBG4Q2HWOi8lA_x4aHrm7j";
-// =======================
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-const $ = id => document.getElementById(id);
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const CATS = {
-  A:["Propriétaire / détenteur de terres","Vendre, louer ou prêter votre terre."],
-  B:["Chercheur de terres","Acheter, louer ou exploiter une terre."],
-  C:["Apporteur de terre en partenariat","Apporter votre terre à un projet financé par ADEL INVEST."],
-  D:["Vendeur en crédit-bail","Céder votre terre en crédit-bail avec option d'achat."]
-};
-const STEPS = [["enregistre","Projet enregistré"],["etude","En cours d'étude"],["validation","Validation en cours"],["approuve","Projet approuvé"]];
-const fmt = d => d ? new Date(d).toLocaleDateString("fr-FR") : "";
-const pwOK = p => String(p || "").length >= 8 && /[A-Za-z]/.test(p) && /\d/.test(p);
-const PW_MSG = "Mot de passe trop faible : 8 caractères minimum, avec des lettres et des chiffres.";
-const DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-let user, profile, fiche, chosen = "A";
-let recovering = /type=recovery/.test(location.hash);
+-- Application des rôles de l'équipe aux comptes déjà existants
+update public.profiles p
+set role = e.role, actif = true, prenom = e.prenom, nom = e.nom
+from public.faseca_equipe e
+where lower(p.email) = e.email;
 
-// ===== Sélecteur d'espace =====
-const SPACES = { super_admin: "Espace super admin", admin: "Espace admin", client: "Espace client", lecteur: "Supervision (lecture seule)" };
-let space = null;
-function allowedSpaces() {
-  if (profile.role === "lecteur") return ["lecteur"];
-  if (profile.role === "super_admin") return ["super_admin", "admin", "client"];
-  if (profile.role === "admin") return ["admin", "client"];
-  return ["client"];
-}
-const isAdminSpace = () => space === "super_admin" || space === "admin" || space === "lecteur";
-function setupSpaceSwitcher() {
-  const list = allowedSpaces();
-  if (!space || !list.includes(space)) space = list[0];
-  $("spaceWrap").classList.toggle("hide", list.length < 2);
-  $("spaceSel").innerHTML = list.map(k => `<option value="${k}" ${k === space ? "selected" : ""}>${SPACES[k]}</option>`).join("");
-}
-$("spaceSel").onchange = e => { space = e.target.value; navigate("dash"); };
+-- ---------------------------------------------------------------------
+-- 3. FONCTIONS DE RÔLE
+-- ---------------------------------------------------------------------
+create or replace function public.faseca_role()
+returns text language sql stable security definer set search_path = public as $$
+  select role from public.profiles where id = auth.uid() and actif is not false
+$$;
 
-// ===== Sécurité des connexions =====
-async function secureSignIn(email, password) {
-  const em = String(email).trim().toLowerCase();
-  const lk = await sb.rpc("check_login", { p_email: em });
-  if (lk.error) console.warn("[SECURITE] Vérification anti-tentatives indisponible :", lk.error.message);
-  if (lk.data === true) return { locked: true, error: { message: "locked" } };
-  const r = await sb.auth.signInWithPassword({ email: em, password });
-  if (r.error) { await sb.rpc("record_login", { p_email: em, p_ok: false }); return { error: r.error }; }
-  await sb.rpc("record_login", { p_email: em, p_ok: true });
-  return r;
-}
-const LOCK_MSG = "Trop de tentatives. Réessayez dans 15 minutes.";
-const BAD_MSG = "E-mail ou mot de passe incorrect.";
-const DUP_MSG = "Un compte existe déjà avec cet e-mail. Connectez-vous ou réinitialisez votre mot de passe.";
-const isDup = (data, error) => (error && /already|registered|exists/i.test(error.message)) || (data?.user && Array.isArray(data.user.identities) && data.user.identities.length === 0);
-function showForm(id) { ["login", "signup", "sup", "recovery"].forEach(f => $(f).classList.toggle("hide", f !== id)); }
+create or replace function public.is_super()
+returns boolean language sql stable security definer set search_path = public as $$
+  select coalesce(public.faseca_role() = 'super_admin', false)
+$$;
 
-let sCat = "A";
-function drawSCats() {
-  $("sCats").innerHTML = Object.entries(CATS).map(([k, v]) =>
-    `<button type="button" class="cat ${k === sCat ? "on" : ""}" data-k="${k}"><span class="letter">${k}</span><b>${v[0]}</b><span>${v[1]}</span></button>`).join("");
-  $("sCats").querySelectorAll(".cat").forEach(b => b.onclick = () => { sCat = b.dataset.k; drawSCats(); });
-}
-$("toSignup").onclick = e => { e.preventDefault(); showForm("signup"); drawSCats(); };
-$("toLogin").onclick = e => { e.preventDefault(); showForm("login"); };
-$("toSup").onclick = e => { e.preventDefault(); showForm("sup"); };
-$("supBack").onclick = e => { e.preventDefault(); showForm("login"); };
-$("toForgot").onclick = async e => {
-  e.preventDefault(); const em = $("em").value.trim();
-  $("lerr").style.color = ""; 
-  if (!em) { $("lerr").textContent = "Saisissez votre e-mail, puis cliquez à nouveau."; return; }
-  await sb.rpc("log_security_event", { p_email: em, p_event: "reset_demande" });
-  await sb.auth.resetPasswordForEmail(em, { redirectTo: location.origin + location.pathname });
-  $("lerr").style.color = "var(--g)";
-  $("lerr").textContent = "Si un compte existe avec cet e-mail, un message de réinitialisation vient d'être envoyé.";
-};
-$("recovery").onsubmit = async e => {
-  e.preventDefault(); $("rerr").textContent = "";
-  if (!pwOK($("r_pw").value)) { $("rerr").textContent = PW_MSG; return; }
-  const { error } = await sb.auth.updateUser({ password: $("r_pw").value });
-  if (error) { $("rerr").textContent = "Modification impossible : " + error.message; return; }
-  recovering = false; history.replaceState(null, "", location.pathname); start();
-};
+create or replace function public.is_staff()
+returns boolean language sql stable security definer set search_path = public as $$
+  select coalesce(public.faseca_role() in ('lecteur','admin','super_admin'), false)
+$$;
 
-$("signup").onsubmit = async e => {
-  e.preventDefault(); $("serr").textContent = "";
-  const email = $("s_em").value.trim(), password = $("s_pw").value;
-  if (!pwOK(password)) { $("serr").textContent = PW_MSG; return; }
-  const projet = { categorie: sCat, titre: $("s_titre").value.trim(), type_projet: $("s_type").value, localisation: $("s_loc").value,
-    superficie: $("s_sup").value || null, description: $("s_desc").value, statut: "enregistre" };
-  const client = { prenom: $("s_pre").value, nom: $("s_nom").value, telephone: $("s_tel").value, email };
-  const { data, error } = await sb.auth.signUp({
-    email, password,
-    options: { data: { prenom: client.prenom, nom: client.nom, telephone: client.telephone, categorie: sCat } }
-  });
-  if (isDup(data, error)) {
-    await sb.rpc("log_security_event", { p_email: email, p_event: "inscription_doublon" });
-    $("serr").textContent = DUP_MSG; return;
-  }
-  if (error) { $("serr").textContent = "Inscription impossible : " + error.message; return; }
-  let session = data.session;
-  if (!session) { const r = await sb.auth.signInWithPassword({ email, password }); session = r.data?.session; }
-  if (!session) {
-    // Confirmation e-mail exigée : le projet est gardé et enregistré à la première connexion confirmée.
-    try { localStorage.setItem("adel_pending_" + email.toLowerCase(), JSON.stringify(projet)); } catch {}
-    showForm("login");
-    $("lerr").style.color = "var(--g)";
-    $("lerr").textContent = "Compte créé. Confirmez votre e-mail, puis connectez-vous : votre projet sera enregistré.";
-    return;
-  }
-  const ins = await sb.from("fiches").insert({ user_id: session.user.id, ...projet }).select().single();
-  if (ins.error) toast("Projet non enregistré : " + ins.error.message);
-  else await archiver(ins.data, client);
-  start();
-};
-$("login").onsubmit = async e => {
-  e.preventDefault(); $("lerr").style.color = ""; $("lerr").textContent = "";
-  const r = await secureSignIn($("em").value, $("pw").value);
-  if (r.locked) $("lerr").textContent = LOCK_MSG;
-  else if (r.error) { console.error("[AUTH FOIRE]", r.error); $("lerr").textContent = "Connexion impossible : " + (r.error.message || BAD_MSG); }
-  else start();
-};
-$("sup").onsubmit = async e => {
-  e.preventDefault(); $("uerr").textContent = "";
-  const email = $("u_em").value.trim().toLowerCase(), pw = $("u_pw").value, code = $("u_code").value;
-  let session = null;
-  const si = await secureSignIn(email, pw);
-  if (si.locked) { $("uerr").textContent = LOCK_MSG; return; }
-  if (si.data?.session) session = si.data.session;
-  else {
-    if (!pwOK(pw)) { $("uerr").textContent = "Accès refusé. Première inscription : mot de passe de 8 caractères minimum, lettres et chiffres."; return; }
-    if (!$("u_pre").value.trim() || !$("u_nom").value.trim()) { $("uerr").textContent = "Indiquez votre prénom et votre nom pour la première inscription."; return; }
-    const su = await sb.auth.signUp({ email, password: pw, options: { data: { prenom: $("u_pre").value.trim(), nom: $("u_nom").value.trim() } } });
-    if (isDup(su.data, su.error)) { $("uerr").textContent = "Accès refusé. Vérifiez votre mot de passe."; return; }
-    if (su.error) { $("uerr").textContent = "Accès refusé."; return; }
-    session = su.data.session;
-    if (!session) { $("uerr").style.color = "var(--g)"; $("uerr").textContent = "Compte créé. Confirmez votre e-mail, puis revenez ici avec le même code."; return; }
-  }
-  const cl = await sb.rpc("claim_superviseur", { p_code: code });
-  if (cl.error || cl.data !== true) { await sb.auth.signOut(); $("uerr").textContent = "Accès refusé."; return; }
-  start();
-};
-function toast(msg) {
-  let t = $("toast");
-  if (!t) { t = document.createElement("div"); t.id = "toast";
-    t.style.cssText = "position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#14281d;color:#fff;padding:12px 18px;border-radius:10px;z-index:99;max-width:90vw";
-    document.body.appendChild(t); }
-  t.textContent = msg; t.style.display = "block"; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = "none", 4000);
-}
-window.addEventListener("error", e => toast("Erreur : " + e.message));
-window.addEventListener("unhandledrejection", e => toast("Erreur : " + (e.reason?.message || e.reason)));
-function setActiveMenu(view) {
-  document.querySelectorAll("aside a[data-v]").forEach(a => a.classList.toggle("on", a.dataset.v === view));
-}
-function valueText(v) {
-  if (v === null || v === undefined || v === "") return "—";
-  if (typeof v === "object") return JSON.stringify(v);
-  return String(v);
-}
-function genericRecordsHTML(rows) {
-  if (!rows || !rows.length) return '<p style="color:var(--mu)">Aucun élément disponible pour le moment.</p>';
-  return rows.map((row, i) => {
-    const entries = Object.entries(row).filter(([k,v]) => !["id","user_id","fiche_id"].includes(k) && v !== null && v !== "");
-    return `<article class="card" style="margin:10px 0"><h4>Élément ${i+1}</h4><div class="rows">${entries.map(([k,v]) => `<div><b>${esc(k.replaceAll("_"," "))} :</b><span>${esc(valueText(v))}</span></div>`).join("")}</div></article>`;
-  }).join("");
-}
-async function renderDataPage(title, table, intro, ownOnly=false) {
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>${esc(title)}</h4><p style="color:var(--mu)">${esc(intro)}</p><p>Chargement des données…</p></div>`;
-  let query = sb.from(table).select("*").limit(50);
-  if (ownOnly) query = query.eq("user_id", user.id);
-  const {data, error} = await query;
-  if (error) {
-    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>${esc(title)}</h4><p class="err">Impossible de charger cette rubrique : ${esc(error.message)}</p><p style="color:var(--mu)">Vérifiez les politiques RLS et les autorisations de la table <b>${esc(table)}</b> dans Supabase.</p></div>`;
-    return;
-  }
-  $("grid").innerHTML = `<div style="grid-column:1/-1"><div class="card"><h4>${esc(title)}</h4><p style="color:var(--mu)">${esc(intro)}</p><p>${data.length} élément(s) affiché(s), maximum 50.</p></div>${genericRecordsHTML(data)}</div>`;
-}
-const DOCS_BUCKET = "documents";
-const MAX_DOC_SIZE = 10 * 1024 * 1024;
-const DOC_MIME_TYPES = ["application/pdf", "image/jpeg", "image/png", "application/msword", DOCX_MIME, "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
-function safeFileName(name) {
-  return String(name || "document").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9._-]/g, "_").slice(-120);
-}
-async function renderDocumentsPage() {
-  if (!fiche) {
-    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Mes documents</h4><p>Enregistrez d'abord un projet pour pouvoir lui associer des documents.</p><button class="btn" id="goProject">Créer mon projet</button></div>`;
-    $("goProject").onclick = () => navigate("projet");
-    return;
-  }
-  const folder = `${user.id}/${fiche.id}`;
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Mes documents</h4><p style="color:var(--mu)">Ajoutez les pièces justificatives de votre projet (PDF, images, Word ou Excel — 10 Mo maximum par fichier).</p><form id="documentUploadForm"><label for="documentFile">Choisir un document</label><input id="documentFile" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx" required style="display:block;margin:10px 0"><button class="btn" id="uploadDocumentBtn" type="submit">Joindre le document</button><p id="documentUploadStatus" role="status" style="margin-top:10px"></p></form></div><div class="card" style="grid-column:1/-1"><h4>Documents déposés</h4><p id="documentsLoading" style="color:var(--mu)">Chargement…</p><div id="documentsList"></div></div>`;
-  $("documentUploadForm").onsubmit = async (e) => {
-    e.preventDefault();
-    const file = $("documentFile").files?.[0];
-    const status = $("documentUploadStatus");
-    const btn = $("uploadDocumentBtn");
-    if (!file) { status.textContent = "Choisissez d'abord un fichier."; return; }
-    if (file.size > MAX_DOC_SIZE) { status.textContent = "Fichier trop volumineux : la limite est de 10 Mo."; return; }
-    if (file.type && !DOC_MIME_TYPES.includes(file.type)) { status.textContent = "Format non autorisé. Utilisez PDF, JPG, PNG, DOC, DOCX, XLS ou XLSX."; return; }
-    const path = `${folder}/${Date.now()}_${safeFileName(file.name)}`;
-    btn.disabled = true; btn.textContent = "Envoi en cours…"; status.textContent = "Téléversement sécurisé en cours…";
-    const { error } = await sb.storage.from(DOCS_BUCKET).upload(path, file, { upsert: false, contentType: file.type || undefined });
-    btn.disabled = false; btn.textContent = "Joindre le document";
-    if (error) {
-      status.textContent = `Échec de l'envoi : ${error.message}. Vérifiez que le bucket « documents » et ses politiques Storage sont configurés.`;
-      return;
-    }
-    $("documentFile").value = "";
-    status.textContent = "Document envoyé avec succès.";
-    await loadStoredDocuments(folder);
-  };
-  await loadStoredDocuments(folder);
-}
-async function loadStoredDocuments(folder) {
-  const loading = $("documentsLoading"), list = $("documentsList");
-  if (!list) return;
-  loading.textContent = "Chargement…";
-  const { data, error } = await sb.storage.from(DOCS_BUCKET).list(folder, { limit: 100, sortBy: { column: "created_at", order: "desc" } });
-  if (error) {
-    loading.textContent = `Impossible de charger les documents : ${error.message}. Vérifiez le bucket privé « ${DOCS_BUCKET} » et les politiques Storage.`;
-    return;
-  }
-  const files = (data || []).filter(f => f.name && f.id);
-  loading.textContent = files.length ? `${files.length} document(s) déposé(s).` : "Aucun document déposé pour le moment.";
-  list.innerHTML = files.map((f, i) => `<div class="card" style="margin:10px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><b>${esc(f.name.replace(/^\d+_/, ""))}</b><div style="font-size:12px;color:var(--mu)">${f.metadata?.size ? (f.metadata.size / 1024 / 1024).toFixed(2) + " Mo" : "Document"}</div></div><button class="btn" type="button" data-doc-index="${i}">Ouvrir / télécharger</button></div>`).join("");
-  list.querySelectorAll("button[data-doc-index]").forEach(button => button.addEventListener("click", async () => {
-    const f = files[Number(button.dataset.docIndex)];
-    button.disabled = true; button.textContent = "Préparation…";
-    const { data: signed, error: signError } = await sb.storage.from(DOCS_BUCKET).createSignedUrl(`${folder}/${f.name}`, 60);
-    button.disabled = false; button.textContent = "Ouvrir / télécharger";
-    if (signError) { toast("Ouverture impossible : " + signError.message); return; }
-    window.open(signed.signedUrl, "_blank", "noopener,noreferrer");
-  }));
-}
-async function renderSettings() {
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Paramètres de mon compte</h4><label>Prénom<input id="setPrenom" value="${esc(profile.prenom || "")}"></label><label>Nom<input id="setNom" value="${esc(profile.nom || "")}"></label><label>Téléphone<input id="setTel" value="${esc(profile.telephone || "")}"></label><label>E-mail<input value="${esc(user.email || "")}" disabled></label><div class="err" id="setErr"></div><button class="btn" id="saveSettings">Enregistrer les modifications</button><p style="color:var(--mu);font-size:13px">L'adresse e-mail est gérée par l'authentification Supabase.</p></div>`;
-  $("saveSettings").onclick = async () => {
-    const payload = {prenom: $("setPrenom").value.trim(), nom: $("setNom").value.trim(), telephone: $("setTel").value.trim()};
-    const {error} = await sb.from("profiles").update(payload).eq("id", user.id);
-    if (error) { $("setErr").textContent = "Enregistrement impossible : " + error.message; return; }
-    profile = {...profile, ...payload}; $("hello").textContent = "Bonjour " + [profile.prenom, profile.nom].filter(Boolean).join(" ");
-    toast("Profil mis à jour.");
-  };
-}
+-- ---------------------------------------------------------------------
+-- 4. TABLES MÉTIER
+-- ---------------------------------------------------------------------
+create sequence if not exists public.faseca_seq start 1;
 
-// ===== MESSAGERIE CLIENT / SUPERVISEUR / SUPER ADMIN =====
-// Table messages : id, sender_id, recipient_id, subject, content, is_read, created_at.
-// Table journal_communications : journalise les prises de contact WhatsApp.
-let activeMessageClientId = null;
+create table if not exists public.faseca_inscriptions (
+  id uuid primary key default gen_random_uuid(),
+  numero text unique,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz,
+  organisation text not null,
+  responsable text not null,
+  telephone text not null,
+  commune text not null,
+  email text,
+  secteurs text[] not null default '{}',
+  produits text,
+  details jsonb not null default '{}'::jsonb,
+  formule text not null check (formule in ('standard','institutionnel')),
+  mode_paiement text,
+  statut text not null default 'Reçue'
+    check (statut in ('Reçue','Réservation confirmée','Stand attribué','Soldée','Liste d''attente','Refusée')),
+  montant_verse numeric not null default 0 check (montant_verse >= 0),
+  stand text,
+  notes text,
+  photos text[] not null default '{}'
+);
+create unique index if not exists faseca_inscriptions_user_uidx on public.faseca_inscriptions(user_id);
+create index if not exists faseca_inscriptions_statut_idx on public.faseca_inscriptions(statut);
 
-function messageTime(value) {
-  return value ? new Date(value).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" }) : "";
-}
-function isMessageAdmin() {
-  return space === "super_admin" || space === "admin" || space === "lecteur";
-}
-function whatsappNumber(raw) {
-  let n = String(raw || "").replace(/\D/g, "");
-  if (n.startsWith("00")) n = n.slice(2);
-  // Les numéros sénégalais saisis au format local (9 chiffres) sont normalisés en +221.
-  if (n.length === 9) n = "221" + n;
-  return n;
-}
-function whatsappUrl(phone, message) {
-  const n = whatsappNumber(phone);
-  return n ? `https://wa.me/${n}?text=${encodeURIComponent(message || "")}` : "";
-}
-async function logWhatsAppContact(clientId, phone, body) {
-  const payload = {
-    client_user_id: clientId,
-    supervisor_id: user.id,
-    channel: "whatsapp",
-    phone: String(phone || ""),
-    body: String(body || "").trim() || "Prise de contact WhatsApp",
-    status: "initie"
-  };
-  const { error } = await sb.from("journal_communications").insert(payload);
-  if (error) throw error;
-}
+create table if not exists public.faseca_config (
+  id int primary key,
+  data jsonb not null default '{}'::jsonb
+);
+insert into public.faseca_config (id, data) values (1, jsonb_build_object(
+  'dates','18, 19 et 20 décembre 2026',
+  'lieu','Khelcom Birame – Mbadakhoune',
+  'limite','2026-12-10T18:00:00Z',
+  'stands',50,
+  'tel','+221 77 861 00 29',
+  'solde','16 décembre 2026',
+  'standard',50000,
+  'institutionnel',75000))
+on conflict (id) do nothing;
 
-const msgText = m => m?.content ?? "";
-const clientOf = (m, profiles) => profiles[m.sender_id]?.role === "porteur" ? m.sender_id : m.recipient_id;
-async function getSupervisorId() {
-  const { data, error } = await sb.from("profiles").select("id").in("role", ["admin", "super_admin"]).limit(1);
-  if (error || !data?.length) throw new Error("Aucun superviseur disponible.");
-  return data[0].id;
-}
+create table if not exists public.faseca_support (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  user_id uuid default auth.uid() references auth.users(id) on delete set null,
+  numero text,
+  message text not null check (char_length(message) <= 1500)
+);
 
-async function renderMessages() {
-  const admin = isMessageAdmin();
-  const readOnly = space === "lecteur";
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>${admin ? "Messagerie – clients" : "Mes messages"}</h4><p style="color:var(--mu)">Chargement des conversations…</p></div>`;
+create table if not exists public.faseca_resets (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  email text not null
+);
 
-  if (!admin) {
-    const { data, error } = await sb.from("messages").select("*")
-      .or(`sender_id.eq.${user.id},recipient_id.eq.${user.id}`).order("created_at", { ascending: true }).limit(300);
-    if (error) {
-      $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Mes messages</h4><p class="err">Impossible de charger vos messages : ${esc(error.message)}</p><p style="color:var(--mu)">Vérifiez la table messages et ses politiques de sécurité Supabase.</p></div>`;
-      return;
-    }
-    const unread = (data || []).filter(m => m.sender_id !== user.id && !m.is_read);
-    if (unread.length) await sb.from("messages").update({ is_read: true })
-      .eq("recipient_id", user.id).eq("is_read", false);
-    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1">
-      <h4>Ma conversation avec ADEL INVEST</h4>
-      <p style="color:var(--mu)">Envoyez une demande, posez une question et suivez les réponses de votre superviseur dans cet espace sécurisé.</p>
-      <div id="messageThread" style="display:grid;gap:10px;margin:14px 0">
-        ${(data || []).map(m => `<div class="msg-bubble ${m.sender_id === user.id ? "mine" : "theirs"}">
-          <b>${m.sender_id === user.id ? "Vous" : "ADEL INVEST / Supervision"}</b>
-          <div style="white-space:pre-wrap;margin:6px 0">${esc(msgText(m))}</div>
-          <small style="color:var(--mu)">${messageTime(m.created_at)}</small>
-        </div>`).join("") || `<p style="color:var(--mu)">Aucun message pour le moment. Envoyez votre première demande.</p>`}
-      </div>
-      <form id="sendClientMessage" style="border-top:1px solid var(--bd);padding-top:14px">
-        <label for="clientMessageBody">Écrire un message</label>
-        <textarea id="clientMessageBody" rows="4" maxlength="5000" required placeholder="Bonjour, je souhaite avoir des informations sur mon projet…"></textarea>
-        <div class="err" id="messageError"></div>
-        <button class="btn" id="sendClientMessageBtn" type="submit">Envoyer le message</button>
-      </form>
-    </div>`;
-    $("sendClientMessage").onsubmit = async e => {
-      e.preventDefault();
-      const body = $("clientMessageBody").value.trim();
-      if (!body) return;
-      const btn = $("sendClientMessageBtn");
-      btn.disabled = true; btn.textContent = "Envoi en cours…";
-      let sendError = null;
-      try {
-        const supervisorId = await getSupervisorId();
-        ({ error: sendError } = await sb.from("messages").insert({
-          sender_id: user.id, recipient_id: supervisorId,
-          subject: "Échange ADEL INVEST", content: body
-        }));
-      } catch (err) { sendError = err; }
-      if (sendError) {
-        $("messageError").textContent = "Envoi impossible : " + sendError.message;
-        btn.disabled = false; btn.textContent = "Envoyer le message";
-        return;
-      }
-      await renderMessages();
-    };
-    return;
-  }
+create table if not exists public.faseca_journal (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  inscription_id uuid,
+  numero text,
+  operation text not null,          -- création | modification | suppression
+  acteur text,
+  ancien jsonb,
+  nouveau jsonb
+);
+create index if not exists faseca_journal_date_idx on public.faseca_journal(created_at desc);
+create index if not exists faseca_journal_acteur_idx on public.faseca_journal(acteur);
 
-  const [mr, pr] = await Promise.all([
-    sb.from("messages").select("*").order("created_at", { ascending: false }).limit(1000),
-    sb.from("profiles").select("id,prenom,nom,email,telephone,role")
-  ]);
-  if (mr.error || pr.error) {
-    const err = mr.error || pr.error;
-    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Messagerie – clients</h4><p class="err">Chargement impossible : ${esc(err.message)}</p><p style="color:var(--mu)">Vérifiez les autorisations Supabase des tables messages et profiles.</p></div>`;
-    return;
-  }
-  const profiles = Object.fromEntries((pr.data || []).map(p => [p.id, p]));
-  const byClient = new Map();
-  (mr.data || []).forEach(m => {
-    const cid = clientOf(m, profiles);
-    if (!cid) return;
-    if (!byClient.has(cid)) byClient.set(cid, []);
-    byClient.get(cid).push(m);
-  });
-  // Afficher aussi les porteurs de projet qui n'ont pas encore initié de conversation,
-  // afin que le superviseur puisse les contacter en premier.
-  (pr.data || []).filter(p => p.role === "porteur").forEach(p => {
-    if (!byClient.has(p.id)) byClient.set(p.id, []);
-  });
-  const clients = [...byClient.entries()].sort((a,b) =>
-    new Date(b[1][0]?.created_at || 0) - new Date(a[1][0]?.created_at || 0)
-  );
-  if (activeMessageClientId && !byClient.has(activeMessageClientId)) activeMessageClientId = null;
-  const selected = activeMessageClientId ? (byClient.get(activeMessageClientId) || []).slice().reverse() : [];
-  const cp = activeMessageClientId ? (profiles[activeMessageClientId] || {}) : {};
-  const clientName = [cp.prenom, cp.nom].filter(Boolean).join(" ") || cp.email || "Client";
-  const wa = whatsappUrl(cp.telephone, `Bonjour ${clientName}, je vous contacte au sujet de votre dossier auprès d'ADEL INVEST.`);
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1">
-    <h4>${space === "lecteur" ? "Consultation des échanges clients" : "Messagerie et suivi des clients"}</h4>
-    <p style="color:var(--mu)">Répondez dans la messagerie ADEL INVEST ou contactez le client sur WhatsApp. Les échanges internes sont conservés dans l'historique des messages.</p>
-    <div style="display:grid;grid-template-columns:minmax(220px,.8fr) minmax(0,2fr);gap:14px">
-      <section>
-        <h4>Conversations (${clients.length})</h4>
-        ${clients.map(([id, msgs]) => {
-          const p = profiles[id] || {}, last = msgs[0];
-          const pending = msgs.filter(m => m.sender_id === id && !m.is_read).length;
-          const nm = [p.prenom,p.nom].filter(Boolean).join(" ") || p.email || "Client";
-          return `<button type="button" data-message-client="${esc(id)}" class="cat ${id === activeMessageClientId ? "on" : ""}" style="display:block;width:100%;margin:6px 0;text-align:left">
-            <b>${esc(nm)} ${pending ? `(${pending} non lu${pending > 1 ? "s" : ""})` : ""}</b>
-            <span>${esc(String(msgText(last) || "Aucun échange pour le moment").slice(0,75))}</span><span>${last ? messageTime(last.created_at) : "Nouvelle conversation"}</span>
-          </button>`;
-        }).join("") || `<p style="color:var(--mu)">Aucun message client pour le moment.</p>`}
-      </section>
-      <section style="min-width:0;border:1px solid var(--bd);border-radius:10px;padding:12px">
-        ${activeMessageClientId ? `<h4>Conversation avec ${esc(clientName)}</h4>
-          <p style="color:var(--mu);font-size:13px">${esc(cp.email || "")} · ${esc(cp.telephone || "Téléphone non renseigné")}</p>
-          ${cp.telephone && !readOnly ? `<div class="msg-toolbar"><span style="font-size:13px;color:var(--mu)">Téléphone du client :</span><a class="wa-link" id="openClientWhatsApp" href="${esc(wa || "#")}" target="_blank" rel="noopener noreferrer">${esc(cp.telephone)} · Ouvrir WhatsApp</a></div>` : cp.telephone ? `<p style="color:var(--mu)">Téléphone : ${esc(cp.telephone)} · Consultation seule</p>` : `<p class="err">Aucun numéro de téléphone renseigné dans le profil du client.</p>`}
-          <div style="display:grid;gap:9px;max-height:420px;overflow:auto;padding:4px 0" id="adminMessageThread">
-            ${selected.map(m => `<div class="msg-bubble ${m.sender_id === activeMessageClientId ? "theirs" : "mine"}">
-              <b>${m.sender_id === activeMessageClientId ? "Client" : "Supervision ADEL INVEST"}</b>
-              <div style="white-space:pre-wrap;margin:5px 0">${esc(msgText(m))}</div><small style="color:var(--mu)">${messageTime(m.created_at)}</small>
-            </div>`).join("")}
-          </div>
-          ${readOnly ? `<p style="color:var(--mu)">Mode lecture seule : vous pouvez consulter les échanges, mais pas répondre ni contacter le client.</p>` : `<form id="replyAdminMessage" style="border-top:1px solid var(--bd);padding-top:12px;margin-top:12px">
-            <label for="adminMessageBody">Écrire une réponse au client</label>
-            <textarea id="adminMessageBody" rows="3" maxlength="5000" required placeholder="Bonjour, concernant votre projet…"></textarea>
-            <div class="err" id="adminMessageError"></div>
-            <button class="btn" id="sendAdminReply" type="submit">Envoyer la réponse</button>
-          </form>
-          ${cp.telephone ? `<div style="border-top:1px solid var(--bd);padding-top:10px;margin-top:10px">
-            <label for="waJournalBody">Votre message WhatsApp</label>
-            <textarea id="waJournalBody" rows="3" maxlength="2000">Bonjour ${esc(clientName)}, je vous contacte au sujet de votre dossier auprès d'ADEL INVEST.</textarea>
-            <button class="btn o" id="sendWhatsAppFromPanel" type="button">Ouvrir WhatsApp et préparer l'envoi</button>
-            <small style="display:block;color:var(--mu);margin-top:6px">WhatsApp s'ouvre avec ce texte. Vous devez appuyer sur « Envoyer » dans WhatsApp. La démarche est inscrite dans le journal, sans prétendre confirmer la livraison.</small>
-          </div>` : ""}`}` : `<p style="color:var(--mu)">Sélectionnez un client pour consulter la conversation et les coordonnées disponibles.</p>`}
-      </section>
-    </div>
-  </div>`;
-  $("grid").querySelectorAll("[data-message-client]").forEach(b => b.onclick = () => {
-    activeMessageClientId = b.dataset.messageClient;
-    renderMessages();
-  });
-  if (activeMessageClientId) {
-    await sb.from("messages").update({ is_read: true })
-      .eq("sender_id", activeMessageClientId).eq("is_read", false);
-    if (!readOnly) {
-      $("replyAdminMessage").onsubmit = async e => {
-        e.preventDefault();
-        const body = $("adminMessageBody").value.trim();
-        if (!body) return;
-        const btn = $("sendAdminReply");
-        btn.disabled = true; btn.textContent = "Envoi…";
-        const { error: sendError } = await sb.from("messages").insert({
-          sender_id: user.id, recipient_id: activeMessageClientId,
-          subject: "Réponse ADEL INVEST", content: body
-        });
-        if (sendError) {
-          $("adminMessageError").textContent = "Envoi impossible : " + sendError.message;
-          btn.disabled = false; btn.textContent = "Envoyer la réponse";
-          return;
-        }
-        await renderMessages();
-      };
-      const waLink = $("openClientWhatsApp");
-      if (waLink) waLink.onclick = async e => {
-        e.preventDefault();
-        const draft = $("waJournalBody")?.value || "";
-        const win = window.open("about:blank", "_blank");
-        try {
-          await logWhatsAppContact(activeMessageClientId, cp.telephone, draft);
-          if (win) win.location.href = whatsappUrl(cp.telephone, draft);
-          else window.location.href = whatsappUrl(cp.telephone, draft);
-        } catch (err) {
-          if (win) win.close();
-          toast("Impossible d'inscrire le contact au journal : " + (err.message || err));
-        }
-      };
-      const waButton = $("sendWhatsAppFromPanel");
-      if (waButton) waButton.onclick = async () => {
-        const draft = $("waJournalBody").value.trim();
-        if (!draft) return toast("Rédigez votre message WhatsApp.");
-        const win = window.open("about:blank", "_blank");
-        waButton.disabled = true;
-        try {
-          await logWhatsAppContact(activeMessageClientId, cp.telephone, draft);
-          if (win) win.location.href = whatsappUrl(cp.telephone, draft);
-          else window.location.href = whatsappUrl(cp.telephone, draft);
-        } catch (err) {
-          if (win) win.close();
-          toast("Impossible d'inscrire le contact au journal : " + (err.message || err));
-        } finally { waButton.disabled = false; }
-      };
-    }
-  }
-}
+-- ---------------------------------------------------------------------
+-- 5. TRIGGERS MÉTIER
+-- ---------------------------------------------------------------------
+create or replace function public.faseca_before_insert()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare cfg jsonb; lim timestamptz; maxs int; n int;
+begin
+  if not public.is_super() then
+    select data into cfg from public.faseca_config where id = 1;
+    lim := nullif(cfg->>'limite','')::timestamptz;
+    if lim is not null and now() > lim then
+      raise exception 'Les inscriptions sont closes.';
+    end if;
+    maxs := coalesce((cfg->>'stands')::int, 50);
+    select count(*) into n from public.faseca_inscriptions
+      where statut not in ('Refusée','Liste d''attente');
+    new.user_id := auth.uid();
+    new.email := lower(coalesce(auth.jwt()->>'email', new.email));
+    new.numero := null;
+    new.montant_verse := 0;
+    new.stand := null;
+    new.notes := null;
+    new.statut := case when n >= maxs then 'Liste d''attente' else 'Reçue' end;
+  end if;
+  if new.numero is null then
+    new.numero := 'FASECA-' || lpad(nextval('public.faseca_seq')::text, 4, '0');
+  end if;
+  return new;
+end $$;
 
-async function renderCommunicationJournal() {
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Journal des échanges clients</h4><p style="color:var(--mu)">Chargement du journal…</p></div>`;
-  const [jr, mr, pr] = await Promise.all([
-    sb.from("journal_communications").select("*").order("created_at", {ascending:false}).limit(2000),
-    sb.from("messages").select("*").order("created_at", {ascending:false}).limit(3000),
-    sb.from("profiles").select("id,prenom,nom,email,role")
-  ]);
-  if (jr.error || mr.error || pr.error) {
-    const err = jr.error || mr.error || pr.error;
-    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Journal des échanges clients</h4><p class="err">${esc(err.message)}</p><p style="color:var(--mu)">Créez la table journal_communications et ses politiques RLS avec le script SQL fourni.</p></div>`;
-    return;
-  }
-  const profs = Object.fromEntries((pr.data || []).map(p => [p.id,p]));
-  const rows = [
-    ...(jr.data || []).map(r => ({...r, kind:"WhatsApp", clientId:r.client_user_id, actorId:r.supervisor_id, created_at:r.created_at, content:r.body, status:r.status || "Contact initié"})),
-    ...(mr.data || []).map(m => ({...m, kind:"Messagerie ADEL", clientId:clientOf(m, profs), actorId:m.sender_id, created_at:m.created_at, content:m.content, status:m.is_read ? "Lu" : "Non lu"}))
-  ].sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1">
-    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
-      <div><h4>Journal des échanges clients (${rows.length})</h4><p style="color:var(--mu)">Vue globale des messages internes et des prises de contact WhatsApp initiées par les superviseurs.</p></div>
-      <button class="btn o" id="refreshCommJournal">Actualiser</button>
-    </div>
-    <div style="overflow-x:auto"><table><thead><tr><th>Date</th><th>Client</th><th>Superviseur</th><th>Canal</th><th>Numéro</th><th>Message / objet</th><th>Statut</th></tr></thead><tbody>
-    ${rows.map(r => {
-      const c = profs[r.clientId] || {}, actor = profs[r.actorId] || {};
-      return `<tr><td>${esc(messageTime(r.created_at))}</td><td>${esc([c.prenom,c.nom].filter(Boolean).join(" ") || c.email || r.clientId || "—")}<small>${esc(c.email || "")}</small></td><td>${esc([actor.prenom,actor.nom].filter(Boolean).join(" ") || actor.email || "—")}</td><td>${esc(r.kind)}</td><td>${esc(r.phone || c.telephone || "—")}</td><td style="white-space:pre-wrap;min-width:220px">${esc(r.content || "")}</td><td>${esc(r.status)}</td></tr>`;
-    }).join("") || `<tr><td colspan="7" style="color:var(--mu)">Aucun échange enregistré.</td></tr>`}
-    </tbody></table></div>
-  </div>`;
-  $("refreshCommJournal").onclick = renderCommunicationJournal;
-}
+drop trigger if exists faseca_bi on public.faseca_inscriptions;
+create trigger faseca_bi before insert on public.faseca_inscriptions
+  for each row execute function public.faseca_before_insert();
 
-async function navigate(view) {
-  setActiveMenu(view);
-  const adm = isAdminSpace(), sa = space === "super_admin";
-  $("subHello").textContent = space === "super_admin" ? "Espace super administrateur"
-    : space === "admin" ? "Espace administrateur" : space === "lecteur" ? "Espace de supervision (lecture seule)" : "Bienvenue sur votre espace porteur de projet";
-  document.querySelectorAll('aside a[data-v="projet"],aside a[data-v="docs"]').forEach(a => a.classList.toggle("hide", adm));
-  $("mArch").classList.toggle("hide", !(sa || space === "lecteur")); $("mJour").classList.toggle("hide", !sa); $("mJournalMessages").classList.toggle("hide", !sa);
-  if (view === "dash" || view === "projet") {
-    if (adm) return renderAdmin();
-    return fiche ? renderDash() : renderNew();
-  }
-  if (view === "archivage") return (sa || space === "lecteur") ? renderArchivage() : navigate("dash");
-  if (view === "journal") return sa ? renderJournal() : navigate("dash");
-  if (view === "journal_messages") return sa ? renderCommunicationJournal() : navigate("dash");
-  if (view === "docs") return renderDocumentsPage();
-  if (view === "messages") return renderMessages();
-  if (view === "actualites") return renderDataPage("Actualités", "actualites", "Informations et actualités publiées sur ADEL INVEST.");
-  if (view === "support") return renderDataPage("Support", "support_tickets", "Suivi de vos demandes de support.");
-  if (view === "settings") return renderSettings();
-}
-document.querySelectorAll("aside a[data-v]").forEach(a => a.onclick = e => { e.preventDefault(); navigate(a.dataset.v); });
-$("out").onclick = async e => { e.preventDefault(); await sb.auth.signOut(); location.reload(); };
+create or replace function public.faseca_before_update()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if not public.is_super() then
+    new.id := old.id;
+    new.numero := old.numero;
+    new.user_id := old.user_id;
+    new.email := old.email;
+    new.formule := old.formule;
+    new.statut := old.statut;
+    new.montant_verse := old.montant_verse;
+    new.stand := old.stand;
+    new.notes := old.notes;
+    new.created_at := old.created_at;
+  end if;
+  return new;
+end $$;
 
-async function start() {
-  if (recovering) { showForm("recovery"); return; }
-  const { data: { session } } = await sb.auth.getSession();
-  if (!session) return;
-  user = session.user;
-  const p = await sb.from("profiles").select("*").eq("id", user.id).maybeSingle();
-  profile = p.data || {};
-  if (!profile.avatar_url && user.user_metadata?.avatar_url) profile.avatar_url = user.user_metadata.avatar_url;
-  if (profile.categorie_souhaitee) chosen = profile.categorie_souhaitee;
-  ["login", "signup", "sup", "recovery"].forEach(f => $(f).classList.add("hide")); $("app").classList.remove("hide");
-  const name = [profile.prenom, profile.nom].filter(Boolean).join(" ") || user.email;
-  $("hello").textContent = "Bonjour " + name;
-  const f = await sb.from("fiches").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(1);
-  fiche = f.data?.[0];
-  if (!fiche) {
-    try {
-      const k = "adel_pending_" + (user.email || "").toLowerCase(), raw = localStorage.getItem(k);
-      if (raw) {
-        const ins = await sb.from("fiches").insert({ user_id: user.id, ...JSON.parse(raw) }).select().limit(1);
-        if (!ins.error) { localStorage.removeItem(k); fiche = ins.data?.[0]; if (fiche) await archiver(fiche, { prenom: profile.prenom, nom: profile.nom, telephone: profile.telephone, email: user.email }); }
-      }
-    } catch {}
-  }
-  setupSpaceSwitcher();
-  navigate("dash");
-}
+drop trigger if exists faseca_bu on public.faseca_inscriptions;
+create trigger faseca_bu before update on public.faseca_inscriptions
+  for each row execute function public.faseca_before_update();
 
-function profCard() {
-  const name = [profile.prenom, profile.nom].filter(Boolean).join(" ") || user.email;
-  const ini = name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
-  return `<div class="card prof"><div class="avw"><div class="av">${profile.avatar_url ? `<img src="${esc(profile.avatar_url)}" alt="Photo de profil">` : esc(ini)}</div><label class="cam" for="avatarIn" title="Ajouter ou changer ma photo">📷</label><input id="avatarIn" type="file" accept="image/*" class="hide"></div><h3 style="margin:4px 0">${esc(name)}</h3>
-  <span class="tag">Porteur de projet</span><p>✉ ${esc(user.email)}</p><p>☎ ${esc(profile.telephone || "—")}</p></div>`;
-}
+create or replace function public.faseca_log()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare act text := coalesce(auth.jwt()->>'email', 'système');
+begin
+  if tg_op = 'INSERT' then
+    insert into public.faseca_journal(inscription_id, numero, operation, acteur, nouveau)
+    values (new.id, new.numero, 'création', act, to_jsonb(new));
+  elsif tg_op = 'UPDATE' then
+    insert into public.faseca_journal(inscription_id, numero, operation, acteur, ancien, nouveau)
+    values (new.id, new.numero, 'modification', act, to_jsonb(old), to_jsonb(new));
+  else
+    insert into public.faseca_journal(inscription_id, numero, operation, acteur, ancien)
+    values (old.id, old.numero, 'suppression', act, to_jsonb(old));
+  end if;
+  return null;
+end $$;
 
-function renderNew() {
-  $("grid").innerHTML = profCard() + `<div class="card"><h4>Enregistrer mon projet foncier</h4>
-  <p style="margin:0;color:var(--mu)">Choisissez votre situation :</p>
-  <div class="cats">${Object.entries(CATS).map(([k, v]) =>
-    `<button type="button" class="cat ${k === chosen ? "on" : ""}" data-k="${k}"><span class="letter">${k}</span><b>${v[0]}</b><span>${v[1]}</span></button>`).join("")}</div>
-  <label>Titre du projet<input id="f_titre" placeholder="Ex. Projet agricole intégré de 50 ha"></label>
-  <label>Type de projet<input id="f_type" placeholder="Agriculture, habitat, élevage…"></label>
-  <label>Localisation<input id="f_loc" placeholder="Dakar, Sénégal"></label>
-  <label>Superficie (hectares)<input id="f_sup" type="number" min="0" step="0.01"></label>
-  <label>À propos de mon projet<textarea id="f_desc" rows="3"></textarea></label>
-  <div class="err" id="ferr"></div><button class="btn" id="save">Enregistrer mon projet</button></div>`;
-  document.querySelectorAll(".cat").forEach(b => b.onclick = () => { chosen = b.dataset.k; renderNew(); });
-  $("save").onclick = save;
-}
+drop trigger if exists faseca_aj on public.faseca_inscriptions;
+create trigger faseca_aj after insert or update or delete on public.faseca_inscriptions
+  for each row execute function public.faseca_log();
 
-async function save() {
-  const row = { user_id: user.id, categorie: chosen, titre: $("f_titre").value, type_projet: $("f_type").value,
-    localisation: $("f_loc").value, superficie: $("f_sup").value || null, description: $("f_desc").value, statut: "enregistre" };
-  if (!row.titre) { $("ferr").textContent = "Le titre est obligatoire."; return; }
-  const { data, error } = await sb.from("fiches").insert(row).select().single();
-  if (error) { $("ferr").textContent = "Erreur : " + error.message; return; }
-  await archiver(data, { prenom: profile.prenom, nom: profile.nom, telephone: profile.telephone, email: user.email });
-  start();
-}
+create or replace function public.faseca_restaurer(p uuid)
+returns void language plpgsql security definer set search_path = public as $$
+declare j public.faseca_journal;
+begin
+  if not public.is_super() then raise exception 'Accès refusé.'; end if;
+  select * into j from public.faseca_journal where id = p;
+  if not found or j.ancien is null then raise exception 'Version introuvable.'; end if;
 
-// ===== FICHE WORD (.docx, A4 portrait) =====
-const nom = u => [u.prenom, u.nom].filter(Boolean).join(" ") || "—";
-const label = s => (STEPS.find(x => x[0] === s) || [])[1] || s || "—";
-const catName = k => CATS[k]?.[0] || "—";
-async function buildDocx(r, c, names) {
-  const D = docx, GREEN = "0B6B3A", LIGHT = "E8F5EC", YEL = "F4C20D", W = 9638; // A4 (11906) - 2 x 2 cm de marges
-  const bd = { style: D.BorderStyle.SINGLE, size: 4, color: "DBE5DF" }, borders = { top: bd, bottom: bd, left: bd, right: bd };
-  const margins = { top: 80, bottom: 80, left: 120, right: 120 };
-  const t = (x, o = {}) => new D.TextRun({ text: String(x ?? ""), font: "Calibri", size: 22, ...o });
-  const kvRow = (k, v) => new D.TableRow({ children: [
-    new D.TableCell({ width: { size: 3000, type: D.WidthType.DXA }, borders, margins, shading: { type: D.ShadingType.CLEAR, fill: LIGHT, color: "auto" }, children: [new D.Paragraph({ children: [t(k, { bold: true, color: "084D2A" })] })] }),
-    new D.TableCell({ width: { size: W - 3000, type: D.WidthType.DXA }, borders, margins, children: [new D.Paragraph({ children: [t(v || "—")] })] })] });
-  const kv = rows => new D.Table({ width: { size: W, type: D.WidthType.DXA }, columnWidths: [3000, W - 3000], rows: rows.map(x => kvRow(x[0], x[1])) });
-  const h = x => new D.Paragraph({ spacing: { before: 300, after: 120 }, border: { bottom: { style: D.BorderStyle.SINGLE, size: 12, color: YEL, space: 2 } }, children: [t(x, { bold: true, size: 28, color: GREEN })] });
-  const idx = Math.max(0, STEPS.findIndex(s => s[0] === r.statut)), cw = [2409, 2409, 2410, 2410];
-  const stepsT = new D.Table({ width: { size: W, type: D.WidthType.DXA }, columnWidths: cw, rows: [new D.TableRow({ children: STEPS.map((s, i) =>
-    new D.TableCell({ width: { size: cw[i], type: D.WidthType.DXA }, borders: { top: { style: D.BorderStyle.SINGLE, size: 12, color: "FFFFFF" }, bottom: { style: D.BorderStyle.SINGLE, size: 12, color: "FFFFFF" }, left: { style: D.BorderStyle.SINGLE, size: 12, color: "FFFFFF" }, right: { style: D.BorderStyle.SINGLE, size: 12, color: "FFFFFF" } }, margins,
-      shading: { type: D.ShadingType.CLEAR, fill: i <= idx ? GREEN : "E5E9E7", color: "auto" },
-      children: [new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: [t((i + 1) + ". " + s[1], { size: 18, bold: true, color: i <= idx ? "FFFFFF" : "5D6F64" })] })] })) })] });
-  const header = new D.Header({ children: [new D.Paragraph({
-    shading: { type: D.ShadingType.CLEAR, fill: GREEN, color: "auto" },
-    border: { bottom: { style: D.BorderStyle.SINGLE, size: 24, color: YEL, space: 4 } }, spacing: { after: 120 },
-    children: [t("  ADEL INVEST", { bold: true, size: 36, color: "FFFFFF" }), t("    Ensemble pour un foncier sécurisé", { size: 18, color: "FFFFFF" })] })] });
-  const footer = new D.Footer({ children: [new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: [
-    t("ADEL INVEST – Fiche projet foncier – Page ", { size: 16, color: "5D6F64" }),
-    new D.TextRun({ children: [D.PageNumber.CURRENT], font: "Calibri", size: 16, color: "5D6F64" }), t(" / ", { size: 16, color: "5D6F64" }),
-    new D.TextRun({ children: [D.PageNumber.TOTAL_PAGES], font: "Calibri", size: 16, color: "5D6F64" })] })] });
-  const doc = new D.Document({
-    creator: "ADEL INVEST", title: "Fiche projet – " + (r.titre || ""),
-    sections: [{ properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 1134, right: 1134, bottom: 1134, left: 1134, header: 567, footer: 567 } } },
-      headers: { default: header }, footers: { default: footer },
-      children: [
-        new D.Paragraph({ spacing: { before: 120, after: 60 }, children: [t("FICHE PROJET FONCIER", { bold: true, size: 20, color: "5D6F64" })] }),
-        new D.Paragraph({ spacing: { after: 40 }, children: [t(r.titre || "Projet", { bold: true, size: 40 })] }),
-        new D.Paragraph({ children: [t("Catégorie : " + catName(r.categorie), { color: "5D6F64" })] }),
-        h("Porteur de projet"), kv([["Nom complet", nom(c)], ["E-mail", c.email], ["Téléphone", c.telephone]]),
-        h("Le projet"), kv([["Type de projet", r.type_projet], ["Localisation", r.localisation], ["Superficie", r.superficie ? r.superficie + " hectares" : ""], ["Date d'enregistrement", fmt(r.created_at)], ["Statut actuel", label(r.statut)]]),
-        h("Avancement"), stepsT,
-        h("Description"), new D.Paragraph({ children: [t(r.description || "Aucune description.")] }),
-        h("Documents joints"),
-        ...((names && names.length) ? names.map(n => new D.Paragraph({ children: [t("• " + n.replace(/^\d+_/, ""))] })) : [new D.Paragraph({ children: [t("Aucun document.")] })]),
-        new D.Paragraph({ spacing: { before: 400 }, children: [t("Document généré le " + fmt(new Date()) + " – ADEL INVEST – contact@adel-invest.sn – +221 33 123 45 67", { size: 16, color: "5D6F64" })] })
-      ] }] });
-  return D.Packer.toBlob(doc);
-}
+  insert into public.faseca_inscriptions
+  select * from jsonb_populate_record(null::public.faseca_inscriptions, j.ancien)
+  on conflict (id) do update set
+    numero = excluded.numero, organisation = excluded.organisation,
+    responsable = excluded.responsable, telephone = excluded.telephone,
+    commune = excluded.commune, email = excluded.email, secteurs = excluded.secteurs,
+    produits = excluded.produits, details = excluded.details, formule = excluded.formule,
+    mode_paiement = excluded.mode_paiement, statut = excluded.statut,
+    montant_verse = excluded.montant_verse, stand = excluded.stand,
+    notes = excluded.notes, photos = excluded.photos, updated_at = now();
+end $$;
 
-// Archivage automatique de la fiche Word à chaque dépôt de projet
-async function archiver(f, client) {
-  try {
-    const blob = await buildDocx(f, client || {}, []);
-    const path = `${f.id}/fiche.docx`, nomF = "Fiche-" + safeFileName(f.titre || "projet") + ".docx";
-    const up = await sb.storage.from("archives").upload(path, blob, { contentType: DOCX_MIME, upsert: false });
-    if (up.error && !/exist|duplicate/i.test(up.error.message)) throw up.error;
-    await sb.from("archives").insert({ fiche_id: String(f.id), user_id: f.user_id, nom_fichier: nomF, chemin: path });
-  } catch (e) { console.warn("Archivage non effectué :", e); }
-}
+revoke all on function public.faseca_restaurer(uuid) from public, anon;
+grant execute on function public.faseca_restaurer(uuid) to authenticated;
 
-// Journal : chaque téléchargement du personnel est enregistré (qui, quoi, quand)
-async function logDl(fichier, ficheId, type) {
-  const { error } = await sb.rpc("log_telechargement", { p_fichier: fichier, p_fiche: ficheId ? String(ficheId) : null, p_type: type });
-  if (error) { toast("Téléchargement bloqué : journal indisponible (" + error.message + ")"); return false; }
-  return true;
-}
+-- ---------------------------------------------------------------------
+-- 6. SÉCURITÉ RLS
+-- ---------------------------------------------------------------------
+alter table public.profiles            enable row level security;
+alter table public.faseca_inscriptions enable row level security;
+alter table public.faseca_config       enable row level security;
+alter table public.faseca_support      enable row level security;
+alter table public.faseca_resets       enable row level security;
+alter table public.faseca_journal      enable row level security;
 
-// ===== ADMIN / SUPER ADMIN / SUPERVISION =====
-let ROWS = [], PROFS = [], isSup = false;
-const CATC = { A: "#0b6b3a", B: "#f4c20d", C: "#d62828", D: "#7cc89a" };
-const MOIS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
-const num = v => parseFloat(String(v ?? "").replace(",", ".")) || 0;
-const ha = n => n.toLocaleString("fr-FR", { maximumFractionDigits: 1 });
-const pc = (a, b) => b ? Math.round(a / b * 100) : 0;
-function saveFile(blob, name) { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1500); }
+drop policy if exists p_sel on public.profiles;
+drop policy if exists p_upd on public.profiles;
+create policy p_sel on public.profiles for select to authenticated
+  using (id = auth.uid() or public.is_super());
+create policy p_upd on public.profiles for update to authenticated
+  using (public.is_super()) with check (public.is_super());
 
-function histoHTML() {
-  const now = new Date(), months = [];
-  for (let i = 11; i >= 0; i--) { const d = new Date(now.getFullYear(), now.getMonth() - i, 1); months.push({ y: d.getFullYear(), m: d.getMonth(), t: 0, c: { A: 0, B: 0, C: 0, D: 0 } }); }
-  ROWS.forEach(r => { const d = new Date(r.created_at), m = months.find(x => x.y === d.getFullYear() && x.m === d.getMonth()); if (m && m.c[r.categorie] !== undefined) { m.c[r.categorie]++; m.t++; } });
-  const step = Math.max(1, Math.ceil(Math.max(...months.map(m => m.t)) / 4)), top = step * 4;
-  return `<div class="hist"><div class="yax">${[4, 3, 2, 1, 0].map(i => `<span>${i * step}</span>`).join("")}</div>
-  <div class="plot">${months.map(m => `<div class="col" title="${MOIS[m.m]} ${m.y} : ${m.t} projet(s)"><div class="stk">${Object.keys(CATC).map(k => m.c[k] ? `<i style="height:${m.c[k] / top * 100}%;background:${CATC[k]}" title="${esc(catName(k))} : ${m.c[k]}"></i>` : "").join("")}</div></div>`).join("")}</div>
-  <div class="labs">${months.map(m => `<small>${MOIS[m.m]}</small>`).join("")}</div></div>`;
-}
+drop policy if exists i_sel on public.faseca_inscriptions;
+drop policy if exists i_ins on public.faseca_inscriptions;
+drop policy if exists i_upd on public.faseca_inscriptions;
+drop policy if exists i_del on public.faseca_inscriptions;
+create policy i_sel on public.faseca_inscriptions for select to authenticated
+  using (user_id = auth.uid() or public.is_staff());
+create policy i_ins on public.faseca_inscriptions for insert to authenticated
+  with check (user_id = auth.uid() and public.faseca_role() is not null);
+create policy i_upd on public.faseca_inscriptions for update to authenticated
+  using ((user_id = auth.uid() and public.faseca_role() is not null) or public.is_super())
+  with check ((user_id = auth.uid() and public.faseca_role() is not null) or public.is_super());
+create policy i_del on public.faseca_inscriptions for delete to authenticated
+  using (public.is_super());
 
-async function renderAdmin() {
-  isSup = space === "super_admin";
-  const [f, p] = await Promise.all([sb.from("fiches").select("*").order("created_at", { ascending: false }), sb.from("profiles").select("*")]);
-  if (f.error || p.error) return toast("Erreur : " + (f.error || p.error).message);
-  PROFS = p.data;
-  const pm = Object.fromEntries(PROFS.map(x => [x.id, x]));
-  ROWS = f.data.map(x => ({ ...x, client: pm[x.user_id] || {} }));
+drop policy if exists c_sel on public.faseca_config;
+drop policy if exists c_ins on public.faseca_config;
+drop policy if exists c_upd on public.faseca_config;
+create policy c_sel on public.faseca_config for select to anon, authenticated using (true);
+create policy c_ins on public.faseca_config for insert to authenticated with check (public.is_super());
+create policy c_upd on public.faseca_config for update to authenticated
+  using (public.is_super()) with check (public.is_super());
 
-  const now = new Date(), prev = new Date(now.getFullYear(), now.getMonth() - 1, 1), DAY = 864e5;
-  const sameM = (r, o) => { const d = new Date(r.created_at); return d.getFullYear() === o.getFullYear() && d.getMonth() === o.getMonth(); };
-  const tot = ROWS.length, totHa = ROWS.reduce((a, r) => a + num(r.superficie), 0);
-  const m0 = ROWS.filter(r => sameM(r, now)).length, m1 = ROWS.filter(r => sameM(r, prev)).length;
-  const stN = STEPS.map(s => ROWS.filter(r => r.statut === s[0]).length);
-  const appr = stN[3], old = ROWS.filter(r => r.statut === "enregistre" && Date.now() - new Date(r.created_at) > 7 * DAY).length;
-  const week = ROWS.filter(r => Date.now() - new Date(r.created_at) <= 7 * DAY).length;
-  const inc = ROWS.filter(r => !(r.localisation || "").trim() || !num(r.superficie)).length;
-  const byCat = Object.keys(CATS).map(k => { const l = ROWS.filter(r => r.categorie === k); return { k, n: l.length, ha: l.reduce((a, r) => a + num(r.superficie), 0) }; });
-  const off = byCat.filter(x => x.k !== "B"), dem = byCat.find(x => x.k === "B");
-  const offN = off.reduce((a, x) => a + x.n, 0), offHa = off.reduce((a, x) => a + x.ha, 0);
-  let acc = 0; const ring = tot ? byCat.map(x => { const s = acc; acc += x.n / tot * 100; return `${CATC[x.k]} ${s}% ${acc}%`; }).join(",") : "var(--bd) 0 100%";
-  const loc = {}; ROWS.forEach(r => { const nm = (r.localisation || "Non renseignée").split(",")[0].trim() || "Non renseignée", k = nm.toLowerCase(); (loc[k] = loc[k] || { nm, n: 0, h: 0 }); loc[k].n++; loc[k].h += num(r.superficie); });
-  const topLoc = Object.values(loc).sort((a, b) => b.n - a.n || b.h - a.h).slice(0, 5);
-  const delta = m0 - m1, dTxt = delta === 0 ? "Stable vs mois dernier" : `<span class="${delta > 0 ? "up" : "dn"}">${delta > 0 ? "▲ +" : "▼ "}${delta}</span> vs mois dernier`;
-  const kpi = (c, l, v, s) => `<div class="kpi ${c}"><small>${l}</small><b>${v}</b><span>${s}</span></div>`;
+drop policy if exists s_ins on public.faseca_support;
+drop policy if exists s_sel on public.faseca_support;
+create policy s_ins on public.faseca_support for insert to authenticated
+  with check (user_id = auth.uid());
+create policy s_sel on public.faseca_support for select to authenticated
+  using (public.is_super());
 
-  $("grid").innerHTML = `<div class="dash">
-  <div class="card"><h4>Projets enregistrés par mois <small>12 derniers mois · par catégorie</small></h4>${histoHTML()}
-    <div class="legend">${Object.keys(CATS).map(k => `<span class="cn"><i class="dot" style="background:${CATC[k]}"></i>${esc(catName(k))}</span>`).join("")}</div></div>
+drop policy if exists r_all on public.faseca_resets;
+create policy r_all on public.faseca_resets for all to authenticated
+  using (public.is_super()) with check (public.is_super());
 
-  <div class="kpis">
-    ${kpi("", "Projets enregistrés", tot, `${m0} ce mois · ${dTxt}`)}
-    ${kpi("y", "À traiter", stN[0], old ? `<span class="dn">${old} en attente depuis +7 jours</span>` : "Aucun retard de plus de 7 jours")}
-    ${kpi("l", "Superficie recensée", ha(totHa) + " ha", `${ha(offHa)} ha proposés · ${ha(dem.ha)} ha recherchés`)}
-    ${kpi("", "Projets approuvés", appr, `Taux d'approbation : ${pc(appr, tot)} %`)}
-    ${kpi("r", "Dossiers incomplets", inc, "Localisation ou superficie manquante")}
-    ${kpi("l", "Utilisateurs", PROFS.length, `${PROFS.filter(u => u.role === "porteur").length} porteurs de projet`)}
-  </div>
+drop policy if exists j_sel on public.faseca_journal;
+create policy j_sel on public.faseca_journal for select to authenticated
+  using (public.is_super());
+revoke insert, update, delete on public.faseca_journal from anon, authenticated;
+revoke all on public.faseca_journal, public.faseca_resets, public.faseca_support,
+  public.faseca_inscriptions, public.profiles from anon;
+revoke insert, update, delete on public.faseca_config from anon;
 
-  <div class="card c6"><h4>Répartition par catégorie <small>${tot} projet(s)</small></h4>
-    <div class="donut"><div class="ring" style="background:conic-gradient(${ring})"><div>${tot}<small>projets</small></div></div>
-    <div style="flex:1;min-width:210px">${byCat.map(x => `<div class="lg"><i class="dot" style="background:${CATC[x.k]}"></i><span>${esc(catName(x.k))}</span><span class="v"><b>${x.n}</b> · ${pc(x.n, tot)} % · ${ha(x.ha)} ha</span></div>`).join("")}</div></div></div>
+-- ---------------------------------------------------------------------
+-- 7. STOCKAGE DES PHOTOS (bucket privé)
+-- ---------------------------------------------------------------------
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('faseca-photos', 'faseca-photos', false, 5242880, array['image/jpeg'])
+on conflict (id) do update set public = false, file_size_limit = 5242880,
+  allowed_mime_types = array['image/jpeg'];
 
-  <div class="card c6"><h4>Avancement des dossiers <small>entonnoir de validation</small></h4>
-    ${STEPS.map((s, i) => `<div class="lg"><i class="dot" style="background:${["#f4c20d", "#2fa84f", "#d62828", "#0b6b3a"][i]}"></i><span>${s[1]}</span><span class="v"><b>${stN[i]}</b> · ${pc(stN[i], tot)} %</span></div><div class="hb"><i style="width:${pc(stN[i], tot)}%;background:${["#f4c20d", "#2fa84f", "#d62828", "#0b6b3a"][i]}"></i></div>`).join("")}</div>
+drop policy if exists ph_ins on storage.objects;
+drop policy if exists ph_sel on storage.objects;
+drop policy if exists ph_del on storage.objects;
+create policy ph_ins on storage.objects for insert to authenticated
+  with check (bucket_id = 'faseca-photos' and (storage.foldername(name))[1] = auth.uid()::text);
+create policy ph_sel on storage.objects for select to authenticated
+  using (bucket_id = 'faseca-photos'
+         and ((storage.foldername(name))[1] = auth.uid()::text or public.is_staff()));
+create policy ph_del on storage.objects for delete to authenticated
+  using (bucket_id = 'faseca-photos'
+         and ((storage.foldername(name))[1] = auth.uid()::text or public.is_super()));
 
-  <div class="card c4"><h4>Offre et demande foncières</h4>
-    <div class="lg"><b>Terres proposées</b><span class="v">${offN} projets · ${ha(offHa)} ha</span></div><div class="hb"><i style="width:${pc(offN, tot)}%"></i></div>
-    <p class="sub">${esc(catName("A"))}, ${esc(catName("C"))}, ${esc(catName("D"))}</p>
-    <div class="lg"><b>Terres recherchées</b><span class="v">${dem.n} projets · ${ha(dem.ha)} ha</span></div><div class="hb"><i style="width:${pc(dem.n, tot)}%;background:var(--y)"></i></div>
-    <p class="sub">${esc(catName("B"))}</p>
-    <p style="margin:6px 0 0;font-size:14px"><b>Couverture :</b> ${dem.ha ? (offHa / dem.ha).toFixed(1) + " ha proposés pour 1 ha recherché" : "aucune demande chiffrée"}</p></div>
+-- =====================================================================
+-- 8. COMPTES DE L'ÉQUIPE (déjà appliqués par la section 2)
+-- =====================================================================
+-- SUPER ADMIN : Makala DIELE (makaladielediele@gmail.com)
+update public.profiles
+set role = 'super_admin', actif = true, prenom = 'Makala', nom = 'DIELE'
+where email = lower('makaladielediele@gmail.com');
 
-  <div class="card c4"><h4>Principales localisations</h4>
-    ${topLoc.map(x => `<div class="lg"><span>${esc(x.nm)}</span><span class="v"><b>${x.n}</b> projet(s) · ${ha(x.h)} ha</span></div><div class="hb"><i style="width:${pc(x.n, topLoc[0].n)}%"></i></div>`).join("") || '<p class="sub">Aucune donnée.</p>'}</div>
+-- ADMIN SUPERVISEUR (lecture seule + export Excel) : Cheikh Tidiane CAMARA
+update public.profiles
+set role = 'admin', actif = true, prenom = 'Cheikh Tidiane', nom = 'CAMARA'
+where email = lower('makhtoume15@gmail.com');
 
-  <div class="card c4"><h4>Points d'attention</h4>
-    <div class="al ${old ? "x" : ""}"><b>${old}</b>Projets en attente d'étude depuis plus de 7 jours</div>
-    <div class="al ${inc ? "w" : ""}"><b>${inc}</b>Dossiers incomplets à compléter</div>
-    <div class="al"><b>${stN[2]}</b>Projets en validation, décision attendue</div>
-    <div class="al"><b>${week}</b>Nouveaux projets cette semaine</div></div>
+-- CLIENTS / EXPOSANTS : ils créent eux-mêmes leur compte depuis le formulaire
+-- du site ; le rôle « porteur » est attribué automatiquement.
 
-  <div class="card"><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-    <h4 style="margin:0">Liste des projets (<span id="cnt"></span>)</h4>
-    <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="q" placeholder="Rechercher un porteur, un projet…" style="margin:0;width:220px">
-    <select id="fc" style="margin:0;width:auto"><option value="">Toutes les catégories</option>${Object.keys(CATS).map(k => `<option value="${k}">${esc(catName(k))}</option>`).join("")}</select>
-    <select id="fs" style="margin:0;width:auto"><option value="">Tous les statuts</option>${STEPS.map(s => `<option value="${s[0]}">${s[1]}</option>`).join("")}</select>
-    <button class="btn" id="xl">Exporter tout (Excel)</button><button class="btn o" onclick="window.print()">Imprimer</button></div></div>
-    <div style="overflow-x:auto;margin-top:10px"><table id="tb"></table></div></div></div>`;
-  $("q").oninput = drawRows; $("fc").onchange = drawRows; $("fs").onchange = drawRows; $("xl").onclick = exportXlsx;
-  drawRows();
-  if (isSup) $("grid").querySelector(".dash").insertAdjacentHTML("beforeend", `<div class="card"><h4>Utilisateurs et rôles</h4><div style="overflow-x:auto"><table>${PROFS.map(u =>
-    `<tr><td>${esc(nom(u))}<small>${esc(u.email || "")}</small></td><td><select data-role="${esc(u.id)}" ${u.id === user.id ? "disabled" : ""}>${["porteur", "admin", "super_admin", "lecteur"].map(x => `<option ${x === u.role ? "selected" : ""}>${x}</option>`).join("")}</select></td></tr>`).join("")}</table></div></div>`);
-}
-
-function drawRows() {
-  const q = $("q").value.toLowerCase(), c = $("fc").value, s = $("fs").value;
-  const list = ROWS.filter(r => (!c || r.categorie === c) && (!s || r.statut === s) && JSON.stringify([r.titre, r.localisation, r.client.nom, r.client.prenom, r.client.email, catName(r.categorie)]).toLowerCase().includes(q));
-  $("cnt").textContent = list.length;
-  $("tb").innerHTML = "<tr>" + ["Porteur", "Catégorie", "Projet", "Localisation", "Ha", "Statut", "Date", ""].map(h => `<th>${h}</th>`).join("") + "</tr>" +
-    (list.map(r => `<tr><td>${esc(nom(r.client))}<small>${esc(r.client.email || "")}</small></td><td><span class="cn"><i class="dot" style="background:${CATC[r.categorie] || "var(--bd)"}"></i>${esc(catName(r.categorie))}</span></td><td>${esc(r.titre)}</td>
-    <td>${esc(r.localisation || "")}</td><td>${esc(r.superficie || "")}</td>
-    <td>${isSup ? `<select data-st="${esc(r.id)}">${STEPS.map(s => `<option value="${s[0]}" ${s[0] === r.statut ? "selected" : ""}>${s[1]}</option>`).join("")}</select>` : `<span class="chip s-${esc(r.statut)}">${esc(label(r.statut))}</span>`}</td>
-    <td>${fmt(r.created_at)}</td><td style="white-space:nowrap"><button class="btn o" data-w="${esc(r.id)}">Word</button> <button class="btn o" data-p="${esc(r.id)}">Pièces</button>${isSup ? ` <button class="btn d" data-x="${esc(r.id)}" title="Supprimer">✕</button>` : ""}</td></tr>`).join("") || '<tr><td colspan="8" style="color:var(--mu)">Aucun projet.</td></tr>');
-}
-
-async function exportXlsx() {
-  if (!ROWS.length) return toast("Aucun projet à exporter.");
-  if (!(await logDl("Export Excel de tous les projets", null, "export"))) return;
-  const proj = ROWS.map(r => ({ "Catégorie": catName(r.categorie), "Projet": r.titre, "Type de projet": r.type_projet, "Localisation": r.localisation,
-    "Superficie (ha)": num(r.superficie), "Statut": label(r.statut), "Date": fmt(r.created_at), "Prénom": r.client.prenom, "Nom": r.client.nom,
-    "E-mail": r.client.email, "Téléphone": r.client.telephone, "Description": r.description }));
-  const cli = PROFS.map(u => ({ "Prénom": u.prenom, "Nom": u.nom, "E-mail": u.email, "Téléphone": u.telephone, "Rôle": u.role, "Catégorie choisie": catName(u.categorie_souhaitee), "Inscrit le": fmt(u.created_at) }));
-  const syn = [...Object.keys(CATS).map(k => { const l = ROWS.filter(r => r.categorie === k); return { "Indicateur": "Catégorie : " + catName(k), "Projets": l.length, "Superficie (ha)": l.reduce((a, r) => a + num(r.superficie), 0) }; }),
-    ...STEPS.map(s => ({ "Indicateur": "Statut : " + s[1], "Projets": ROWS.filter(r => r.statut === s[0]).length, "Superficie (ha)": ROWS.filter(r => r.statut === s[0]).reduce((a, r) => a + num(r.superficie), 0) })),
-    { "Indicateur": "TOTAL", "Projets": ROWS.length, "Superficie (ha)": ROWS.reduce((a, r) => a + num(r.superficie), 0) }];
-  await xlsxStyled("ADEL-INVEST-projets-" + new Date().toISOString().slice(0, 10) + ".xlsx", [
-    { name: "Synthèse", title: "Synthèse des projets fonciers", rows: syn, widths: [44, 14, 18] },
-    { name: "Projets", title: "Liste des projets fonciers", rows: proj, widths: [32, 34, 22, 24, 16, 22, 13, 16, 16, 30, 18, 50] },
-    { name: "Clients", title: "Liste des utilisateurs", rows: cli, widths: [16, 16, 32, 18, 14, 32, 13] }]);
-}
-
-// Export Excel mis en forme : titre, en-têtes colorés, filtres, lignes alternées, volets figés
-async function xlsxStyled(fileName, sheets) {
-  const wb = new ExcelJS.Workbook(); wb.creator = "ADEL INVEST"; wb.created = new Date();
-  const thin = { style: "thin", color: { argb: "FFDBE5DF" } }, box = { top: thin, left: thin, bottom: thin, right: thin };
-  const STC = { "Projet enregistré": ["FFFFF4C2", "FF7A5C00"], "En cours d'étude": ["FFDFF2E5", "FF0B6B3A"], "Validation en cours": ["FFFDE2E2", "FFA31D1D"], "Projet approuvé": ["FF0B6B3A", "FFFFFFFF"] };
-  for (const s of sheets) {
-    const keys = Object.keys(s.rows[0] || {}), n = keys.length || 1;
-    const ws = wb.addWorksheet(s.name, { views: [{ state: "frozen", ySplit: 3, showGridLines: false }],
-      pageSetup: { orientation: "landscape", paperSize: 9, fitToPage: true, fitToWidth: 1, fitToHeight: 0, margins: { left: .4, right: .4, top: .5, bottom: .5, header: .2, footer: .2 } } });
-    ws.mergeCells(1, 1, 1, n);
-    const t = ws.getCell(1, 1); t.value = "ADEL INVEST – " + s.title;
-    t.font = { name: "Calibri", size: 16, bold: true, color: { argb: "FFFFFFFF" } };
-    t.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0B6B3A" } };
-    t.alignment = { vertical: "middle", horizontal: "left", indent: 1 }; ws.getRow(1).height = 32;
-    ws.mergeCells(2, 1, 2, n);
-    const st = ws.getCell(2, 1); st.value = "Ensemble pour un foncier sécurisé  ·  généré le " + new Date().toLocaleDateString("fr-FR") + " à " + new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }) + "  ·  " + s.rows.length + " ligne(s)";
-    st.font = { name: "Calibri", size: 10, italic: true, color: { argb: "FF084D2A" } };
-    st.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF4C20D" } };
-    st.alignment = { vertical: "middle", horizontal: "left", indent: 1 }; ws.getRow(2).height = 20;
-    const hr = ws.getRow(3); hr.height = 26;
-    keys.forEach((k, i) => { const c = hr.getCell(i + 1); c.value = k;
-      c.font = { name: "Calibri", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
-      c.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF084D2A" } };
-      c.alignment = { vertical: "middle", horizontal: "center", wrapText: true }; c.border = box;
-      ws.getColumn(i + 1).width = (s.widths || [])[i] || 20; });
-    s.rows.forEach((r, ri) => {
-      const row = ws.getRow(4 + ri), total = String(Object.values(r)[0] || "") === "TOTAL";
-      keys.forEach((k, i) => { const c = row.getCell(i + 1), v = r[k];
-        c.value = v === undefined || v === null || v === "" ? "—" : v;
-        c.font = { name: "Calibri", size: 10, bold: total, color: { argb: "FF14281D" } };
-        c.border = box; c.alignment = { vertical: "top", wrapText: true, horizontal: typeof v === "number" ? "right" : "left" };
-        c.fill = { type: "pattern", pattern: "solid", fgColor: { argb: total ? "FFE8F5EC" : ri % 2 ? "FFF4F7F5" : "FFFFFFFF" } };
-        if (typeof v === "number") c.numFmt = "#,##0.##";
-        if (STC[v]) { c.fill = { type: "pattern", pattern: "solid", fgColor: { argb: STC[v][0] } }; c.font = { name: "Calibri", size: 10, bold: true, color: { argb: STC[v][1] } }; c.alignment = { vertical: "top", horizontal: "center" }; } });
-    });
-    if (s.rows.length) ws.autoFilter = { from: { row: 3, column: 1 }, to: { row: 3 + s.rows.length, column: n } };
-  }
-  const buf = await wb.xlsx.writeBuffer();
-  saveFile(new Blob([buf], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), fileName);
-}
-
-async function exportDoc(r) {
-  const nomF = "Fiche-" + safeFileName(r.titre || "projet") + ".docx";
-  if (!(await logDl(nomF, r.id, "fiche_word"))) return;
-  const dl = await sb.storage.from(DOCS_BUCKET).list(`${r.user_id}/${r.id}`, { limit: 100 });
-  const names = (dl.data || []).filter(f => f.name && f.id).map(f => f.name);
-  saveFile(await buildDocx(r, r.client, names), nomF);
-}
-
-async function showPieces(r) {
-  const { data, error } = await sb.storage.from(DOCS_BUCKET).list(`${r.user_id}/${r.id}`, { limit: 100 });
-  if (error) return toast("Impossible de lister les pièces : " + error.message);
-  const files = (data || []).filter(f => f.name && f.id);
-  let dlg = $("piecesDlg");
-  if (!dlg) { dlg = document.createElement("dialog"); dlg.id = "piecesDlg";
-    dlg.style.cssText = "border:1px solid var(--bd);border-radius:12px;max-width:520px;width:92vw;background:var(--card);color:var(--ink)"; document.body.appendChild(dlg); }
-  dlg.innerHTML = `<h4 style="margin:0 0 10px;color:var(--g)">Pièces jointes – ${esc(r.titre)}</h4>` +
-    (files.length ? files.map((f, i) => `<div class="li"><div>${esc(f.name.replace(/^\d+_/, ""))}</div><button class="btn" data-pf="${i}">Télécharger</button></div>`).join("") : '<p style="color:var(--mu)">Aucune pièce jointe.</p>') +
-    `<p style="text-align:right;margin:12px 0 0"><button class="btn o" id="closePieces">Fermer</button></p>`;
-  $("closePieces").onclick = () => dlg.close();
-  dlg.querySelectorAll("button[data-pf]").forEach(b => b.onclick = async () => {
-    const f = files[Number(b.dataset.pf)];
-    if (!(await logDl(f.name.replace(/^\d+_/, ""), r.id, "document"))) return;
-    const s = await sb.storage.from(DOCS_BUCKET).createSignedUrl(`${r.user_id}/${r.id}/${f.name}`, 60, { download: f.name.replace(/^\d+_/, "") });
-    if (s.error) return toast("Ouverture impossible : " + s.error.message);
-    window.open(s.data.signedUrl, "_blank", "noopener,noreferrer");
-  });
-  dlg.showModal();
-}
-
-// ===== ARCHIVAGE (super admin : tout ; superviseur : lecture seule + téléchargement) =====
-let ARCH = [], PIECES = [], PIECES_LOADED = false, FICHES_ALL = [], PM_ALL = {}, archTab = "fiches";
-async function renderArchivage() {
-  archTab = "fiches"; PIECES_LOADED = false; PIECES = [];
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Archivage</h4><p style="color:var(--mu)">Chargement…</p></div>`;
-  const [a, f, p] = await Promise.all([sb.from("archives").select("*").order("created_at", { ascending: false }),
-    sb.from("fiches").select("*"), sb.from("profiles").select("id,prenom,nom,email,telephone")]);
-  if (a.error) { $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Archivage</h4><p class="err">${esc(a.error.message)}</p><p style="color:var(--mu)">Avez-vous exécuté le script SQL de sécurité ?</p></div>`; return; }
-  FICHES_ALL = f.data || []; PM_ALL = Object.fromEntries((p.data || []).map(x => [x.id, x]));
-  const fm = Object.fromEntries(FICHES_ALL.map(x => [String(x.id), x]));
-  ARCH = a.data.map(x => ({ ...x, f: fm[x.fiche_id] || {}, c: PM_ALL[x.user_id] || {} }));
-  drawArchShell();
-}
-function drawArchShell() {
-  const sa = space === "super_admin";
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1">
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-      <button class="btn ${archTab === "fiches" ? "" : "o"}" data-tab="fiches">Fiches Word (${ARCH.length})</button>
-      <button class="btn ${archTab === "pieces" ? "" : "o"}" data-tab="pieces">Pièces jointes${PIECES_LOADED ? " (" + PIECES.length + ")" : ""}</button>
-      ${sa ? `<button class="btn o" id="backfill" style="margin-left:auto">Archiver les projets existants</button>` : ""}
-    </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-      <h4 style="margin:0">${archTab === "fiches" ? "Fiches Word remplies par les clients" : "Pièces jointes déposées par les clients"} (<span id="acnt"></span>)</h4>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="aq" placeholder="Rechercher…" style="margin:0;width:200px">
-      <select id="ac" style="margin:0;width:auto"><option value="">Toutes les catégories</option>${Object.keys(CATS).map(k => `<option value="${k}">${esc(catName(k))}</option>`).join("")}</select>
-      <select id="as" style="margin:0;width:auto"><option value="d">Plus récentes d'abord</option><option value="a">Plus anciennes d'abord</option></select></div></div>
-    <div style="overflow-x:auto;margin-top:10px"><table id="atb"></table></div></div>`;
-  $("grid").querySelectorAll("button[data-tab]").forEach(b => b.onclick = async () => {
-    archTab = b.dataset.tab;
-    if (archTab === "pieces" && !PIECES_LOADED) { drawArchShell(); $("atb").innerHTML = "<tr><td>Chargement des pièces jointes…</td></tr>"; await loadPieces(); }
-    drawArchShell();
-  });
-  $("aq").oninput = drawArch; $("ac").onchange = drawArch; $("as").onchange = drawArch;
-  if (sa) $("backfill").onclick = backfillArchives;
-  drawArch();
-}
-async function loadPieces() {
-  const out = [];
-  for (let i = 0; i < FICHES_ALL.length; i += 10) {
-    await Promise.all(FICHES_ALL.slice(i, i + 10).map(async f => {
-      const r = await sb.storage.from(DOCS_BUCKET).list(`${f.user_id}/${f.id}`, { limit: 100 });
-      (r.data || []).filter(x => x.name && x.id).forEach(x => out.push({ f, c: PM_ALL[f.user_id] || {}, name: x.name, created_at: x.created_at || f.created_at, path: `${f.user_id}/${f.id}/${x.name}` }));
-    }));
-  }
-  PIECES = out; PIECES_LOADED = true;
-}
-function drawArch() {
-  const q = $("aq").value.toLowerCase(), c = $("ac").value, asc = $("as").value === "a";
-  const sort = (x, y) => (new Date(x.created_at) - new Date(y.created_at)) * (asc ? 1 : -1);
-  if (archTab === "fiches") {
-    const l = ARCH.filter(x => (!c || x.f.categorie === c) && JSON.stringify([x.f.titre, x.c.nom, x.c.prenom, x.c.email, x.nom_fichier]).toLowerCase().includes(q)).sort(sort);
-    $("acnt").textContent = l.length;
-    $("atb").innerHTML = "<tr>" + ["Date", "Porteur", "Catégorie", "Projet", "Fichier", ""].map(h => `<th>${h}</th>`).join("") + "</tr>" +
-      (l.map(x => `<tr><td>${fmt(x.created_at)}</td><td>${esc(nom(x.c))}<small>${esc(x.c.email || "")}</small></td><td>${esc(catName(x.f.categorie))}</td><td>${esc(x.f.titre || "—")}</td><td>${esc(x.nom_fichier)}</td><td><button class="btn" data-ar="${esc(x.id)}">Télécharger</button></td></tr>`).join("") || '<tr><td colspan="6" style="color:var(--mu)">Aucune fiche archivée.</td></tr>');
-  } else {
-    const l = PIECES.filter(x => (!c || x.f.categorie === c) && JSON.stringify([x.f.titre, x.c.nom, x.c.prenom, x.c.email, x.name]).toLowerCase().includes(q)).sort(sort);
-    $("acnt").textContent = l.length;
-    $("atb").innerHTML = "<tr>" + ["Date", "Porteur", "Catégorie", "Projet", "Fichier", ""].map(h => `<th>${h}</th>`).join("") + "</tr>" +
-      (l.map(x => `<tr><td>${fmt(x.created_at)}</td><td>${esc(nom(x.c))}<small>${esc(x.c.email || "")}</small></td><td>${esc(catName(x.f.categorie))}</td><td>${esc(x.f.titre || "—")}</td><td>${esc(x.name.replace(/^\d+_/, ""))}</td><td><button class="btn" data-ap="${PIECES.indexOf(x)}">Télécharger</button></td></tr>`).join("") || '<tr><td colspan="6" style="color:var(--mu)">Aucune pièce jointe.</td></tr>');
-  }
-}
-async function backfillArchives() {
-  const have = new Set(ARCH.map(a => String(a.fiche_id)));
-  const todo = FICHES_ALL.filter(f => !have.has(String(f.id)));
-  if (!todo.length) return toast("Tous les projets sont déjà archivés.");
-  if (!confirm(`Générer et archiver la fiche Word de ${todo.length} projet(s) existant(s) ?`)) return;
-  let ok = 0;
-  for (const f of todo) {
-    try {
-      const dl = await sb.storage.from(DOCS_BUCKET).list(`${f.user_id}/${f.id}`, { limit: 100 });
-      const names = (dl.data || []).filter(x => x.name && x.id).map(x => x.name);
-      const blob = await buildDocx(f, PM_ALL[f.user_id] || {}, names), path = `${f.id}/fiche.docx`;
-      const up = await sb.storage.from("archives").upload(path, blob, { contentType: DOCX_MIME, upsert: false });
-      if (up.error && !/exist|duplicate/i.test(up.error.message)) throw up.error;
-      const ins = await sb.from("archives").insert({ fiche_id: String(f.id), user_id: f.user_id, nom_fichier: "Fiche-" + safeFileName(f.titre || "projet") + ".docx", chemin: path });
-      if (ins.error) throw ins.error; ok++;
-    } catch (e) { console.warn("Archivage rattrapage :", e); }
-  }
-  toast(`${ok} / ${todo.length} projet(s) archivé(s).`); renderArchivage();
-}
-
-// ===== Ma fiche Word (côté client) =====
-async function loadMaFiche() {
-  const box = $("maFiche"); if (!box || !fiche) return;
-  const a = await sb.from("archives").select("*").eq("fiche_id", String(fiche.id)).order("created_at", { ascending: false }).limit(1);
-  const x = a.data?.[0];
-  box.innerHTML = x
-    ? `<div class="li"><div><b>📄 Ma fiche projet</b><small>${esc(x.nom_fichier)} · ${fmt(x.created_at)}</small></div><button class="btn" id="dlFiche" type="button">Télécharger</button></div>`
-    : `<div class="li"><div><b>📄 Ma fiche projet</b><small>Pas encore générée</small></div><button class="btn" id="mkFiche" type="button">Générer ma fiche</button></div>`;
-  if (x) $("dlFiche").onclick = async () => {
-    const s = await sb.storage.from("archives").createSignedUrl(x.chemin, 60, { download: x.nom_fichier });
-    if (s.error) return toast("Ouverture impossible : " + s.error.message);
-    window.open(s.data.signedUrl, "_blank", "noopener,noreferrer");
-  };
-  else $("mkFiche").onclick = async () => {
-    $("mkFiche").disabled = true;
-    await archiver(fiche, { prenom: profile.prenom, nom: profile.nom, telephone: profile.telephone, email: user.email });
-    loadMaFiche();
-  };
-}
-
-// ===== JOURNAL DES TÉLÉCHARGEMENTS (super admin) =====
-let JOUR = [];
-const jDate = d => new Date(d).toLocaleDateString("fr-FR", { weekday: "long", day: "2-digit", month: "long", year: "numeric" });
-const jHeure = d => new Date(d).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
-async function renderJournal() {
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Journal des téléchargements</h4><p style="color:var(--mu)">Chargement…</p></div>`;
-  const { data, error } = await sb.from("journal_telechargements").select("*").order("created_at", { ascending: false }).limit(2000);
-  if (error) { $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Journal des téléchargements</h4><p class="err">${esc(error.message)}</p><p style="color:var(--mu)">Avez-vous exécuté le script SQL de sécurité ?</p></div>`; return; }
-  JOUR = data;
-  const who = [...new Map(JOUR.map(x => [x.email, x.nom_complet || x.email])).entries()];
-  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-    <h4 style="margin:0">Journal des téléchargements (<span id="jcnt"></span>)</h4>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-    <select id="jw" style="margin:0;width:auto"><option value="">Toutes les personnes</option>${who.map(([e, n]) => `<option value="${esc(e)}">${esc(n)}</option>`).join("")}</select>
-    <input id="jd1" type="date" style="margin:0;width:auto"><input id="jd2" type="date" style="margin:0;width:auto">
-    <button class="btn" id="jxl">Exporter (Excel)</button></div></div>
-    <div style="overflow-x:auto;margin-top:10px"><table id="jtb"></table></div></div>`;
-  ["jw", "jd1", "jd2"].forEach(i => $(i).onchange = drawJour); $("jxl").onclick = exportJour; drawJour();
-}
-function jFiltered() {
-  const w = $("jw").value, d1 = $("jd1").value, d2 = $("jd2").value;
-  return JOUR.filter(x => (!w || x.email === w) && (!d1 || new Date(x.created_at) >= new Date(d1 + "T00:00:00")) && (!d2 || new Date(x.created_at) <= new Date(d2 + "T23:59:59")));
-}
-function drawJour() {
-  const l = jFiltered(); $("jcnt").textContent = l.length;
-  $("jtb").innerHTML = "<tr>" + ["Jour", "Heure", "Qui", "Rôle", "Fichier", "Type"].map(h => `<th>${h}</th>`).join("") + "</tr>" +
-    (l.map(x => `<tr><td>${esc(jDate(x.created_at))}</td><td>${esc(jHeure(x.created_at))}</td><td>${esc(x.nom_complet || "—")}<small>${esc(x.email || "")}</small></td><td>${esc(x.role || "")}</td><td>${esc(x.fichier || "")}</td><td>${esc(x.type || "")}</td></tr>`).join("") || '<tr><td colspan="6" style="color:var(--mu)">Aucun téléchargement enregistré.</td></tr>');
-}
-async function exportJour() {
-  const l = jFiltered(); if (!l.length) return toast("Rien à exporter.");
-  await xlsxStyled("ADEL-INVEST-journal-" + new Date().toISOString().slice(0, 10) + ".xlsx", [{ name: "Journal", title: "Journal des téléchargements",
-    rows: l.map(x => ({ "Jour": jDate(x.created_at), "Heure": jHeure(x.created_at), "Nom": x.nom_complet, "E-mail": x.email, "Rôle": x.role, "Fichier": x.fichier, "Type": x.type })),
-    widths: [26, 12, 24, 32, 14, 44, 14] }]);
-}
-
-$("grid").addEventListener("click", async e => {
-  const b = e.target.closest("button[data-w],button[data-x],button[data-p],button[data-ar],button[data-ap],button[data-tab]"); if (!b || b.dataset.tab) return;
-  if (b.dataset.w) { b.disabled = true; try { await exportDoc(ROWS.find(r => r.id === b.dataset.w)); } finally { b.disabled = false; } }
-  else if (b.dataset.p) { await showPieces(ROWS.find(r => r.id === b.dataset.p)); }
-  else if (b.dataset.ar) {
-    const x = ARCH.find(a => a.id === b.dataset.ar); if (!x) return;
-    b.disabled = true;
-    try {
-      if (!(await logDl(x.nom_fichier, x.fiche_id, "archive"))) return;
-      const s = await sb.storage.from("archives").createSignedUrl(x.chemin, 60, { download: x.nom_fichier });
-      if (s.error) return toast("Ouverture impossible : " + s.error.message);
-      window.open(s.data.signedUrl, "_blank", "noopener,noreferrer");
-    } finally { b.disabled = false; }
-  }
-  else if (b.dataset.ap) {
-    const x = PIECES[Number(b.dataset.ap)]; if (!x) return;
-    b.disabled = true;
-    try {
-      const fn = x.name.replace(/^\d+_/, "");
-      if (!(await logDl(fn, x.f.id, "document"))) return;
-      const s2 = await sb.storage.from(DOCS_BUCKET).createSignedUrl(x.path, 60, { download: fn });
-      if (s2.error) return toast("Ouverture impossible : " + s2.error.message);
-      window.open(s2.data.signedUrl, "_blank", "noopener,noreferrer");
-    } finally { b.disabled = false; }
-  }
-  else if (b.dataset.x && confirm("Supprimer définitivement ce projet ?")) {
-    const { error } = await sb.from("fiches").delete().eq("id", b.dataset.x);
-    if (error) return toast("Erreur : " + error.message);
-    renderAdmin();
-  }
-});
-$("grid").addEventListener("change", async e => {
-  const t = e.target;
-  if (t.dataset.st) {
-    const r = ROWS.find(x => x.id === t.dataset.st);
-    const { error } = await sb.from("fiches").update({ statut: t.value, updated_at: new Date().toISOString() }).eq("id", r.id);
-    if (error) { t.value = r.statut; return toast("Erreur : " + error.message); }
-    toast("Statut mis à jour.");
-    sb.from("notifications").insert({ user_id: r.user_id, message: "Votre projet est passé à l'étape : " + label(t.value) });
-    renderAdmin();
-  }
-  if (t.dataset.role) {
-    const { error } = await sb.from("profiles").update({ role: t.value }).eq("id", t.dataset.role);
-    toast(error ? "Erreur : " + error.message : "Rôle mis à jour.");
-  }
-});
-
-function shrink(file, size) {
-  return new Promise((ok, ko) => {
-    const img = new Image();
-    img.onload = () => {
-      const s = Math.min(img.width, img.height), c = document.createElement("canvas");
-      c.width = c.height = size;
-      c.getContext("2d").drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, size, size);
-      c.toBlob(b => b ? ok(b) : ko(new Error("Image illisible")), "image/jpeg", 0.85);
-    };
-    img.onerror = () => ko(new Error("Image illisible"));
-    img.src = URL.createObjectURL(file);
-  });
-}
-$("grid").addEventListener("change", async e => {
-  if (e.target.id !== "avatarIn" || !e.target.files[0]) return;
-  const file = e.target.files[0];
-  if (!file.type.startsWith("image/")) return toast("Choisissez une image (JPG ou PNG).");
-  try {
-    const blob = await shrink(file, 400), path = user.id + "/avatar.jpg";
-    const up = await sb.storage.from("avatars").upload(path, blob, { upsert: true, contentType: "image/jpeg" });
-    if (up.error) throw up.error;
-    const url = sb.storage.from("avatars").getPublicUrl(path).data.publicUrl + "?v=" + Date.now();
-    const r = await sb.from("profiles").update({ avatar_url: url }).eq("id", user.id).select("id");
-    const saved = !r.error && r.data && r.data.length > 0;
-    const m = await sb.auth.updateUser({ data: { avatar_url: url } });
-    if (m.error && !saved) throw m.error;
-    profile.avatar_url = url;
-    toast(saved ? "Photo enregistrée." : "Photo enregistrée sur votre compte. Pour qu'elle soit aussi visible par l'administration, appliquez le correctif SQL (table profiles).");
-    fiche ? renderDash() : renderNew();
-  } catch (err) { toast("Photo non enregistrée : " + err.message); }
-});
-
-async function renderDash() {
-  const idx = Math.max(0, STEPS.findIndex(s => s[0] === fiche.statut));
-  const cat = CATS[fiche.categorie]?.[0] || "—";
-  const folder = `${user.id}/${fiche.id}`;
-  const [docsResult, notifs] = await Promise.all([
-    sb.storage.from(DOCS_BUCKET).list(folder, { limit: 100, sortBy: { column: "created_at", order: "desc" } }),
-    sb.from("notifications").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(3)
-  ]);
-  const docsError = docsResult.error;
-  const docs = (docsResult.data || []).filter(f => f.name && f.id);
-  const steps = STEPS.map((s, i) => `<div class="st ${i < idx ? "ok" : i === idx ? "cur" : ""}"><i>${i < idx ? "✓" : i + 1}</i><span>${s[1]}</span></div>`).join("");
-  $("grid").innerHTML = profCard() + `<div id="projet">
-    <div class="proj">Mon projet foncier <span>✓ Projet enregistré</span></div>
-    <div class="card" style="margin-top:12px"><div class="pbody"><div class="rows">
-      <div><b>Titre du projet :</b>${esc(fiche.titre)}</div><div><b>Type de projet :</b>${esc(fiche.type_projet || "—")}</div>
-      <div><b>Catégorie :</b>${esc(cat)}</div><div><b>Localisation :</b>${esc(fiche.localisation || "—")}</div>
-      <div><b>Superficie :</b>${esc(fiche.superficie || "—")} hectares</div><div><b>Enregistré le :</b>${fmt(fiche.created_at)}</div></div>
-      <div class="acts"><button class="btn">Voir le détail de mon projet</button><button class="btn o" id="edit">Modifier mon projet</button>
-      <button class="btn o" id="addd">Joindre des documents</button><button class="btn d" id="del">Supprimer mon projet</button></div></div>
-      <div class="steps">${steps}</div></div></div>
-    <div class="three">
-      <div class="card" id="docs"><h4>Mes documents</h4><div id="maFiche"></div>${
-        docsError
-          ? `<p class="err">Erreur : ${esc(docsError.message)}</p>`
-          : docs.length
-            ? docs.map((d, i) => `<div class="li"><div>${esc(d.name.replace(/^\d+_/, ""))}<small>Déposé le ${fmt(d.created_at)}</small></div><button class="btn" type="button" data-dash-doc="${i}">Ouvrir</button></div>`).join("")
-            : '<p style="color:var(--mu)">Aucun document pour le moment.</p>'
-      }</div>
-      <div class="card"><h4>À propos de mon projet</h4><p>${esc(fiche.description || "Aucune description.")}</p>
-        <p style="border-top:1px solid var(--bd);padding-top:8px"><b>Contact ADEL INVEST</b><br>☎ +221 33 123 45 67<br>✉ contact@adel-invest.sn</p></div>
-      <div class="card"><h4>Mes notifications</h4>${(notifs.data || []).map(n => `<div class="li"><div>${esc(n.message)}<small>${fmt(n.created_at)}</small></div></div>`).join("") || '<p style="color:var(--mu)">Aucune notification.</p>'}</div>
-    </div>`;
-
-  $("grid").querySelectorAll("button[data-dash-doc]").forEach(button => {
-    button.addEventListener("click", async () => {
-      const file = docs[Number(button.dataset.dashDoc)];
-      if (!file) return;
-      button.disabled = true; button.textContent = "Préparation…";
-      const { data, error } = await sb.storage.from(DOCS_BUCKET).createSignedUrl(`${folder}/${file.name}`, 60);
-      button.disabled = false; button.textContent = "Ouvrir";
-      if (error) return toast("Ouverture impossible : " + error.message);
-      window.open(data.signedUrl, "_blank", "noopener,noreferrer");
-    });
-  });
-
-  loadMaFiche();
-  $("del").onclick = async () => {
-    if (!confirm("Supprimer définitivement ce projet ?")) return;
-    await sb.from("fiches").delete().eq("id", fiche.id); start();
-  };
-  $("edit").onclick = async () => {
-    const t = prompt("Nouveau titre du projet :", fiche.titre);
-    if (t) { await sb.from("fiches").update({ titre: t, updated_at: new Date().toISOString() }).eq("id", fiche.id); start(); }
-  };
-  $("addd").onclick = () => navigate("docs");
-}
-drawSCats();
-start();
-</script>
-</body>
-</html>
+-- Vérification :
+select email, prenom, nom, role, actif from public.profiles order by role, email;
