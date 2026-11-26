@@ -2,300 +2,1309 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://pbkpohfkiayaujupzkxs.supabase.co wss://pbkpohfkiayaujupzkxs.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
-<title>FASECA-KB 2026 – Opportunité Commerciale Rurale · Inscription des exposants</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://pbkpohfkiayaujupzkxs.supabase.co wss://pbkpohfkiayaujupzkxs.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<title>ADEL INVEST – Espace porteur de projet</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230b6b3a%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2738%27 text-anchor=%27middle%27 fill=%27white%27 font-family=%27Arial%27 font-weight=%27bold%27%3EA%3C/text%3E%3C/svg%3E">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 <style>
-:root{--g:#1b5e35;--g2:#2f8f55;--gl:#e9f5ee;--n:#0f2a5c;--y:#f2b705;--r:#c62828;--ink:#14281d;--mu:#5f7168;--bg:#f3f6f4;--card:#fff;--bd:#e0e8e3;--sh:0 1px 2px rgba(15,42,92,.06),0 8px 24px rgba(15,42,92,.07);--rad:16px}
-@media(prefers-color-scheme:dark){:root{--ink:#e8f1ec;--mu:#9fb3a7;--bg:#0c1511;--card:#14231b;--bd:#244031;--gl:#183325;--sh:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;font-family:Inter,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;background:radial-gradient(1200px 500px at 85% -10%,rgba(242,183,5,.12),transparent),var(--bg);color:var(--ink);line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
-img{max-width:100%}a{color:var(--g2)}
-header{position:sticky;top:0;z-index:20;background:rgba(15,42,92,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;padding:10px 22px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:3px solid var(--y)}
-.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--y),#ffd75e);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 12px rgba(0,0,0,.25)}
-.brand b{font-size:18px;letter-spacing:.3px;display:block}.brand small{opacity:.8;font-size:12px}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-main{width:100%;max-width:1000px;margin:0 auto;padding:20px 18px;flex:1;min-width:0}
-footer{text-align:center;color:var(--mu);font-size:13px;padding:18px 12px;border-top:1px solid var(--bd)}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--rad);padding:22px;margin:16px 0;box-shadow:var(--sh);min-width:0;overflow-wrap:anywhere}
-.card h2,.card h3{margin:0 0 12px;color:var(--g);letter-spacing:-.2px}.card h2{font-size:22px}
-.banner{background:linear-gradient(135deg,var(--n),#1a4b96 70%,#1b5e35);color:#fff;border:0;position:relative;overflow:hidden}
-.banner:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(242,183,5,.35),transparent 70%)}
-.banner h2{color:var(--y);font-size:clamp(20px,4vw,28px)}.banner p{margin:4px 0;opacity:.95}
-.wrap{display:grid;grid-template-columns:270px 1fr;gap:22px;align-items:start}.wrap aside{position:sticky;top:86px;padding-top:16px}
-.fly{width:100%;display:block;border-radius:var(--rad);border:3px solid var(--y);box-shadow:0 10px 30px rgba(15,42,92,.3)}
-label{display:block;font-size:14px;font-weight:600;color:var(--ink)}
-input,select,textarea{width:100%;max-width:100%;padding:11px 13px;margin:6px 0 14px;border:1.5px solid var(--bd);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:16px;font-weight:400;transition:border-color .15s,box-shadow .15s}
-input:focus,select:focus,textarea:focus{outline:0;border-color:var(--g2);box-shadow:0 0 0 4px rgba(47,143,85,.18)}
-.f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:0 16px}
-.chk{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}.chk label{display:flex;align-items:center;gap:8px;font-weight:500;padding:8px 14px;border:1.5px solid var(--bd);border-radius:99px;cursor:pointer}.chk label:has(input:checked){background:var(--gl);border-color:var(--g2);color:var(--g)}.chk input{width:auto;margin:0}
-.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px}
-.pack{display:block;border:2px solid var(--bd);border-radius:var(--rad);padding:16px;cursor:pointer;font-weight:400;transition:transform .15s,border-color .15s,box-shadow .15s;background:var(--card)}
-.pack:hover{transform:translateY(-2px);box-shadow:var(--sh)}.pack.on{border-color:var(--g2);background:var(--gl);box-shadow:0 0 0 4px rgba(47,143,85,.15)}
-.pack b{font-size:24px;color:var(--g);display:block;margin:2px 0}.pack ul{margin:8px 0;padding-left:18px;font-size:14px}.pack small{color:var(--mu)}.pack input{width:auto;margin:0 8px 0 0}
-.btn{background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;border:0;padding:12px 22px;border-radius:12px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 4px 14px rgba(27,94,53,.3);transition:transform .15s,box-shadow .15s,opacity .15s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(27,94,53,.35)}.btn:active{transform:none}.btn:focus-visible{outline:3px solid var(--y);outline-offset:2px}.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
-.btn.y{background:linear-gradient(135deg,var(--y),#ffd45a);color:#14281d;box-shadow:0 4px 14px rgba(242,183,5,.4)}.btn.o{background:transparent;color:inherit;border:1.5px solid currentColor;box-shadow:none}.btn.s{padding:8px 14px;font-size:13px;border-radius:10px}.tabs .on{background:linear-gradient(135deg,var(--n),#1a4b96)}
-form>.btn{width:100%;font-size:17px;padding:14px}
-.err{color:var(--r);min-height:20px;font-size:14px;font-weight:600}.ok{color:var(--g2);font-weight:600}.mu{color:var(--mu)}
-.pwr{display:flex;gap:8px;align-items:center}.pwr input{margin:6px 0}.meter{display:flex;gap:4px;margin:0 0 4px}.meter:before,.meter:after,.meter i{content:"";flex:1;height:5px;border-radius:5px;background:var(--bd)}.meter i{display:block}
-.meter[data-s="1"]:before{background:#e53935}.meter[data-s="2"]:before,.meter[data-s="2"] i{background:#fb8c00}.meter[data-s="3"]:before,.meter[data-s="3"] i{background:#fdd835}.meter[data-s="4"]:before,.meter[data-s="4"] i,.meter[data-s="4"]:after{background:#2fa84f}.meter[data-s="3"]:after{background:#fdd835}.meter[data-s="2"]:after{background:var(--bd)}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-.steps{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.st{flex:1;min-width:130px;display:flex;gap:10px;align-items:center;font-size:13px;font-weight:600}
-.st i{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:var(--bd);color:var(--mu);font-weight:800;flex:none}
-.st.ok i{background:#2fa84f;color:#fff}.st.cur i{background:var(--n);color:#fff;box-shadow:0 0 0 5px rgba(15,42,92,.15)}
-.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:12px;margin:14px 0}
-.kp>div{background:var(--card);border:1px solid var(--bd);border-top:4px solid var(--y);border-radius:14px;padding:14px;box-shadow:var(--sh)}.kp small{color:var(--mu);font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.5px}.kp b{font-size:26px;display:block;line-height:1.2}
-table{border-collapse:collapse;width:100%;font-size:14px}th{background:var(--gl);color:var(--g);font-size:12px;text-transform:uppercase;letter-spacing:.4px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--bd);vertical-align:top}tr:hover td{background:rgba(47,143,85,.04)}td input,td select{margin:0;padding:7px;font-size:14px}
-.chip{display:inline-block;padding:3px 12px;border-radius:99px;font-size:12px;font-weight:700;white-space:nowrap}
-.c1{background:#fff4c2;color:#7a5c00}.c2{background:#dff2e5;color:#1b5e35}.c3{background:#d6e4ff;color:#0f2a5c}.c4{background:#1b5e35;color:#fff}.c5{background:#ffe0b2;color:#8a4b00}.c6{background:#fde2e2;color:#a31d1d}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}.info div{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd)}.info div:last-child{border:0}.info b{width:200px;flex:none;color:var(--mu);font-weight:600}
-#tt{position:fixed;left:50%;bottom:22px;transform:translate(-50%,30px);background:var(--n);color:#fff;padding:12px 20px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:all .25s;z-index:50;max-width:92vw}#tt.show{opacity:1;transform:translate(-50%,0)}
-.w{grid-column:1/-1}.btn.d{background:var(--r);box-shadow:none}
-.hero{position:relative;border-radius:20px;overflow:hidden;min-height:clamp(340px,56vh,540px);display:flex;align-items:flex-end;background:var(--n);box-shadow:var(--sh);margin-bottom:18px;isolation:isolate}
-.sl{position:absolute;inset:0;z-index:-2}.sl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;opacity:0;transition:opacity 1.6s ease}.sl img.on{opacity:1;animation:kb 10s linear forwards}.sl img.out{opacity:0;transform:scale(1.25)}
-@keyframes kb{from{transform:scale(1)}to{transform:scale(1.25)}}
-.hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(15,42,92,.2),rgba(15,42,92,.9))}
-.ov{padding:clamp(18px,4vw,42px);color:#fff;max-width:760px}.ov h1{margin:8px 0;font-size:clamp(26px,5.5vw,48px);line-height:1.1;color:var(--y)}.ov p{margin:6px 0 14px;font-size:clamp(14px,2vw,17px)}.kick{background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;font-size:12px;font-weight:700;letter-spacing:.5px}
-.ttl{letter-spacing:.5px;font-size:18px!important}
-.adm{display:grid;grid-template-columns:210px 1fr;gap:16px;margin-top:14px}.side{display:flex;flex-direction:column;gap:6px;position:sticky;top:80px;align-self:start}.side .btn{text-align:left}.side .btn:not(.on){background:transparent;color:var(--ink);box-shadow:none;border:1.5px solid var(--bd)}
-.bars div{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13px}.bars span{width:150px;flex:none}.bars i{display:block;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--g),var(--g2))}
-.ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}.ph div{position:relative}.ph img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block}.ph .btn{position:absolute;top:4px;right:4px;padding:4px 9px}
-dialog{border:0;border-radius:16px;max-width:780px;width:94vw;max-height:90vh;overflow:auto;background:var(--card);color:var(--ink);box-shadow:var(--sh);padding:20px}dialog::backdrop{background:rgba(8,20,40,.55)}
-@media(max-width:760px){.adm{grid-template-columns:1fr}.side{flex-direction:row;overflow-x:auto;position:static}.side .btn{white-space:nowrap}.bars span{width:100px}}
-@media(prefers-reduced-motion:reduce){.sl img.on{animation:none}}
+:root{--g:#0b6b3a;--gd:#084d2a;--gl:#e8f5ec;--y:#f4c20d;--r:#d62828;--ink:#14281d;--mu:#5d6f64;--bg:#f4f7f5;--card:#fff;--bd:#dbe5df}
+@media(prefers-color-scheme:dark){:root{--ink:#e8f1ec;--mu:#9fb3a7;--bg:#0f1a14;--card:#16251c;--bd:#27402f;--gl:#1b3326}}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+button{font:inherit;cursor:pointer}a{color:inherit}
 .hide{display:none!important}
-@media(max-width:760px){header{padding:10px 12px}.brand b{font-size:16px}nav{width:100%}nav .btn{flex:1;text-align:center}main{padding:12px}.card{padding:16px}.wrap{grid-template-columns:1fr}.wrap aside{position:static;max-width:230px;margin:0 auto}.kp b{font-size:20px}.steps{flex-direction:column}.st{min-width:0}.info div{flex-direction:column;gap:2px}.info b{width:auto}.tabs .btn{flex:1}
-#t tr:first-child{display:none}#t tr{display:block;border:1px solid var(--bd);border-radius:12px;margin:12px 0;padding:6px}#t td{display:block;border:0;padding:5px 8px}#t td input,#t td select{width:100%!important}
-#ut tr{display:flex;justify-content:space-between;gap:8px;align-items:center}#ut tr:first-child{display:none}#ut td{border:0}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-@media print{header,footer,nav,.btn{display:none!important}}
+/* login */
+#login,#signup,#sup,#recovery{max-width:440px;margin:6vh auto;background:var(--card);padding:28px;border-radius:14px;border:1px solid var(--bd)}
+#login h1,#signup h1,#sup h1,#recovery h1{margin:0 0 4px;color:var(--g);font-size:24px}
+input,select,textarea{width:100%;padding:10px 12px;margin:6px 0 12px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.btn{background:var(--g);color:#fff;border:0;padding:10px 16px;border-radius:8px;font-weight:600}
+.btn.o{background:transparent;color:var(--g);border:1.5px solid var(--g)}
+.btn.d{background:transparent;color:var(--r);border:1.5px solid var(--r)}
+.err{color:var(--r);font-size:14px;min-height:18px}
+/* layout */
+#app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+aside{background:linear-gradient(180deg,#0b6b3a,#073d22);color:#fff;padding:16px 12px;display:flex;flex-direction:column;gap:4px}
+.logo{background:#fff;color:var(--gd);border-radius:0 0 40px 0;margin:-16px -12px 14px;padding:18px;font-weight:800;font-size:22px;letter-spacing:2px}
+.logo small{display:block;font-size:11px;font-weight:500;letter-spacing:0}
+aside a{display:block;padding:11px 14px;border-radius:8px;text-decoration:none;color:#e6f3ea}
+aside a.on{background:#2fa84f;font-weight:700;color:#fff}
+aside a:hover{background:rgba(255,255,255,.12)}
+main{min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 24px;background:var(--card);border-bottom:1px solid var(--bd)}
+.top h2{margin:0;font-size:20px}.top p{margin:2px 0 0;color:var(--mu);font-size:14px}
+.space{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--mu)}
+.space select{margin:0;width:auto;min-width:180px;font-weight:700;color:var(--g);border:1.5px solid var(--g)}
+.banner{height:110px;background:linear-gradient(90deg,rgba(8,77,42,.92),rgba(8,77,42,.5)),repeating-linear-gradient(100deg,#2e8b3d 0 14px,#3da04c 14px 28px);color:#fff;padding:22px 24px;position:relative;overflow:hidden}
+.banner h3{margin:0;font-size:26px}.banner em{opacity:.9}
+.banner:after{content:"";position:absolute;right:-40px;top:0;width:260px;height:100%;background:linear-gradient(110deg,transparent 20%,var(--g) 20% 40%,var(--y) 40% 65%,var(--r) 65%);transform:skewX(-20deg)}
+.grid{padding:18px 24px;display:grid;gap:16px;grid-template-columns:270px 1fr}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px}
+.card h4{margin:0 0 10px;font-size:17px;color:var(--g)}
+.prof{text-align:center}
+.av{width:96px;height:96px;border-radius:50%;background:var(--gl);border:3px solid var(--g);margin:0 auto 8px;display:grid;place-items:center;font-size:34px;font-weight:700;color:var(--g)}
+.tag{display:inline-block;background:#2fa84f;color:#fff;border-radius:99px;padding:3px 12px;font-size:13px;margin:6px 0}
+.prof p{margin:4px 0;font-size:14px;color:var(--mu)}
+.proj{background:var(--g);color:#fff;border-radius:12px;display:flex;justify-content:space-between;padding:12px 16px;font-size:19px;font-weight:600}
+.proj span{background:#2fa84f;border-radius:99px;padding:3px 14px;font-size:14px}
+.pbody{display:grid;grid-template-columns:1fr 210px;gap:16px;margin-top:12px}
+.rows div{display:flex;padding:6px 0;font-size:15px}.rows b{width:140px;flex:none}
+.acts{display:flex;flex-direction:column;gap:8px}
+.steps{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.st{flex:1;min-width:130px;display:flex;gap:8px;align-items:center;font-size:13px}
+.st i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:var(--bd);color:var(--mu);font-weight:700;flex:none}
+.st.ok i{background:#2fa84f;color:#fff}.st.cur i{background:var(--gd);color:#fff;box-shadow:0 0 0 4px var(--gl)}
+.three{grid-column:1/-1;display:grid;gap:16px;grid-template-columns:repeat(3,1fr)}
+.li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--bd);font-size:14px}
+.li small{display:block;color:var(--mu)}
+.li .btn{padding:6px 10px;font-size:13px;flex:none}
+.avw{position:relative;width:96px;margin:0 auto 8px}.avw .av{margin:0;overflow:hidden}.av img{width:100%;height:100%;object-fit:cover}
+.cam{position:absolute;right:-4px;bottom:0;width:32px;height:32px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;cursor:pointer;border:2px solid var(--card);font-size:15px}
+.cam:hover{background:var(--gd)}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--bd);vertical-align:top}
+th{color:var(--mu);font-weight:600}td small{display:block;color:var(--mu)}td .btn{padding:6px 10px;font-size:13px}td select{margin:0;padding:6px}
+
+/* Messagerie et journal des échanges */
+.msg-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.msg-bubble{padding:11px 13px;border:1px solid var(--bd);border-radius:12px;max-width:88%;overflow-wrap:anywhere}
+.msg-bubble.mine{margin-left:auto;background:var(--gl)}
+.msg-bubble.theirs{margin-right:auto;background:var(--bg)}
+.wa-link{display:inline-flex;align-items:center;gap:7px;background:#128c4a;color:#fff!important;text-decoration:none;padding:9px 12px;border-radius:8px;font-weight:700;font-size:13px}
+.wa-link:hover{filter:brightness(.94)}
+/* catégories */
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:12px 0}
+.cat{border:2px solid var(--bd);border-radius:12px;padding:14px;background:var(--card);text-align:left;color:var(--ink)}
+.cat b{display:block;color:var(--g);margin:4px 0}.cat.on{border-color:var(--g);background:var(--gl)}
+.cat span{font-size:12px;color:var(--mu)}
+.letter{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;font-weight:700}
+/* ===== TABLEAUX DE BORD SUPERVISION / SUPER ADMIN ===== */
+.dash{display:grid;gap:16px;grid-template-columns:repeat(12,minmax(0,1fr));grid-column:1/-1}
+.dash>.card{grid-column:span 12;min-width:0;box-shadow:0 1px 3px rgba(8,77,42,.06)}
+.dash>.c4{grid-column:span 4}.dash>.c6{grid-column:span 6}
+.dash h4{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.dash h4 small{font-size:12px;font-weight:500;color:var(--mu)}
+.hist{display:grid;grid-template-columns:30px 1fr;column-gap:10px}
+.yax{display:flex;flex-direction:column;justify-content:space-between;height:200px;text-align:right;font-size:11px;color:var(--mu)}
+.plot{display:flex;gap:6px;height:200px;border-left:1px solid var(--bd);border-bottom:1px solid var(--bd);background:linear-gradient(var(--bd) 1px,transparent 1px) 0 0/100% 25%}
+.col{flex:1;display:flex;align-items:flex-end;min-width:0;cursor:default}
+.stk{width:100%;max-width:42px;margin:0 auto;height:100%;display:flex;flex-direction:column-reverse;justify-content:flex-start}
+.stk i{display:block;width:100%;transition:filter .2s}.stk i:last-child{border-radius:7px 7px 0 0}.col:hover .stk i{filter:brightness(1.12)}
+.labs{display:flex;gap:6px;margin-left:40px;padding-top:6px;grid-column:1/-1}.labs small{flex:1;text-align:center;font-size:11px;color:var(--mu);min-width:0}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:13px}
+.lg{display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0}.lg .v{margin-left:auto;color:var(--mu);white-space:nowrap}
+.dot{width:12px;height:12px;border-radius:4px;flex:none}
+.kpis{grid-column:span 12;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;border-top:4px solid var(--g);box-shadow:0 1px 3px rgba(8,77,42,.06)}
+.kpi.y{border-top-color:var(--y)}.kpi.r{border-top-color:var(--r)}.kpi.l{border-top-color:#2fa84f}
+.kpi small{display:block;color:var(--mu);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.kpi b{display:block;font-size:30px;line-height:1.15;margin:4px 0;color:var(--ink)}.kpi span{font-size:12px;color:var(--mu)}
+.up{color:#2fa84f!important;font-weight:700}.dn{color:var(--r)!important;font-weight:700}
+.donut{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.ring{width:160px;height:160px;border-radius:50%;display:grid;place-items:center;flex:none}
+.ring>div{width:102px;height:102px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center;font-size:28px;font-weight:800;line-height:1}
+.ring small{display:block;font-size:11px;font-weight:500;color:var(--mu)}
+.hb{height:9px;background:var(--bd);border-radius:9px;overflow:hidden;margin:4px 0 2px}.hb i{display:block;height:100%;border-radius:9px;background:var(--g)}
+.sub{font-size:12px;color:var(--mu);margin:0 0 10px}
+.al{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--bd);font-size:14px}.al:last-child{border:0}
+.al b{min-width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;background:var(--g);flex:none}
+.al.w b{background:var(--y);color:#14281d}.al.x b{background:var(--r)}
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;white-space:nowrap}
+.s-enregistre{background:#fff4c2;color:#7a5c00}.s-etude{background:#dff2e5;color:#0b6b3a}.s-validation{background:#fde2e2;color:#a31d1d}.s-approuve{background:#0b6b3a;color:#fff}
+.cn{display:inline-flex;align-items:center;gap:6px}
+.pwd-hint{font-size:12px;color:var(--mu);margin:-6px 0 10px}
+@media(max-width:1000px){.dash>.c4,.dash>.c6{grid-column:span 12}}
+@media(max-width:900px){#app{grid-template-columns:1fr}aside{flex-direction:row;overflow-x:auto}.logo{display:none}.grid,.pbody,.three{grid-template-columns:1fr}.hist{grid-template-columns:26px 1fr}.labs{margin-left:36px}.labs small:nth-child(even){visibility:hidden}}
+@media print{aside,.space,.btn,.acts,.banner,select,input{display:none!important}#app{display:block}.grid{padding:0}}
 </style>
 </head>
 <body>
-<header><div class="brand"><span class="logo" aria-hidden="true">🌾</span><div><b>FASECA-KB 2026</b><small>Khelcom Birame – Mbadakhoune</small></div></div><nav id="nav"></nav></header>
-<main id="v"></main>
-<footer>🔒 Connexion sécurisée · Vos données sont protégées et accessibles uniquement au Comité d'organisation.</footer>
+
+<form id="login">
+  <h1>ADEL INVEST</h1><p style="color:var(--mu);margin-top:0">Connexion à votre espace</p>
+  <label>E-mail<input id="em" type="email" required autocomplete="email"></label>
+  <label>Mot de passe<input id="pw" type="password" required autocomplete="current-password"></label>
+  <div class="err" id="lerr"></div>
+  <button class="btn" style="width:100%">Se connecter</button>
+  <p style="text-align:center;margin:14px 0 0"><a href="#" id="toForgot" style="color:var(--mu)">Mot de passe oublié ?</a></p>
+  <p style="text-align:center;margin:8px 0 0"><a href="#" id="toSignup" style="color:var(--g);font-weight:600">Nouveau ? Créer mon espace</a></p>
+  <p style="text-align:center;margin:8px 0 0"><a href="#" id="toSup" style="color:var(--mu);font-size:13px">Accès superviseur</a></p>
+</form>
+
+<form id="sup" class="hide">
+  <h1>Accès superviseur</h1><p style="color:var(--mu);margin-top:0">Réservé aux superviseurs autorisés d'ADEL INVEST. Utilisez votre e-mail professionnel et votre propre mot de passe.</p>
+  <label>Prénom<input id="u_pre" autocomplete="given-name"></label>
+  <label>Nom<input id="u_nom" autocomplete="family-name"></label>
+  <label>E-mail<input id="u_em" type="email" required autocomplete="email"></label>
+  <label>Mot de passe<input id="u_pw" type="password" required autocomplete="current-password"></label>
+  <div class="pwd-hint">Première inscription : 8 caractères minimum, avec lettres et chiffres.</div>
+  <label>Code d'accès superviseur<input id="u_code" type="password" required autocomplete="off"></label>
+  <div class="err" id="uerr"></div>
+  <button class="btn" style="width:100%">Accéder à la supervision</button>
+  <p style="text-align:center;margin:14px 0 0"><a href="#" id="supBack" style="color:var(--g);font-weight:600">Retour à la connexion</a></p>
+</form>
+
+<form id="recovery" class="hide">
+  <h1>Nouveau mot de passe</h1><p style="color:var(--mu);margin-top:0">Choisissez un nouveau mot de passe (8 caractères minimum, lettres et chiffres).</p>
+  <label>Nouveau mot de passe<input id="r_pw" type="password" minlength="8" required autocomplete="new-password"></label>
+  <div class="err" id="rerr"></div>
+  <button class="btn" style="width:100%">Enregistrer</button>
+</form>
+
+<form id="signup" class="hide" style="max-width:640px">
+  <h1>ADEL INVEST</h1><p style="color:var(--mu);margin-top:0">Enregistrez votre projet foncier : votre espace personnel sera créé automatiquement.</p>
+  <p style="margin:0;font-weight:600">1. Quelle est votre situation ?</p>
+  <div class="cats" id="sCats"></div>
+  <p style="margin:12px 0 0;font-weight:600">2. Votre projet</p>
+  <label>Titre du projet<input id="s_titre" required placeholder="Ex. Terrain de 2 ha à vendre"></label>
+  <label>Type de projet<input id="s_type" placeholder="Agriculture, habitat, élevage…"></label>
+  <label>Localisation<input id="s_loc" placeholder="Dakar, Sénégal"></label>
+  <label>Superficie (hectares)<input id="s_sup" type="number" min="0" step="0.01"></label>
+  <label>À propos de mon projet<textarea id="s_desc" rows="3"></textarea></label>
+  <p style="margin:12px 0 0;font-weight:600">3. Vos informations et votre accès</p>
+  <label>Prénom<input id="s_pre" required autocomplete="given-name"></label>
+  <label>Nom<input id="s_nom" required autocomplete="family-name"></label>
+  <label>Téléphone<input id="s_tel" type="tel" autocomplete="tel" placeholder="+221 77 123 45 67"></label>
+  <label>E-mail<input id="s_em" type="email" required autocomplete="email"></label>
+  <label>Mot de passe (8 caractères minimum, lettres et chiffres)<input id="s_pw" type="password" minlength="8" required autocomplete="new-password"></label>
+  <div class="err" id="serr"></div>
+  <button class="btn" style="width:100%">Enregistrer mon projet et créer mon espace</button>
+  <p style="text-align:center;margin:14px 0 0"><a href="#" id="toLogin" style="color:var(--g);font-weight:600">J'ai déjà un compte</a></p>
+</form>
+
+<div id="app" class="hide">
+  <aside>
+    <div class="logo">ADEL INVEST<small>Ensemble pour un foncier sécurisé</small></div>
+    <a class="on" href="#" data-v="dash">Tableau de bord</a><a href="#" data-v="projet">Mon projet</a><a href="#" data-v="docs">Mes documents</a>
+    <a href="#" data-v="archivage" id="mArch" class="hide">Archivage</a><a href="#" data-v="journal" id="mJour" class="hide">Journal des téléchargements</a>
+    <a href="#" data-v="messages">Mes messages</a><a href="#" data-v="journal_messages" id="mJournalMessages" class="hide">Journal des échanges</a><a href="#" data-v="actualites">Actualités</a><a href="#" data-v="support">Support</a><a href="#" data-v="settings">Paramètres</a>
+    <a href="#" id="out">Déconnexion</a>
+  </aside>
+  <main>
+    <div class="top">
+      <div><h2 id="hello"></h2><p id="subHello">Bienvenue sur votre espace porteur de projet</p></div>
+      <label class="space hide" id="spaceWrap" for="spaceSel">Changer d'espace<select id="spaceSel"></select></label>
+    </div>
+    <div class="banner"><h3>Base de données foncière ADEL INVEST</h3><em>Enregistrez, gérez et valorisez vos projets fonciers</em></div>
+    <div class="grid" id="grid"></div>
+  </main>
+</div>
+
 <script>
-const sb=supabase.createClient("https://pbkpohfkiayaujupzkxs.supabase.co","sb_publishable_LmkcXtcLSXBG4Q2HWOi8lA_x4aHrm7j");
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const fcfa=n=>Number(n||0).toLocaleString("fr-FR")+" Fcfa";
-const fmt=d=>d?new Date(d).toLocaleDateString("fr-FR"):"";
+// ====== À REMPLIR ======
+const SUPABASE_URL = "https://pbkpohfkiayaujupzkxs.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_LmkcXtcLSXBG4Q2HWOi8lA_x4aHrm7j";
+// =======================
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const CATS = {
+  A:["Propriétaire / détenteur de terres","Vendre, louer ou prêter votre terre."],
+  B:["Chercheur de terres","Acheter, louer ou exploiter une terre."],
+  C:["Apporteur de terre en partenariat","Apporter votre terre à un projet financé par ADEL INVEST."],
+  D:["Vendeur en crédit-bail","Céder votre terre en crédit-bail avec option d'achat."]
+};
+const STEPS = [["enregistre","Projet enregistré"],["etude","En cours d'étude"],["validation","Validation en cours"],["approuve","Projet approuvé"]];
+const fmt = d => d ? new Date(d).toLocaleDateString("fr-FR") : "";
+const pwOK = p => String(p || "").length >= 8 && /[A-Za-z]/.test(p) && /\d/.test(p);
+const PW_MSG = "Mot de passe trop faible : 8 caractères minimum, avec des lettres et des chiffres.";
+const DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+let user, profile, fiche, chosen = "A";
+let recovering = /type=recovery/.test(location.hash);
 
-/* ========================================================================
-   VISUEL D'ACCUEIL PAR DÉFAUT
-   >>> Pour garder VOTRE affiche officielle : remplacez la ligne « const FLYER=... »
-   >>> ci-dessous par votre ancienne ligne : const FLYER="data:image/jpeg;base64,/9j/4AAQ...";
-   ======================================================================== */
-const FLYER="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f2a5c"/><stop offset=".7" stop-color="#1a4b96"/><stop offset="1" stop-color="#1b5e35"/></linearGradient></defs><rect width="1200" height="800" fill="url(#g)"/><circle cx="1050" cy="120" r="260" fill="#f2b705" opacity=".25"/><circle cx="150" cy="720" r="220" fill="#2f8f55" opacity=".35"/></svg>');
+// ===== Sélecteur d'espace =====
+const SPACES = { super_admin: "Espace super admin", admin: "Espace admin", client: "Espace client", lecteur: "Supervision (lecture seule)" };
+let space = null;
+function allowedSpaces() {
+  if (profile.role === "lecteur") return ["lecteur"];
+  if (profile.role === "super_admin") return ["super_admin", "admin", "client"];
+  if (profile.role === "admin") return ["admin", "client"];
+  return ["client"];
+}
+const isAdminSpace = () => space === "super_admin" || space === "admin" || space === "lecteur";
+function setupSpaceSwitcher() {
+  const list = allowedSpaces();
+  if (!space || !list.includes(space)) space = list[0];
+  $("spaceWrap").classList.toggle("hide", list.length < 2);
+  $("spaceSel").innerHTML = list.map(k => `<option value="${k}" ${k === space ? "selected" : ""}>${SPACES[k]}</option>`).join("");
+}
+$("spaceSel").onchange = e => { space = e.target.value; navigate("dash"); };
 
-// Paramètres par défaut : modifiables par le super admin (table Supabase faseca_config)
-let CFG={dates:"18, 19 et 20 décembre 2026",lieu:"Khelcom Birame – Mbadakhoune",limite:"2026-12-10T18:00:00Z",stands:50,tel:"+221 77 861 00 29",solde:"16 décembre 2026",standard:50000,institutionnel:75000};
-const PK={standard:{n:"Pack exposant standard",d:["Stand aménagé 2 m × 2 m","1 table + 2 chaises","Prise électrique et éclairage","2 badges","Attestation de participation"],c:"Groupements de femmes, artisans, petits producteurs, éleveurs locaux…"},
- institutionnel:{n:"Pack institutionnel et VIP",d:["Stand premium 3 × 3 bien situé","Table + 2 chaises + prise électrique","Logo sur les visuels et le programme","Mise en relation B2B personnalisée","Mention dans les communications"],c:"Agences d'État, banques/SFD, ONG, projets et programmes…"}};
-const price=k=>Number(CFG[k])||0,pn=k=>PK[k]?.n||k;
-const SECT=["Agriculture","Élevage","Pêche","Sel","Artisanat","Institution"],PAY=["Orange Money","Wave","Virement","Espèces (Secrétariat de la Mairie)"];
-const PATH=["Reçue","Réservation confirmée","Stand attribué","Soldée"],STAT=[...PATH,"Liste d'attente","Refusée"],ROLES=["porteur","lecteur","admin","super_admin"];
-const pwOK=p=>String(p||"").length>=8&&/[A-Za-z]/.test(p)&&/\d/.test(p);
-const sc=x=>({"Reçue":"c1","Réservation confirmée":"c2","Stand attribué":"c3","Soldée":"c4","Liste d'attente":"c5","Refusée":"c6"}[x]||"c1");
-function toast(m){let t=$("tt");if(!t){t=document.createElement("div");t.id="tt";t.setAttribute("role","status");document.body.appendChild(t)}t.textContent=m;t.className="show";clearTimeout(t._h);t._h=setTimeout(()=>t.className="",4200)}
-let IT,IDLE=0;function idle(){const r=()=>{clearTimeout(IT);IT=setTimeout(async()=>{await sb.auth.signOut();toast("Session expirée par sécurité.");setTimeout(()=>location.reload(),1500)},20*6e4)};if(!IDLE++)["click","keydown","touchstart","scroll"].forEach(e=>addEventListener(e,()=>user&&r(),{passive:true}));r()}
-function enhance(){document.querySelectorAll("#f input:not([type=checkbox]):not([type=radio]):not([type=password]):not([type=email]):not(.hp)").forEach(i=>i.maxLength=120);$("f").produits.maxLength=600;
- const p=$("f").pw,m=$("pm");p.oninput=()=>{const x=p.value,n=x?[x.length>=8,/[a-z]/.test(x)&&/[A-Z]/.test(x),/\d/.test(x),/[^A-Za-z0-9]/.test(x)].filter(Boolean).length:0;m.dataset.s=n;m.nextElementSibling.textContent=["","Faible","Moyen","Bon","Excellent"][n]};
- $("pt").onclick=()=>{p.type=p.type==="password"?"text":"password";$("pt").textContent=p.type==="password"?"Afficher":"Masquer"}}
-let user,prof,ROWS=[],TAB="exp",RW=false,SA=false,REAL=false,PREVIEW=false,MODE="super";
-const open=()=>new Date()<new Date(CFG.limite),limTxt=()=>new Date(CFG.limite).toLocaleString("fr-FR",{dateStyle:"long",timeStyle:"short",timeZone:"UTC"});
-const v=h=>{$("v").innerHTML=h;scrollTo(0,0)};
-function nav(){$("nav").innerHTML=user?`<button class="btn y s" id="nh">Mon espace</button><button class="btn o s" id="no">Déconnexion</button>`:`<button class="btn o s" id="nl">Connexion</button><button class="btn y s" id="nf">S'inscrire</button>`;
- if(user){$("nh").onclick=boot;$("no").onclick=async()=>{await sb.auth.signOut();location.reload()}}else{$("nl").onclick=()=>login();$("nf").onclick=form}}
+// ===== Sécurité des connexions =====
+async function secureSignIn(email, password) {
+  const em = String(email).trim().toLowerCase();
+  const lk = await sb.rpc("check_login", { p_email: em });
+  if (lk.error) console.warn("[SECURITE] Vérification anti-tentatives indisponible :", lk.error.message);
+  if (lk.data === true) return { locked: true, error: { message: "locked" } };
+  const r = await sb.auth.signInWithPassword({ email: em, password });
+  if (r.error) { await sb.rpc("record_login", { p_email: em, p_ok: false }); return { error: r.error }; }
+  await sb.rpc("record_login", { p_email: em, p_ok: true });
+  return r;
+}
+const LOCK_MSG = "Trop de tentatives. Réessayez dans 15 minutes.";
+const BAD_MSG = "E-mail ou mot de passe incorrect.";
+const DUP_MSG = "Un compte existe déjà avec cet e-mail. Connectez-vous ou réinitialisez votre mot de passe.";
+const isDup = (data, error) => (error && /already|registered|exists/i.test(error.message)) || (data?.user && Array.isArray(data.user.identities) && data.user.identities.length === 0);
+function showForm(id) { ["login", "signup", "sup", "recovery"].forEach(f => $(f).classList.toggle("hide", f !== id)); }
 
-// ---- Accueil animé + inscription en 3 étapes ----
-let HT,ST=1,VIEW=[],EX=false;
-const XF=[["tel2","Téléphone secondaire","t"],["departement","Département","t"],["statut_jur","Statut","s",["Entreprise","GIE","Coopérative","Association","Entrepreneur individuel","Producteur individuel","Autre"]],["specialisation","Domaine de spécialisation","t"],["description","Description de l'activité","a"],["annees","Années d'expérience","n"],["effectif","Effectif / nombre de membres","n"],["adresse_act","Adresse de l'activité","t"],["prix","Prix indicatifs","t"],["capacite","Capacité de production / commercialisation","t"],["clientele","Principale clientèle","t"],["besoins","Besoins commerciaux","a"],["objectifs","Objectifs de participation à l'événement","a"],["partenariats","Partenariats recherchés","a"]];
-const xin=(f,v="")=>`<label class="${f[2]==="a"?"w":""}">${f[1]}${f[2]==="s"?`<select name="x_${f[0]}"><option></option>${f[3].map(o=>`<option ${o===v?"selected":""}>${o}</option>`).join("")}</select>`:f[2]==="a"?`<textarea name="x_${f[0]}" rows="2" maxlength="600">${esc(v)}</textarea>`:`<input name="x_${f[0]}" type="${f[2]==="n"?"number":"text"}" ${f[2]==="n"?'min="0"':'maxlength="120"'} value="${esc(v)}">`}</label>`;
-function body(r={}){const d=r.details||{},g=k=>d[k]??"",sec=r.secteurs||[];
- return `<div data-s="1" class="f2"><label>Entreprise / structure / activité *<input name="organisation" required maxlength="120" value="${esc(r.organisation)}"></label><label>Nom et prénom du responsable *<input name="responsable" required maxlength="120" value="${esc(r.responsable)}"></label><label>Téléphone / WhatsApp *<input name="telephone" type="tel" required value="${esc(r.telephone)}" placeholder="+221 77 123 45 67"></label><label>Adresse / commune de provenance *<input name="commune" required maxlength="120" value="${esc(r.commune)}"></label>${XF.slice(0,8).map(f=>xin(f,g(f[0]))).join("")}</div>
- <div data-s="2" class="f2 hide"><div class="w"><p style="margin:0;font-weight:600">Secteur d'activité *</p><div class="chk">${SECT.map(s=>`<label><input type="checkbox" name="secteurs" value="${s}" ${sec.includes(s)?"checked":""}>${s}</label>`).join("")}</div></div><label class="w">Produits ou services proposés *<textarea name="produits" rows="3" required maxlength="600">${esc(r.produits)}</textarea></label>${XF.slice(8).map(f=>xin(f,g(f[0]))).join("")}</div>`}
-function collect(f){const g=k=>String(f.get(k)||"").trim(),d={};XF.forEach(x=>{const t=g("x_"+x[0]);if(t)d[x[0]]=t});return{organisation:g("organisation"),responsable:g("responsable"),telephone:g("telephone"),commune:g("commune"),secteurs:f.getAll("secteurs"),produits:g("produits"),details:d}}
-function modal(h){let d=$("md");if(!d){d=document.createElement("dialog");d.id="md";document.body.appendChild(d)}d.innerHTML=h+`<p style="text-align:right;margin-bottom:0"><button class="btn o s" id="mc" type="button">Fermer</button></p>`;$("mc").onclick=()=>d.close();d.showModal()}
-function shrink(f){return new Promise((ok,ko)=>{const i=new Image();i.onload=()=>{const k=Math.min(1,1280/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);c.toBlob(b=>b?ok(b):ko(new Error("Image illisible")),"image/jpeg",.8)};i.onerror=()=>ko(new Error("Image illisible"));i.src=URL.createObjectURL(f)})}
-async function upPhotos(files,uid){const out=[];for(const f of [...files].slice(0,6)){if(!/^image\//.test(f.type)||f.size>15e6)continue;const p=`${uid}/${Date.now()}_${out.length}.jpg`,r=await sb.storage.from("faseca-photos").upload(p,await shrink(f),{contentType:"image/jpeg"});if(!r.error)out.push(p)}return out}
-const urls=ps=>Promise.all((ps||[]).map(async p=>({p,u:(await sb.storage.from("faseca-photos").createSignedUrl(p,900)).data?.signedUrl})));
-function heroInit(){clearInterval(HT);const im=[...document.querySelectorAll(".sl img")];if(!im.length)return;im[0].classList.add("on");if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;let k=0;HT=setInterval(()=>{const c=im[k];k=(k+1)%im.length;c.classList.replace("on","out");im[k].classList.add("on");setTimeout(()=>c.classList.remove("out"),1700)},9000)}
-function step(n){ST=n;document.querySelectorAll("#f [data-s]").forEach(d=>d.classList.toggle("hide",+d.dataset.s!==n));$("sp").textContent=`Étape ${n} sur 3`;$("pv").style.visibility=n>1?"visible":"hidden";$("nx").textContent=n<3?"Suivant":"S'inscrire";if(n>1||scrollY>300)scrollTo({top:$("f").offsetTop-80,behavior:"smooth"})}
-function okStep(){const d=document.querySelector(`#f [data-s="${ST}"]`);if(![...d.querySelectorAll("input,select,textarea")].every(i=>i.reportValidity()))return false;if(ST===2&&!d.querySelector("[name=secteurs]:checked")){$("e").textContent="Choisissez au moins un secteur d'activité.";return false}$("e").textContent="";return true}
-const QUOTE="« Participez à la vitrine économique majeure du département de Guinguinéo ! Bénéficiez d'un espace professionnel d'exposition pour commercialiser vos produits et nouer de précieux partenariats d'affaires. »";
-function form(){nav();
- if(!open())return v(`<div class="card"><h2>Inscriptions closes</h2><p>La date limite (${limTxt()}) est dépassée.</p><p><a href="#" id="lg">J'ai déjà un compte</a></p></div>`),$("lg").onclick=e=>{e.preventDefault();login()};
- const P=CFG.photos?.length?CFG.photos:[FLYER],S=P.length<2?[P[0],P[0]]:P;ST=1;
- v(`<section class="hero"><div class="sl">${S.map(u=>`<img src="${esc(u)}" alt="">`).join("")}</div><div class="ov"><span class="kick">DÉPARTEMENT DE GUINGUINÉO · FASECA-KB 2026</span><h1>OPPORTUNITÉ COMMERCIALE RURALE</h1><p>${QUOTE}</p><p><b>${esc(CFG.dates)}</b> · ${esc(CFG.lieu)}<br>Inscriptions jusqu'au ${limTxt()} · ${CFG.stands} stands</p><a class="btn y" href="#f" id="go">S'inscrire maintenant</a></div></section>
- <form class="card" id="f" novalidate style="max-width:780px;margin:0 auto"><h2 class="ttl">OPPORTUNITÉ COMMERCIALE RURALE</h2><p class="mu" style="margin-top:-6px;font-size:14px">${QUOTE}</p><p id="sp" style="font-weight:700;color:var(--g)"></p>
- ${body()}
- <div data-s="3" class="hide"><p style="font-weight:600;margin:0">Formule choisie *</p><div class="packs" style="margin:8px 0 12px">${Object.entries(PK).map(([k,p])=>`<label class="pack"><input type="radio" name="formule" value="${k}" required><strong>${p.n}</strong><b>${fcfa(price(k))}</b><ul>${p.d.map(x=>`<li>${x}</li>`).join("")}</ul><small>Cible : ${p.c}<br>Réservation (50 %) : ${fcfa(price(k)/2)}</small></label>`).join("")}</div>
- <p class="mu" style="font-size:14px">Paiement : 50 % à la réservation, solde avant le ${esc(CFG.solde)}, ou en une fois. Espèces au Secrétariat de la Mairie ou mobile money au ${esc(CFG.tel)}.</p>
- <label>Mode de paiement prévu<select name="mode_paiement"><option value=""></option>${PAY.map(p=>`<option>${p}</option>`).join("")}</select></label>
- <div class="f2"><label>Photographie principale de présentation<input type="file" name="photo_main" accept="image/*"></label><label>Photos de vos produits / de votre activité (5 max.)<input type="file" name="photos" accept="image/*" multiple></label></div>
- <h3>Votre accès (pour retrouver votre dossier)</h3><div class="f2"><label>E-mail *<input name="email" type="email" required autocomplete="email"></label><label>Mot de passe * (8 caractères min., lettres et chiffres)<span class="pwr"><input name="pw" type="password" required minlength="8" maxlength="72" autocomplete="new-password"><button type="button" class="btn o s" id="pt">Afficher</button></span><span class="meter" id="pm"><i></i></span><small class="mu"></small></label></div>
- <label style="display:flex;gap:8px"><input type="checkbox" name="ok" style="width:auto;margin-top:4px" required><span>Je certifie l'exactitude de ces informations. Le montant versé et le numéro de stand sont enregistrés par le Comité après réception du paiement ; la réservation n'est ferme qu'après sa confirmation.</span></label><input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
- <div class="err" id="e" role="alert"></div><div style="display:flex;gap:8px"><button type="button" class="btn o" id="pv">Précédent</button><button type="submit" class="btn" id="nx" style="flex:1">Suivant</button></div>
- <p class="mu" style="text-align:center;margin-bottom:0">Déjà inscrit ? <a href="#" id="lg">Accéder à mon espace</a></p></form>`);
- document.querySelectorAll(".pack input").forEach(i=>i.onchange=()=>document.querySelectorAll("label.pack").forEach(l=>l.classList.toggle("on",l.querySelector("input").checked)));
- $("lg").onclick=e=>{e.preventDefault();login()};$("go").onclick=e=>{e.preventDefault();$("f").scrollIntoView({behavior:"smooth"})};$("pv").onclick=()=>step(ST-1);
- $("f").onsubmit=e=>{e.preventDefault();if(!okStep())return;ST<3?step(ST+1):submit()};
- enhance();step(1);heroInit()}
-async function submit(){
- if(PREVIEW)return toast("Aperçu : l'inscription est désactivée.");
- const f=new FormData($("f")),g=k=>String(f.get(k)||"").trim();
- if(g("website"))return;
- if(!pwOK(g("pw")))return $("e").textContent="Mot de passe trop faible : 8 caractères minimum, avec lettres et chiffres.";
- const row={...collect(f),email:g("email").toLowerCase(),formule:g("formule"),mode_paiement:g("mode_paiement")};
- if(!/^\+?[0-9 ().-]{9,18}$/.test(row.telephone)){step(1);return $("e").textContent="Numéro de téléphone invalide."}
- const b=$("nx");b.disabled=true;
- const {data,error}=await sb.auth.signUp({email:row.email,password:g("pw"),options:{data:{nom:row.responsable,telephone:row.telephone}}});
- if(error||data?.user?.identities?.length===0){b.disabled=false;return $("e").textContent=error?"Inscription impossible : "+error.message:"Un compte existe déjà avec cet e-mail : connectez-vous."}
- let s=data.session;if(!s){const r=await sb.auth.signInWithPassword({email:row.email,password:g("pw")});s=r.data?.session}
- if(!s){try{localStorage.setItem("faseca_pending_"+row.email,JSON.stringify(row))}catch{}b.disabled=false;return login("Compte créé. Confirmez votre e-mail, puis connectez-vous : votre inscription sera enregistrée (vous pourrez alors ajouter vos photos).")}
- const ins=await sb.from("faseca_inscriptions").insert(row).select().single();if(ins.error){b.disabled=false;return $("e").textContent="Enregistrement impossible : "+ins.error.message}
- const fl=[f.get("photo_main"),...f.getAll("photos")].filter(x=>x&&x.size);
- if(fl.length){const ph=await upPhotos(fl,s.user.id);if(ph.length)await sb.from("faseca_inscriptions").update({photos:ph}).eq("id",ins.data.id)}
- toast("Inscription enregistrée. Bienvenue !");boot()}
-function login(msg){nav();v(`<form class="card" id="l" style="max-width:420px;margin:30px auto"><h2>Mon espace</h2><label>E-mail<input name="e" type="email" required></label><label>Mot de passe<input name="p" type="password" required></label><div class="err ${msg?"ok":""}" id="e">${esc(msg||"")}</div><button class="btn" style="width:100%">Se connecter</button><p style="text-align:center"><a href="#" id="fg">Mot de passe oublié ?</a></p><p style="text-align:center"><a href="#" id="nf2">Pas encore inscrit ? Remplir le formulaire</a></p></form>`);
- $("nf2").onclick=e=>{e.preventDefault();form()};$("fg").onclick=async e=>{e.preventDefault();const m=$("l").e.value.trim().toLowerCase();if(!m)return toast("Saisissez votre e-mail ci-dessus.");const rs=await sb.auth.resetPasswordForEmail(m,{redirectTo:location.href.split("#")[0]});toast(rs.error?(rs.error.status===429?"Trop de demandes : réessayez dans quelques minutes.":"Erreur : "+rs.error.message):"Si ce compte existe, un lien de réinitialisation vient d'être envoyé.")};
- $("l").onsubmit=async x=>{x.preventDefault();if(Date.now()<(+sessionStorage.getItem("lk")||0)){$("e").className="err";return $("e").textContent="Trop de tentatives. Réessayez dans une minute."}const f=new FormData($("l")),r=await sb.auth.signInWithPassword({email:String(f.get("e")).trim().toLowerCase(),password:f.get("p")});if(r.error){const n=(+sessionStorage.getItem("lf")||0)+1;sessionStorage.setItem("lf",n);if(n>=5){sessionStorage.setItem("lk",Date.now()+6e4);sessionStorage.setItem("lf",0)}$("e").className="err";$("e").textContent="E-mail ou mot de passe incorrect."}else{sessionStorage.setItem("lf",0);boot()}}}
+let sCat = "A";
+function drawSCats() {
+  $("sCats").innerHTML = Object.entries(CATS).map(([k, v]) =>
+    `<button type="button" class="cat ${k === sCat ? "on" : ""}" data-k="${k}"><span class="letter">${k}</span><b>${v[0]}</b><span>${v[1]}</span></button>`).join("");
+  $("sCats").querySelectorAll(".cat").forEach(b => b.onclick = () => { sCat = b.dataset.k; drawSCats(); });
+}
+$("toSignup").onclick = e => { e.preventDefault(); showForm("signup"); drawSCats(); };
+$("toLogin").onclick = e => { e.preventDefault(); showForm("login"); };
+$("toSup").onclick = e => { e.preventDefault(); showForm("sup"); };
+$("supBack").onclick = e => { e.preventDefault(); showForm("login"); };
+$("toForgot").onclick = async e => {
+  e.preventDefault(); const em = $("em").value.trim();
+  $("lerr").style.color = ""; 
+  if (!em) { $("lerr").textContent = "Saisissez votre e-mail, puis cliquez à nouveau."; return; }
+  await sb.rpc("log_security_event", { p_email: em, p_event: "reset_demande" });
+  await sb.auth.resetPasswordForEmail(em, { redirectTo: location.origin + location.pathname });
+  $("lerr").style.color = "var(--g)";
+  $("lerr").textContent = "Si un compte existe avec cet e-mail, un message de réinitialisation vient d'être envoyé.";
+};
+$("recovery").onsubmit = async e => {
+  e.preventDefault(); $("rerr").textContent = "";
+  if (!pwOK($("r_pw").value)) { $("rerr").textContent = PW_MSG; return; }
+  const { error } = await sb.auth.updateUser({ password: $("r_pw").value });
+  if (error) { $("rerr").textContent = "Modification impossible : " + error.message; return; }
+  recovering = false; history.replaceState(null, "", location.pathname); start();
+};
 
-// ---- Démarrage : formulaire si non connecté ----
-async function boot(){
- const c=await sb.from("faseca_config").select("data").eq("id",1).maybeSingle();if(c.data?.data)Object.assign(CFG,c.data.data);
- const {data:{session}}=await sb.auth.getSession();if(!session){user=null;return form()}user=session.user;nav();idle();
- prof=(await sb.from("profiles").select("role,actif").eq("id",user.id).maybeSingle()).data||{};
- if(prof.actif===false){await sb.auth.signOut();user=null;toast("Ce compte est désactivé. Contactez le Comité.");return form()}
- const k="faseca_pending_"+(user.email||"").toLowerCase(),raw=localStorage.getItem(k);if(raw){const r=await sb.from("faseca_inscriptions").insert(JSON.parse(raw));if(!r.error)localStorage.removeItem(k)}
- PREVIEW=false;MODE="super";
- if(["admin","super_admin","lecteur"].includes(prof.role)){REAL=prof.role==="super_admin";SA=REAL;RW=SA;EX=prof.role!=="lecteur";return admin()}
- REAL=false;
- const {data}=await sb.from("faseca_inscriptions").select("*").order("created_at",{ascending:false}).limit(1);
- data?.[0]?dash(data[0]):form()}
+$("signup").onsubmit = async e => {
+  e.preventDefault(); $("serr").textContent = "";
+  const email = $("s_em").value.trim(), password = $("s_pw").value;
+  if (!pwOK(password)) { $("serr").textContent = PW_MSG; return; }
+  const projet = { categorie: sCat, titre: $("s_titre").value.trim(), type_projet: $("s_type").value, localisation: $("s_loc").value,
+    superficie: $("s_sup").value || null, description: $("s_desc").value, statut: "enregistre" };
+  const client = { prenom: $("s_pre").value, nom: $("s_nom").value, telephone: $("s_tel").value, email };
+  const { data, error } = await sb.auth.signUp({
+    email, password,
+    options: { data: { prenom: client.prenom, nom: client.nom, telephone: client.telephone, categorie: sCat } }
+  });
+  if (isDup(data, error)) {
+    await sb.rpc("log_security_event", { p_email: email, p_event: "inscription_doublon" });
+    $("serr").textContent = DUP_MSG; return;
+  }
+  if (error) { $("serr").textContent = "Inscription impossible : " + error.message; return; }
+  let session = data.session;
+  if (!session) { const r = await sb.auth.signInWithPassword({ email, password }); session = r.data?.session; }
+  if (!session) {
+    // Confirmation e-mail exigée : le projet est gardé et enregistré à la première connexion confirmée.
+    try { localStorage.setItem("adel_pending_" + email.toLowerCase(), JSON.stringify(projet)); } catch {}
+    showForm("login");
+    $("lerr").style.color = "var(--g)";
+    $("lerr").textContent = "Compte créé. Confirmez votre e-mail, puis connectez-vous : votre projet sera enregistré.";
+    return;
+  }
+  const ins = await sb.from("fiches").insert({ user_id: session.user.id, ...projet }).select().single();
+  if (ins.error) toast("Projet non enregistré : " + ins.error.message);
+  else await archiver(ins.data, client);
+  start();
+};
+$("login").onsubmit = async e => {
+  e.preventDefault(); $("lerr").style.color = ""; $("lerr").textContent = "";
+  const r = await secureSignIn($("em").value, $("pw").value);
+  if (r.locked) $("lerr").textContent = LOCK_MSG;
+  else if (r.error) { console.error("[AUTH FOIRE]", r.error); $("lerr").textContent = "Connexion impossible : " + (r.error.message || BAD_MSG); }
+  else start();
+};
+$("sup").onsubmit = async e => {
+  e.preventDefault(); $("uerr").textContent = "";
+  const email = $("u_em").value.trim().toLowerCase(), pw = $("u_pw").value, code = $("u_code").value;
+  let session = null;
+  const si = await secureSignIn(email, pw);
+  if (si.locked) { $("uerr").textContent = LOCK_MSG; return; }
+  if (si.data?.session) session = si.data.session;
+  else {
+    if (!pwOK(pw)) { $("uerr").textContent = "Accès refusé. Première inscription : mot de passe de 8 caractères minimum, lettres et chiffres."; return; }
+    if (!$("u_pre").value.trim() || !$("u_nom").value.trim()) { $("uerr").textContent = "Indiquez votre prénom et votre nom pour la première inscription."; return; }
+    const su = await sb.auth.signUp({ email, password: pw, options: { data: { prenom: $("u_pre").value.trim(), nom: $("u_nom").value.trim() } } });
+    if (isDup(su.data, su.error)) { $("uerr").textContent = "Accès refusé. Vérifiez votre mot de passe."; return; }
+    if (su.error) { $("uerr").textContent = "Accès refusé."; return; }
+    session = su.data.session;
+    if (!session) { $("uerr").style.color = "var(--g)"; $("uerr").textContent = "Compte créé. Confirmez votre e-mail, puis revenez ici avec le même code."; return; }
+  }
+  const cl = await sb.rpc("claim_superviseur", { p_code: code });
+  if (cl.error || cl.data !== true) { await sb.auth.signOut(); $("uerr").textContent = "Accès refusé."; return; }
+  start();
+};
+function toast(msg) {
+  let t = $("toast");
+  if (!t) { t = document.createElement("div"); t.id = "toast";
+    t.style.cssText = "position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#14281d;color:#fff;padding:12px 18px;border-radius:10px;z-index:99;max-width:90vw";
+    document.body.appendChild(t); }
+  t.textContent = msg; t.style.display = "block"; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = "none", 4000);
+}
+window.addEventListener("error", e => toast("Erreur : " + e.message));
+window.addEventListener("unhandledrejection", e => toast("Erreur : " + (e.reason?.message || e.reason)));
+function setActiveMenu(view) {
+  document.querySelectorAll("aside a[data-v]").forEach(a => a.classList.toggle("on", a.dataset.v === view));
+}
+function valueText(v) {
+  if (v === null || v === undefined || v === "") return "—";
+  if (typeof v === "object") return JSON.stringify(v);
+  return String(v);
+}
+function genericRecordsHTML(rows) {
+  if (!rows || !rows.length) return '<p style="color:var(--mu)">Aucun élément disponible pour le moment.</p>';
+  return rows.map((row, i) => {
+    const entries = Object.entries(row).filter(([k,v]) => !["id","user_id","fiche_id"].includes(k) && v !== null && v !== "");
+    return `<article class="card" style="margin:10px 0"><h4>Élément ${i+1}</h4><div class="rows">${entries.map(([k,v]) => `<div><b>${esc(k.replaceAll("_"," "))} :</b><span>${esc(valueText(v))}</span></div>`).join("")}</div></article>`;
+  }).join("");
+}
+async function renderDataPage(title, table, intro, ownOnly=false) {
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>${esc(title)}</h4><p style="color:var(--mu)">${esc(intro)}</p><p>Chargement des données…</p></div>`;
+  let query = sb.from(table).select("*").limit(50);
+  if (ownOnly) query = query.eq("user_id", user.id);
+  const {data, error} = await query;
+  if (error) {
+    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>${esc(title)}</h4><p class="err">Impossible de charger cette rubrique : ${esc(error.message)}</p><p style="color:var(--mu)">Vérifiez les politiques RLS et les autorisations de la table <b>${esc(table)}</b> dans Supabase.</p></div>`;
+    return;
+  }
+  $("grid").innerHTML = `<div style="grid-column:1/-1"><div class="card"><h4>${esc(title)}</h4><p style="color:var(--mu)">${esc(intro)}</p><p>${data.length} élément(s) affiché(s), maximum 50.</p></div>${genericRecordsHTML(data)}</div>`;
+}
+const DOCS_BUCKET = "documents";
+const MAX_DOC_SIZE = 10 * 1024 * 1024;
+const DOC_MIME_TYPES = ["application/pdf", "image/jpeg", "image/png", "application/msword", DOCX_MIME, "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
+function safeFileName(name) {
+  return String(name || "document").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9._-]/g, "_").slice(-120);
+}
+async function renderDocumentsPage() {
+  if (!fiche) {
+    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Mes documents</h4><p>Enregistrez d'abord un projet pour pouvoir lui associer des documents.</p><button class="btn" id="goProject">Créer mon projet</button></div>`;
+    $("goProject").onclick = () => navigate("projet");
+    return;
+  }
+  const folder = `${user.id}/${fiche.id}`;
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Mes documents</h4><p style="color:var(--mu)">Ajoutez les pièces justificatives de votre projet (PDF, images, Word ou Excel — 10 Mo maximum par fichier).</p><form id="documentUploadForm"><label for="documentFile">Choisir un document</label><input id="documentFile" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx" required style="display:block;margin:10px 0"><button class="btn" id="uploadDocumentBtn" type="submit">Joindre le document</button><p id="documentUploadStatus" role="status" style="margin-top:10px"></p></form></div><div class="card" style="grid-column:1/-1"><h4>Documents déposés</h4><p id="documentsLoading" style="color:var(--mu)">Chargement…</p><div id="documentsList"></div></div>`;
+  $("documentUploadForm").onsubmit = async (e) => {
+    e.preventDefault();
+    const file = $("documentFile").files?.[0];
+    const status = $("documentUploadStatus");
+    const btn = $("uploadDocumentBtn");
+    if (!file) { status.textContent = "Choisissez d'abord un fichier."; return; }
+    if (file.size > MAX_DOC_SIZE) { status.textContent = "Fichier trop volumineux : la limite est de 10 Mo."; return; }
+    if (file.type && !DOC_MIME_TYPES.includes(file.type)) { status.textContent = "Format non autorisé. Utilisez PDF, JPG, PNG, DOC, DOCX, XLS ou XLSX."; return; }
+    const path = `${folder}/${Date.now()}_${safeFileName(file.name)}`;
+    btn.disabled = true; btn.textContent = "Envoi en cours…"; status.textContent = "Téléversement sécurisé en cours…";
+    const { error } = await sb.storage.from(DOCS_BUCKET).upload(path, file, { upsert: false, contentType: file.type || undefined });
+    btn.disabled = false; btn.textContent = "Joindre le document";
+    if (error) {
+      status.textContent = `Échec de l'envoi : ${error.message}. Vérifiez que le bucket « documents » et ses politiques Storage sont configurés.`;
+      return;
+    }
+    $("documentFile").value = "";
+    status.textContent = "Document envoyé avec succès.";
+    await loadStoredDocuments(folder);
+  };
+  await loadStoredDocuments(folder);
+}
+async function loadStoredDocuments(folder) {
+  const loading = $("documentsLoading"), list = $("documentsList");
+  if (!list) return;
+  loading.textContent = "Chargement…";
+  const { data, error } = await sb.storage.from(DOCS_BUCKET).list(folder, { limit: 100, sortBy: { column: "created_at", order: "desc" } });
+  if (error) {
+    loading.textContent = `Impossible de charger les documents : ${error.message}. Vérifiez le bucket privé « ${DOCS_BUCKET} » et les politiques Storage.`;
+    return;
+  }
+  const files = (data || []).filter(f => f.name && f.id);
+  loading.textContent = files.length ? `${files.length} document(s) déposé(s).` : "Aucun document déposé pour le moment.";
+  list.innerHTML = files.map((f, i) => `<div class="card" style="margin:10px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><b>${esc(f.name.replace(/^\d+_/, ""))}</b><div style="font-size:12px;color:var(--mu)">${f.metadata?.size ? (f.metadata.size / 1024 / 1024).toFixed(2) + " Mo" : "Document"}</div></div><button class="btn" type="button" data-doc-index="${i}">Ouvrir / télécharger</button></div>`).join("");
+  list.querySelectorAll("button[data-doc-index]").forEach(button => button.addEventListener("click", async () => {
+    const f = files[Number(button.dataset.docIndex)];
+    button.disabled = true; button.textContent = "Préparation…";
+    const { data: signed, error: signError } = await sb.storage.from(DOCS_BUCKET).createSignedUrl(`${folder}/${f.name}`, 60);
+    button.disabled = false; button.textContent = "Ouvrir / télécharger";
+    if (signError) { toast("Ouverture impossible : " + signError.message); return; }
+    window.open(signed.signedUrl, "_blank", "noopener,noreferrer");
+  }));
+}
+async function renderSettings() {
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Paramètres de mon compte</h4><label>Prénom<input id="setPrenom" value="${esc(profile.prenom || "")}"></label><label>Nom<input id="setNom" value="${esc(profile.nom || "")}"></label><label>Téléphone<input id="setTel" value="${esc(profile.telephone || "")}"></label><label>E-mail<input value="${esc(user.email || "")}" disabled></label><div class="err" id="setErr"></div><button class="btn" id="saveSettings">Enregistrer les modifications</button><p style="color:var(--mu);font-size:13px">L'adresse e-mail est gérée par l'authentification Supabase.</p></div>`;
+  $("saveSettings").onclick = async () => {
+    const payload = {prenom: $("setPrenom").value.trim(), nom: $("setNom").value.trim(), telephone: $("setTel").value.trim()};
+    const {error} = await sb.from("profiles").update(payload).eq("id", user.id);
+    if (error) { $("setErr").textContent = "Enregistrement impossible : " + error.message; return; }
+    profile = {...profile, ...payload}; $("hello").textContent = "Bonjour " + [profile.prenom, profile.nom].filter(Boolean).join(" ");
+    toast("Profil mis à jour.");
+  };
+}
 
-// ---- Espace exposant ----
-function dash(r){const p=price(r.formule),i=PATH.indexOf(r.statut),reste=Math.max(0,p-(r.montant_verse||0)),d=r.details||{},row=(a,b)=>`<div><b>${a}</b><span>${esc(b||"—")}</span></div>`;
- v(`<div class="card"><h2>Mon dossier ${esc(r.numero||"")}</h2><p class="mu">Inscrit le ${fmt(r.created_at)} · ${esc(CFG.dates)} · ${esc(CFG.lieu)}</p>
- <div class="steps">${PATH.map((s,j)=>`<div class="st ${j<i?"ok":j===i?"cur":""}"><i>${j<i?"✓":j+1}</i><span>${s}</span></div>`).join("")}</div>
- ${r.statut==="Liste d'attente"?`<p class="err">Les ${CFG.stands} stands sont atteints : votre demande est sur liste d'attente.</p>`:""}${r.statut==="Refusée"?`<p class="err">Votre demande n'a pas été retenue.${r.notes?" "+esc(r.notes):""}</p>`:""}
- <div class="kp"><div><small>Statut</small><span class="chip ${sc(r.statut)}" style="margin-top:6px">${esc(r.statut)}</span></div><div><small>Montant versé</small><b>${fcfa(r.montant_verse)}</b></div><div><small>Reste à payer</small><b>${fcfa(reste)}</b></div><div><small>N° de stand</small><b>${esc(r.stand||"—")}</b></div></div></div>
- <div class="card info"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><h3>Mes informations</h3><button class="btn s" id="ed">Modifier mes informations</button></div>${row("Entreprise / activité",r.organisation)}${row("Responsable",r.responsable)}${row("Secteur(s)",(r.secteurs||[]).join(", "))}${row("Téléphone / WhatsApp",r.telephone)}${row("Commune de provenance",r.commune)}${row("E-mail (identifiant)",r.email||user.email)}${row("Formule",pn(r.formule)+" – "+fcfa(p))}${row("Produits / services",r.produits)}${row("Paiement prévu",r.mode_paiement)}${XF.map(x=>row(x[1],d[x[0]])).join("")}</div>
- <div class="card"><h3>Mes photographies</h3><div class="ph" id="ph"></div><label style="margin-top:12px">Ajouter des photographies<input type="file" id="pa" accept="image/*" multiple></label></div>
- <div class="card"><h3>Comment payer</h3><ul><li>Réservation : <b>${fcfa(p/2)}</b> (50 %), puis le solde avant le ${esc(CFG.solde)} ; ou ${fcfa(p)} en une fois.</li><li>Mobile money (OM, Wave) ou virement : <b>${esc(CFG.tel)}</b> – indiquez votre N° de dossier ${esc(r.numero||"")}.</li><li>Espèces : Secrétariat de la Mairie de Khelcom Birame.</li></ul><p class="mu">Le Comité met à jour votre dossier dès réception du paiement.</p></div>
- <div class="f2"><form class="card" id="pwf"><h3>Changer mon mot de passe</h3><label>Nouveau mot de passe<input type="password" name="p" minlength="8" maxlength="72" autocomplete="new-password" required></label><button class="btn">Modifier</button></form><form class="card" id="spf"><h3>Besoin d'aide ?</h3><label>Votre message<textarea name="m" rows="3" maxlength="1500" required></textarea></label><button class="btn">Envoyer à l'équipe</button></form></div>`);
- const ph=async()=>{const L=await urls(r.photos);$("ph").innerHTML=L.map((x,k)=>x.u?`<div><img src="${x.u}" alt="Photo ${k+1}"><button class="btn d s" data-d="${k}" title="Supprimer">✕</button></div>`:"").join("")||'<p class="mu">Aucune photographie.</p>'},sv=()=>sb.from("faseca_inscriptions").update({photos:r.photos}).eq("id",r.id);ph();
- $("ph").onclick=async e=>{const b=e.target.closest("[data-d]");if(!b||!confirm("Supprimer cette photographie ?"))return;const p=r.photos[+b.dataset.d];await sb.storage.from("faseca-photos").remove([p]);r.photos=r.photos.filter(x=>x!==p);await sv();ph()};
- $("pa").onchange=async e=>{const n=await upPhotos(e.target.files,user.id);if(n.length){r.photos=[...(r.photos||[]),...n];await sv();ph();toast("Photos ajoutées.")}};
- $("ed").onclick=()=>{modal(`<form id="ef"><h3>Modifier mes informations</h3>${body(r).replace(/ hide/g,"")}<div class="err" id="ee"></div><button class="btn">Enregistrer</button></form>`);$("ef").onsubmit=async e=>{e.preventDefault();const f=new FormData($("ef"));if(!f.getAll("secteurs").length)return $("ee").textContent="Choisissez au moins un secteur.";const x=await sb.from("faseca_inscriptions").update({...collect(f),updated_at:new Date().toISOString()}).eq("id",r.id);if(x.error)return $("ee").textContent=x.error.message;$("md").close();toast("Informations mises à jour.");boot()}};
- $("pwf").onsubmit=async e=>{e.preventDefault();const p=new FormData($("pwf")).get("p");if(!pwOK(p))return toast("Mot de passe trop faible : 8 caractères, lettres et chiffres.");const x=await sb.auth.updateUser({password:p});toast(x.error?"Erreur : "+x.error.message:"Mot de passe modifié.");e.target.reset()};
- $("spf").onsubmit=async e=>{e.preventDefault();const x=await sb.from("faseca_support").insert({numero:r.numero,message:new FormData($("spf")).get("m")});toast(x.error?"Erreur : "+x.error.message:"Message envoyé à l'équipe.");if(!x.error)e.target.reset()}}
+// ===== MESSAGERIE CLIENT / SUPERVISEUR / SUPER ADMIN =====
+// Table messages : id, sender_id, recipient_id, subject, content, is_read, created_at.
+// Table journal_communications : journalise les prises de contact WhatsApp.
+let activeMessageClientId = null;
 
-// ---- Sélecteur « Voir en tant que » (super administrateur uniquement) ----
-function sw(){if(!REAL)return;
- const d=document.createElement("div");d.className="card";d.style.cssText="margin:10px 0;padding:12px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-left:5px solid var(--y)";
- d.innerHTML=`<b>Voir en tant que :</b><select id="vm" style="width:auto;margin:0;min-width:260px"><option value="super">Super administrateur</option><option value="admin">Administrateur superviseur (lecture seule)</option><option value="client">Client / exposant</option></select><small class="mu">Aperçu de l'interface. Vos droits réels restent ceux de super administrateur.</small>`;
- $("v").prepend(d);$("vm").value=MODE;
- $("vm").onchange=e=>{MODE=e.target.value;PREVIEW=MODE==="client";SA=MODE==="super";RW=SA;EX=true;TAB="exp";MODE==="client"?clientPreview():admin()}}
-async function clientPreview(id){
- if(!ROWS.length){const r=await sb.from("faseca_inscriptions").select("*").order("created_at",{ascending:false});ROWS=r.data||[]}
- const r=ROWS.find(x=>x.id===id);
- if(r){dash(r);["#pwf","#spf","#ed"].forEach(s=>document.querySelector(s)?.remove());$("pa")?.closest("label")?.remove();document.querySelectorAll("#ph [data-d]").forEach(b=>b.remove())}else form();
- const p=document.createElement("div");p.className="card";p.style.cssText="margin:10px 0;padding:12px 16px";
- p.innerHTML=`<b>Aperçu client :</b> <select id="cp" style="width:auto;margin:0 0 0 8px;min-width:260px"><option value="">Nouveau visiteur (formulaire d'inscription)</option>${ROWS.map(x=>`<option value="${x.id}" ${x.id===id?"selected":""}>${esc(x.numero)} – ${esc(x.organisation)}</option>`).join("")}</select> <small class="mu">Lecture seule : aucune modification possible dans l'aperçu.</small>`;
- $("v").prepend(p);$("cp").onchange=e=>clientPreview(e.target.value);sw()}
+function messageTime(value) {
+  return value ? new Date(value).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" }) : "";
+}
+function isMessageAdmin() {
+  return space === "super_admin" || space === "admin" || space === "lecteur";
+}
+function whatsappNumber(raw) {
+  let n = String(raw || "").replace(/\D/g, "");
+  if (n.startsWith("00")) n = n.slice(2);
+  // Les numéros sénégalais saisis au format local (9 chiffres) sont normalisés en +221.
+  if (n.length === 9) n = "221" + n;
+  return n;
+}
+function whatsappUrl(phone, message) {
+  const n = whatsappNumber(phone);
+  return n ? `https://wa.me/${n}?text=${encodeURIComponent(message || "")}` : "";
+}
+async function logWhatsAppContact(clientId, phone, body) {
+  const payload = {
+    client_user_id: clientId,
+    supervisor_id: user.id,
+    channel: "whatsapp",
+    phone: String(phone || ""),
+    body: String(body || "").trim() || "Prise de contact WhatsApp",
+    status: "initie"
+  };
+  const { error } = await sb.from("journal_communications").insert(payload);
+  if (error) throw error;
+}
 
-// ---- Espace équipe : super admin (contrôle total) / admin (lecture seule + Excel) ----
-async function admin(){
- const r=await sb.from("faseca_inscriptions").select("*").order("created_at",{ascending:false});
- if(r.error)return v(`<div class="card err">Erreur : ${esc(r.error.message)}<br>Avez-vous exécuté le script SQL ?</div>`);ROWS=r.data;
- const T=[["exp","Tableau de bord"],...(SA?[["jr","Journal d'activité"],["sp","Assistance"],["usr","Utilisateurs"],["cfg","Paramétrage"]]:[])];
- v(`<p class="mu" style="margin:10px 0 0">Connecté en tant que <b>${esc({super_admin:"super administrateur",admin:"administrateur (lecture seule)",lecteur:"lecteur (lecture seule)"}[REAL&&MODE==="admin"?"admin":prof.role])}</b></p><div class="adm"><nav class="side">${T.map(t=>`<button class="btn s ${t[0]===TAB?"on":""}" data-t="${t[0]}">${t[1]}</button>`).join("")}</nav><div id="tb" style="min-width:0"></div></div>`);
- sw();
- document.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{TAB=b.dataset.t;admin()});
- ({exp:tExp,jr:tJr,sp:tSp,usr:tUsr,cfg:tCfg}[SA?TAB:"exp"])()}
-const cnt=(a,fn)=>a.reduce((m,x)=>{[].concat(fn(x)).forEach(k=>m[k]=(m[k]||0)+1);return m},{});
-const bars=m=>{const mx=Math.max(1,...Object.values(m));return `<div class="bars">${Object.entries(m).map(([k,n])=>`<div><span>${esc(k)}</span><i style="width:${n/mx*100}%;min-width:4px"></i><b>${n}</b></div>`).join("")||'<p class="mu">—</p>'}</div>`};
-function tExp(){
- const act=ROWS.filter(x=>!["Refusée","Liste d'attente"].includes(x.statut)),enc=ROWS.reduce((a,x)=>a+(x.montant_verse||0),0),due=act.reduce((a,x)=>a+price(x.formule),0),com=[...new Set(ROWS.map(x=>x.commune))].sort();
- $("tb").innerHTML=`<div class="kp"><div><small>Inscriptions</small><b>${ROWS.length}</b></div><div><small>Stands retenus / ${CFG.stands}</small><b>${act.length}</b></div><div><small>Encaissé</small><b>${fcfa(enc)}</b></div><div><small>Reste à encaisser</small><b>${fcfa(Math.max(0,due-enc))}</b></div></div>
- <div class="f2"><div class="card"><h3>Par statut</h3>${bars(cnt(ROWS,x=>x.statut))}</div><div class="card"><h3>Par secteur</h3>${bars(cnt(ROWS,x=>x.secteurs||[]))}</div></div>
- <div class="card"><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between"><h3>Exposants (<span id="n"></span>)</h3>${EX?`<button class="btn s" id="xl">Télécharger l'Excel</button>`:""}</div>
- <div class="f2" style="gap:0 10px"><input id="q" placeholder="Rechercher…"><select id="fs"><option value="">Tous les statuts</option>${STAT.map(s=>`<option>${s}</option>`).join("")}</select><select id="fc"><option value="">Tous les secteurs</option>${SECT.map(s=>`<option>${s}</option>`).join("")}</select><select id="fl"><option value="">Toutes les localités</option>${com.map(s=>`<option>${esc(s)}</option>`).join("")}</select><input id="fa" type="date" title="Inscrits depuis"><input id="fb" type="date" title="Inscrits jusqu'au"></div>
- <div style="overflow-x:auto"><table id="t"></table></div></div>`;
- ["q","fs","fc","fl","fa","fb"].forEach(i=>$(i).oninput=rows);if(EX)$("xl").onclick=xlsx;
- $("t").onclick=e=>{const b=e.target.closest("[data-v]");if(b)detail(b.dataset.v)};rows();
- function rows(){const g=i=>$(i).value;VIEW=ROWS.filter(x=>(!g("fs")||x.statut===g("fs"))&&(!g("fc")||(x.secteurs||[]).includes(g("fc")))&&(!g("fl")||x.commune===g("fl"))&&(!g("fa")||x.created_at>=g("fa"))&&(!g("fb")||x.created_at<=g("fb")+"T23:59:59")&&JSON.stringify(x).toLowerCase().includes(g("q").toLowerCase()));$("n").textContent=VIEW.length;
-  $("t").innerHTML="<tr><th>Réf.</th><th>Exposant</th><th>Formule</th><th>Statut</th><th>Versé</th><th>Stand</th><th></th></tr>"+VIEW.map(x=>`<tr><td>${esc(x.numero)}<br><small class="mu">${fmt(x.created_at)}</small></td><td><b>${esc(x.organisation)}</b><br>${esc(x.responsable)} · ${esc(x.commune)}<br><small class="mu">${esc((x.secteurs||[]).join(", "))}</small></td><td>${esc(pn(x.formule))}</td><td><span class="chip ${sc(x.statut)}">${esc(x.statut)}</span></td><td>${fcfa(x.montant_verse)}</td><td>${esc(x.stand||"—")}</td><td><button class="btn s" data-v="${x.id}">Voir</button></td></tr>`).join("")}}
-async function detail(id){const r=ROWS.find(x=>x.id===id),d=r.details||{},row=(a,b)=>`<div><b>${a}</b><span>${esc(b||"—")}</span></div>`,L=await urls(r.photos);
- modal(`<h3>${esc(r.numero)} – ${esc(r.organisation)}</h3><p><span class="chip ${sc(r.statut)}">${esc(r.statut)}</span></p><div class="info">${row("Responsable",r.responsable)}${row("Téléphone",r.telephone)}${row("E-mail",r.email)}${row("Commune",r.commune)}${row("Secteur(s)",(r.secteurs||[]).join(", "))}${row("Formule",pn(r.formule)+" – "+fcfa(price(r.formule)))}${row("Versé / stand",fcfa(r.montant_verse)+" · "+(r.stand||"—"))}${row("Produits / services",r.produits)}${row("Paiement prévu",r.mode_paiement)}${XF.map(x=>row(x[1],d[x[0]])).join("")}${row("Notes",r.notes)}</div><h3 style="margin-top:14px">Photographies</h3><div class="ph">${L.map((x,k)=>x.u?`<div><a href="${x.u}" target="_blank" rel="noopener"><img src="${x.u}" alt="Photo ${k+1}"></a></div>`:"").join("")||'<p class="mu">Aucune photographie.</p>'}</div>${EX&&L.length?`<p class="mu" style="font-size:13px">Clic sur une photo pour l'ouvrir et l'enregistrer.</p>`:""}${SA?`<p><button class="btn s" id="de" type="button">Modifier</button> <button class="btn d s" id="dd" type="button">Supprimer</button></p>`:""}`);
- if(!SA)return;
- $("de").onclick=()=>{modal(`<form id="ef"><h3>Modifier le dossier ${esc(r.numero)}</h3>${body(r).replace(/ hide/g,"")}<div class="f2"><label>Statut<select name="statut">${STAT.map(s=>`<option ${s===r.statut?"selected":""}>${s}</option>`).join("")}</select></label><label>Formule<select name="formule">${Object.keys(PK).map(k=>`<option value="${k}" ${k===r.formule?"selected":""}>${pn(k)}</option>`).join("")}</select></label><label>Montant versé (Fcfa)<input type="number" min="0" step="500" name="montant_verse" value="${r.montant_verse||0}"></label><label>N° de stand<input name="stand" maxlength="20" value="${esc(r.stand||"")}"></label><label class="w">Notes<textarea name="notes" rows="2" maxlength="600">${esc(r.notes||"")}</textarea></label></div><div class="err" id="ee"></div><button class="btn">Enregistrer</button></form>`);
-  $("ef").onsubmit=async e=>{e.preventDefault();const f=new FormData($("ef")),u={...collect(f),statut:f.get("statut"),formule:f.get("formule"),montant_verse:Number(f.get("montant_verse"))||0,stand:String(f.get("stand")).trim(),notes:String(f.get("notes")).trim(),updated_at:new Date().toISOString()};
-   if(u.statut==="Stand attribué"&&!u.stand)return $("ee").textContent="Indiquez le numéro de stand.";const x=await sb.from("faseca_inscriptions").update(u).eq("id",id);if(x.error)return $("ee").textContent=x.error.message;$("md").close();toast("Dossier mis à jour (journalisé).");admin()}};
- $("dd").onclick=async()=>{if(!confirm("Supprimer définitivement ce dossier ? Une copie reste dans le journal et pourra être restaurée."))return;const x=await sb.from("faseca_inscriptions").delete().eq("id",id);if(x.error)return toast(x.error.message);$("md").close();toast("Dossier supprimé.");admin()}}
+const msgText = m => m?.content ?? "";
+const clientOf = (m, profiles) => profiles[m.sender_id]?.role === "porteur" ? m.sender_id : m.recipient_id;
+async function getSupervisorId() {
+  const { data, error } = await sb.from("profiles").select("id").in("role", ["admin", "super_admin"]).limit(1);
+  if (error || !data?.length) throw new Error("Aucun superviseur disponible.");
+  return data[0].id;
+}
 
-// ---- Super admin : paramétrage ----
-function tCfg(){
- $("tb").innerHTML=`<form class="card" id="cf" style="margin-top:14px"><h3>Paramétrage de la foire</h3><div class="f2">
- <label>Dates de la foire<input name="dates" value="${esc(CFG.dates)}" required></label><label>Lieu<input name="lieu" value="${esc(CFG.lieu)}" required></label>
- <label>Date limite d'inscription (heure de Dakar)<input type="datetime-local" name="limite" value="${esc(String(CFG.limite).slice(0,16))}" required></label><label>Nombre de stands disponibles<input type="number" min="1" name="stands" value="${CFG.stands}" required></label>
- <label>Tarif Pack standard (Fcfa)<input type="number" min="0" name="standard" value="${CFG.standard}" required></label><label>Tarif Pack institutionnel (Fcfa)<input type="number" min="0" name="institutionnel" value="${CFG.institutionnel}" required></label>
- <label>Téléphone de paiement (OM / Wave)<input name="tel" value="${esc(CFG.tel)}" required></label><label>Date limite du solde<input name="solde" value="${esc(CFG.solde)}" required></label></div>
- <label>Photographies de l'accueil (une adresse https:// par ligne ; sinon le visuel officiel est utilisé)<textarea name="photos" rows="3">${esc((CFG.photos||[]).join("\n"))}</textarea></label><div class="err" id="ce"></div><button class="btn">Enregistrer le paramétrage</button></form>`;
- $("cf").onsubmit=async e=>{e.preventDefault();const f=new FormData($("cf")),n={...CFG};
-  ["dates","lieu","tel","solde"].forEach(k=>n[k]=String(f.get(k)).trim());["stands","standard","institutionnel"].forEach(k=>n[k]=Number(f.get(k)));n.limite=new Date(f.get("limite")+":00Z").toISOString();n.photos=String(f.get("photos")).split(/\n/).map(x=>x.trim()).filter(x=>/^https:\/\//.test(x)).slice(0,8);
-  const r=await sb.from("faseca_config").upsert({id:1,data:n});if(r.error)return $("ce").textContent="Erreur : "+r.error.message;CFG=n;$("ce").className="ok";$("ce").textContent="Paramétrage enregistré."}}
-async function tJr(){
- $("tb").innerHTML=`<div class="card"><h3>Journal d'activité</h3><p class="mu">200 dernières opérations. Journal en lecture seule : aucune modification ni suppression possible depuis l'application.</p><div style="overflow-x:auto"><table id="jt"><tr><td>Chargement…</td></tr></table></div></div>`;
- const r=await sb.from("faseca_journal").select("*").order("created_at",{ascending:false}).limit(200);if(r.error)return $("jt").innerHTML=`<tr><td class="err">${esc(r.error.message)}</td></tr>`;
- const df=j=>j.ancien&&j.nouveau?Object.keys(j.nouveau).filter(k=>k!=="updated_at"&&JSON.stringify(j.nouveau[k])!==JSON.stringify(j.ancien[k])).map(k=>`${k} : ${esc(JSON.stringify(j.ancien[k]).slice(0,60))} → ${esc(JSON.stringify(j.nouveau[k]).slice(0,60))}`).join("<br>"):j.operation==="création"?"Version initiale":"";
- $("jt").innerHTML="<tr><th>Date</th><th>Dossier</th><th>Opération</th><th>Par</th><th>Détail</th><th></th></tr>"+r.data.map(j=>`<tr><td>${new Date(j.created_at).toLocaleString("fr-FR")}</td><td>${esc(j.numero)}</td><td><span class="chip c2">${esc(j.operation)}</span></td><td>${esc(j.acteur)}</td><td><small>${df(j)}</small></td><td>${j.ancien?`<button class="btn s o" data-r="${j.id}">Restaurer l'ancienne version</button>`:""}</td></tr>`).join("");
- $("jt").onclick=async e=>{const b=e.target.closest("[data-r]");if(!b||!confirm("Restaurer la version précédant cette opération ?"))return;const x=await sb.rpc("faseca_restaurer",{p:b.dataset.r});toast(x.error?"Erreur : "+x.error.message:"Version restaurée.");if(!x.error)tJr()}}
-async function tSp(){const r=await sb.from("faseca_support").select("*").order("created_at",{ascending:false}).limit(100);
- $("tb").innerHTML=`<div class="card"><h3>Demandes d'assistance</h3>${(r.data||[]).map(s=>`<p style="border-bottom:1px solid var(--bd);padding:8px 0;margin:0"><b>${esc(s.numero||"")}</b> · ${fmt(s.created_at)}<br>${esc(s.message)}</p>`).join("")||'<p class="mu">Aucune demande.</p>'}</div>`}
-async function tUsr(){
- $("tb").innerHTML=`<div class="card"><h3>Utilisateurs, rôles et comptes</h3><p class="mu">porteur = exposant · admin = supervision en lecture seule + Excel · super_admin = tous les accès. Les mots de passe ne sont jamais visibles : « Réinitialiser » envoie un lien sécurisé à l'utilisateur.</p><div style="overflow-x:auto"><table id="ut"><tr><td>Chargement…</td></tr></table></div></div>`;
- const [r,q]=await Promise.all([sb.from("profiles").select("*").limit(500),sb.from("faseca_resets").select("*").order("created_at",{ascending:false})]);
- if(r.error)return $("ut").innerHTML=`<tr><td class="err">${esc(r.error.message)}</td></tr>`;const last={};(q.data||[]).forEach(x=>last[x.email]=last[x.email]||x);
- $("ut").innerHTML="<tr><th>Utilisateur</th><th>Rôle</th><th>Compte</th><th>Mot de passe</th></tr>"+r.data.map(u=>{const me=u.id===user.id,em=u.email||"";return `<tr><td>${esc([u.prenom,u.nom].filter(Boolean).join(" ")||"—")}<br><small class="mu">${esc(em||u.id)}</small></td><td><select data-u="${u.id}" ${me?"disabled":""}>${ROLES.map(x=>`<option ${x===u.role?"selected":""}>${x}</option>`).join("")}</select></td><td><select data-a="${u.id}" ${me?"disabled":""}><option value="1" ${u.actif!==false?"selected":""}>Actif</option><option value="0" ${u.actif===false?"selected":""}>Désactivé</option></select></td><td>${em&&!me?`<button class="btn s o" data-p="${esc(em)}">Réinitialiser</button>`:""}${last[em]?`<br><small class="mu">Dernière demande : ${fmt(last[em].created_at)}</small>`:""}${u.role!=="porteur"&&em?`<br><button class="btn s o" data-j="${esc(em)}" style="margin-top:4px">Activité</button>`:""}</td></tr>`}).join("");
- $("ut").onchange=async e=>{const t=e.target,x=t.dataset.u?await sb.from("profiles").update({role:t.value}).eq("id",t.dataset.u):t.dataset.a?await sb.from("profiles").update({actif:t.value==="1"}).eq("id",t.dataset.a):null;if(x)toast(x.error?"Erreur : "+x.error.message:"Compte mis à jour.")};
- $("ut").onclick=async e=>{const b=e.target.closest("[data-p],[data-j]");if(!b)return;
-  if(b.dataset.p){const em=b.dataset.p,x=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.href.split("#")[0]});if(x.error)return toast("Erreur : "+x.error.message);await sb.from("faseca_resets").insert({email:em});toast("Lien de réinitialisation envoyé à "+em+".");tUsr()}
-  else{const j=await sb.from("faseca_journal").select("*").eq("acteur",b.dataset.j).order("created_at",{ascending:false}).limit(30);modal(`<h3>Activité de ${esc(b.dataset.j)}</h3>${(j.data||[]).map(x=>`<p style="border-bottom:1px solid var(--bd);margin:0;padding:6px 0">${new Date(x.created_at).toLocaleString("fr-FR")} · <b>${esc(x.operation)}</b> · ${esc(x.numero)}</p>`).join("")||'<p class="mu">Aucune activité enregistrée.</p>'}`)}}}
+async function renderMessages() {
+  const admin = isMessageAdmin();
+  const readOnly = space === "lecteur";
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>${admin ? "Messagerie – clients" : "Mes messages"}</h4><p style="color:var(--mu)">Chargement des conversations…</p></div>`;
 
-// ---- Export Excel mis en forme ----
-async function xlsx(){
- const wb=new ExcelJS.Workbook();wb.creator="FASECA-KB 2026";
- const thin={style:"thin",color:{argb:"FFDBE5DF"}},bx={top:thin,left:thin,bottom:thin,right:thin},fill=c=>({type:"pattern",pattern:"solid",fgColor:{argb:c}});
- const STC={"Reçue":["FFFFF4C2","FF7A5C00"],"Réservation confirmée":["FFDFF2E5","FF1B5E35"],"Stand attribué":["FFD6E4FF","FF0F2A5C"],"Soldée":["FF1B5E35","FFFFFFFF"],"Liste d'attente":["FFFFE0B2","FF8A4B00"],"Refusée":["FFFDE2E2","FFA31D1D"]};
- const sheet=(name,title,heads,rows,w,stCol)=>{const ws=wb.addWorksheet(name,{views:[{state:"frozen",ySplit:3,showGridLines:false}],pageSetup:{orientation:"landscape",paperSize:9,fitToPage:true,fitToWidth:1,fitToHeight:0}}),n=heads.length;let c;
-  ws.mergeCells(1,1,1,n);c=ws.getCell(1,1);c.value="FASECA-KB 2026 – "+title;c.font={name:"Calibri",size:16,bold:true,color:{argb:"FFFFFFFF"}};c.fill=fill("FF1B5E35");c.alignment={vertical:"middle",indent:1};ws.getRow(1).height=32;
-  ws.mergeCells(2,1,2,n);c=ws.getCell(2,1);c.value=`${CFG.dates} · ${CFG.lieu} · généré le ${new Date().toLocaleDateString("fr-FR")} · ${rows.length} ligne(s)`;c.font={name:"Calibri",size:10,italic:true,color:{argb:"FF0F2A5C"}};c.fill=fill("FFF2B705");c.alignment={vertical:"middle",indent:1};ws.getRow(2).height=20;
-  heads.forEach((h,i)=>{c=ws.getCell(3,i+1);c.value=h;c.font={name:"Calibri",bold:true,color:{argb:"FFFFFFFF"}};c.fill=fill("FF0F2A5C");c.alignment={horizontal:"center",vertical:"middle",wrapText:true};c.border=bx;ws.getColumn(i+1).width=w[i]});ws.getRow(3).height=26;
-  rows.forEach((r,ri)=>r.forEach((x,i)=>{c=ws.getCell(4+ri,i+1);c.value=x===""||x==null?"—":x;c.font={name:"Calibri",size:10};c.border=bx;c.fill=fill(ri%2?"FFF4F7F5":"FFFFFFFF");c.alignment={vertical:"top",wrapText:true,horizontal:typeof x==="number"?"right":"left"};if(typeof x==="number")c.numFmt="#,##0";
-   if(i===stCol&&STC[x]){c.fill=fill(STC[x][0]);c.font={name:"Calibri",size:10,bold:true,color:{argb:STC[x][1]}};c.alignment={vertical:"top",horizontal:"center"}}}));
-  if(rows.length)ws.autoFilter={from:{row:3,column:1},to:{row:3+rows.length,column:n}}};
- const act=ROWS.filter(x=>!["Refusée","Liste d'attente"].includes(x.statut));
- if(!VIEW.length)VIEW=ROWS;
- sheet("Exposants","Liste des exposants",["N° dossier","Date","Entreprise / organisation","Responsable","Secteur(s)","Téléphone","Commune","E-mail","Formule","Statut","Tarif (Fcfa)","Versé (Fcfa)","Reste (Fcfa)","N° stand","Paiement prévu","Produits exposés"],
-  VIEW.map(x=>[x.numero,fmt(x.created_at),x.organisation,x.responsable,(x.secteurs||[]).join(", "),x.telephone,x.commune,x.email,pn(x.formule),x.statut,price(x.formule),x.montant_verse||0,Math.max(0,price(x.formule)-(x.montant_verse||0)),x.stand,x.mode_paiement,x.produits]),[18,12,30,24,24,18,20,30,26,22,14,14,14,10,22,44],9);
- const syn=[["Inscriptions reçues",ROWS.length,""],["Stands retenus (hors refus / attente)",act.length,""],...STAT.map(s=>["Statut : "+s,ROWS.filter(x=>x.statut===s).length,""]),
-  ...Object.keys(PK).map(k=>["Formule : "+pn(k),ROWS.filter(x=>x.formule===k).length,ROWS.filter(x=>x.formule===k).reduce((a,x)=>a+(x.montant_verse||0),0)]),
-  ...SECT.map(s=>["Secteur : "+s,ROWS.filter(x=>(x.secteurs||[]).includes(s)).length,""]),
-  ["TOTAL ENCAISSÉ (Fcfa)","",ROWS.reduce((a,x)=>a+(x.montant_verse||0),0)],["RESTE À ENCAISSER (Fcfa)","",Math.max(0,act.reduce((a,x)=>a+price(x.formule),0)-ROWS.reduce((a,x)=>a+(x.montant_verse||0),0))]];
- sheet("Synthèse","Synthèse",["Indicateur","Exposants","Montant encaissé (Fcfa)"],syn,[46,14,26],-1);
- const buf=await wb.xlsx.writeBuffer(),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([buf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));a.download="FASECA-KB-exposants-"+new Date().toISOString().slice(0,10)+".xlsx";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
-function recovery(){nav();v(`<form class="card" id="rc" style="max-width:420px;margin:30px auto"><h2>Nouveau mot de passe</h2><label>Nouveau mot de passe (8 caractères min., lettres et chiffres)<input name="p" type="password" minlength="8" maxlength="72" required autocomplete="new-password"></label><div class="err" id="e"></div><button class="btn" style="width:100%">Enregistrer</button></form>`);$("rc").onsubmit=async e=>{e.preventDefault();const p=new FormData($("rc")).get("p");if(!pwOK(p))return $("e").textContent="Mot de passe trop faible.";const x=await sb.auth.updateUser({password:p});if(x.error)return $("e").textContent=x.error.message;toast("Mot de passe modifié.");boot()}}
-sb.auth.onAuthStateChange(ev=>{if(ev==="PASSWORD_RECOVERY")setTimeout(recovery,0)});
-window.addEventListener("unhandledrejection",e=>toast("Erreur : "+(e.reason?.message||e.reason)));
-boot();
+  if (!admin) {
+    const { data, error } = await sb.from("messages").select("*")
+      .or(`sender_id.eq.${user.id},recipient_id.eq.${user.id}`).order("created_at", { ascending: true }).limit(300);
+    if (error) {
+      $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Mes messages</h4><p class="err">Impossible de charger vos messages : ${esc(error.message)}</p><p style="color:var(--mu)">Vérifiez la table messages et ses politiques de sécurité Supabase.</p></div>`;
+      return;
+    }
+    const unread = (data || []).filter(m => m.sender_id !== user.id && !m.is_read);
+    if (unread.length) await sb.from("messages").update({ is_read: true })
+      .eq("recipient_id", user.id).eq("is_read", false);
+    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1">
+      <h4>Ma conversation avec ADEL INVEST</h4>
+      <p style="color:var(--mu)">Envoyez une demande, posez une question et suivez les réponses de votre superviseur dans cet espace sécurisé.</p>
+      <div id="messageThread" style="display:grid;gap:10px;margin:14px 0">
+        ${(data || []).map(m => `<div class="msg-bubble ${m.sender_id === user.id ? "mine" : "theirs"}">
+          <b>${m.sender_id === user.id ? "Vous" : "ADEL INVEST / Supervision"}</b>
+          <div style="white-space:pre-wrap;margin:6px 0">${esc(msgText(m))}</div>
+          <small style="color:var(--mu)">${messageTime(m.created_at)}</small>
+        </div>`).join("") || `<p style="color:var(--mu)">Aucun message pour le moment. Envoyez votre première demande.</p>`}
+      </div>
+      <form id="sendClientMessage" style="border-top:1px solid var(--bd);padding-top:14px">
+        <label for="clientMessageBody">Écrire un message</label>
+        <textarea id="clientMessageBody" rows="4" maxlength="5000" required placeholder="Bonjour, je souhaite avoir des informations sur mon projet…"></textarea>
+        <div class="err" id="messageError"></div>
+        <button class="btn" id="sendClientMessageBtn" type="submit">Envoyer le message</button>
+      </form>
+    </div>`;
+    $("sendClientMessage").onsubmit = async e => {
+      e.preventDefault();
+      const body = $("clientMessageBody").value.trim();
+      if (!body) return;
+      const btn = $("sendClientMessageBtn");
+      btn.disabled = true; btn.textContent = "Envoi en cours…";
+      let sendError = null;
+      try {
+        const supervisorId = await getSupervisorId();
+        ({ error: sendError } = await sb.from("messages").insert({
+          sender_id: user.id, recipient_id: supervisorId,
+          subject: "Échange ADEL INVEST", content: body
+        }));
+      } catch (err) { sendError = err; }
+      if (sendError) {
+        $("messageError").textContent = "Envoi impossible : " + sendError.message;
+        btn.disabled = false; btn.textContent = "Envoyer le message";
+        return;
+      }
+      await renderMessages();
+    };
+    return;
+  }
+
+  const [mr, pr] = await Promise.all([
+    sb.from("messages").select("*").order("created_at", { ascending: false }).limit(1000),
+    sb.from("profiles").select("id,prenom,nom,email,telephone,role")
+  ]);
+  if (mr.error || pr.error) {
+    const err = mr.error || pr.error;
+    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Messagerie – clients</h4><p class="err">Chargement impossible : ${esc(err.message)}</p><p style="color:var(--mu)">Vérifiez les autorisations Supabase des tables messages et profiles.</p></div>`;
+    return;
+  }
+  const profiles = Object.fromEntries((pr.data || []).map(p => [p.id, p]));
+  const byClient = new Map();
+  (mr.data || []).forEach(m => {
+    const cid = clientOf(m, profiles);
+    if (!cid) return;
+    if (!byClient.has(cid)) byClient.set(cid, []);
+    byClient.get(cid).push(m);
+  });
+  // Afficher aussi les porteurs de projet qui n'ont pas encore initié de conversation,
+  // afin que le superviseur puisse les contacter en premier.
+  (pr.data || []).filter(p => p.role === "porteur").forEach(p => {
+    if (!byClient.has(p.id)) byClient.set(p.id, []);
+  });
+  const clients = [...byClient.entries()].sort((a,b) =>
+    new Date(b[1][0]?.created_at || 0) - new Date(a[1][0]?.created_at || 0)
+  );
+  if (activeMessageClientId && !byClient.has(activeMessageClientId)) activeMessageClientId = null;
+  const selected = activeMessageClientId ? (byClient.get(activeMessageClientId) || []).slice().reverse() : [];
+  const cp = activeMessageClientId ? (profiles[activeMessageClientId] || {}) : {};
+  const clientName = [cp.prenom, cp.nom].filter(Boolean).join(" ") || cp.email || "Client";
+  const wa = whatsappUrl(cp.telephone, `Bonjour ${clientName}, je vous contacte au sujet de votre dossier auprès d'ADEL INVEST.`);
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1">
+    <h4>${space === "lecteur" ? "Consultation des échanges clients" : "Messagerie et suivi des clients"}</h4>
+    <p style="color:var(--mu)">Répondez dans la messagerie ADEL INVEST ou contactez le client sur WhatsApp. Les échanges internes sont conservés dans l'historique des messages.</p>
+    <div style="display:grid;grid-template-columns:minmax(220px,.8fr) minmax(0,2fr);gap:14px">
+      <section>
+        <h4>Conversations (${clients.length})</h4>
+        ${clients.map(([id, msgs]) => {
+          const p = profiles[id] || {}, last = msgs[0];
+          const pending = msgs.filter(m => m.sender_id === id && !m.is_read).length;
+          const nm = [p.prenom,p.nom].filter(Boolean).join(" ") || p.email || "Client";
+          return `<button type="button" data-message-client="${esc(id)}" class="cat ${id === activeMessageClientId ? "on" : ""}" style="display:block;width:100%;margin:6px 0;text-align:left">
+            <b>${esc(nm)} ${pending ? `(${pending} non lu${pending > 1 ? "s" : ""})` : ""}</b>
+            <span>${esc(String(msgText(last) || "Aucun échange pour le moment").slice(0,75))}</span><span>${last ? messageTime(last.created_at) : "Nouvelle conversation"}</span>
+          </button>`;
+        }).join("") || `<p style="color:var(--mu)">Aucun message client pour le moment.</p>`}
+      </section>
+      <section style="min-width:0;border:1px solid var(--bd);border-radius:10px;padding:12px">
+        ${activeMessageClientId ? `<h4>Conversation avec ${esc(clientName)}</h4>
+          <p style="color:var(--mu);font-size:13px">${esc(cp.email || "")} · ${esc(cp.telephone || "Téléphone non renseigné")}</p>
+          ${cp.telephone && !readOnly ? `<div class="msg-toolbar"><span style="font-size:13px;color:var(--mu)">Téléphone du client :</span><a class="wa-link" id="openClientWhatsApp" href="${esc(wa || "#")}" target="_blank" rel="noopener noreferrer">${esc(cp.telephone)} · Ouvrir WhatsApp</a></div>` : cp.telephone ? `<p style="color:var(--mu)">Téléphone : ${esc(cp.telephone)} · Consultation seule</p>` : `<p class="err">Aucun numéro de téléphone renseigné dans le profil du client.</p>`}
+          <div style="display:grid;gap:9px;max-height:420px;overflow:auto;padding:4px 0" id="adminMessageThread">
+            ${selected.map(m => `<div class="msg-bubble ${m.sender_id === activeMessageClientId ? "theirs" : "mine"}">
+              <b>${m.sender_id === activeMessageClientId ? "Client" : "Supervision ADEL INVEST"}</b>
+              <div style="white-space:pre-wrap;margin:5px 0">${esc(msgText(m))}</div><small style="color:var(--mu)">${messageTime(m.created_at)}</small>
+            </div>`).join("")}
+          </div>
+          ${readOnly ? `<p style="color:var(--mu)">Mode lecture seule : vous pouvez consulter les échanges, mais pas répondre ni contacter le client.</p>` : `<form id="replyAdminMessage" style="border-top:1px solid var(--bd);padding-top:12px;margin-top:12px">
+            <label for="adminMessageBody">Écrire une réponse au client</label>
+            <textarea id="adminMessageBody" rows="3" maxlength="5000" required placeholder="Bonjour, concernant votre projet…"></textarea>
+            <div class="err" id="adminMessageError"></div>
+            <button class="btn" id="sendAdminReply" type="submit">Envoyer la réponse</button>
+          </form>
+          ${cp.telephone ? `<div style="border-top:1px solid var(--bd);padding-top:10px;margin-top:10px">
+            <label for="waJournalBody">Votre message WhatsApp</label>
+            <textarea id="waJournalBody" rows="3" maxlength="2000">Bonjour ${esc(clientName)}, je vous contacte au sujet de votre dossier auprès d'ADEL INVEST.</textarea>
+            <button class="btn o" id="sendWhatsAppFromPanel" type="button">Ouvrir WhatsApp et préparer l'envoi</button>
+            <small style="display:block;color:var(--mu);margin-top:6px">WhatsApp s'ouvre avec ce texte. Vous devez appuyer sur « Envoyer » dans WhatsApp. La démarche est inscrite dans le journal, sans prétendre confirmer la livraison.</small>
+          </div>` : ""}`}` : `<p style="color:var(--mu)">Sélectionnez un client pour consulter la conversation et les coordonnées disponibles.</p>`}
+      </section>
+    </div>
+  </div>`;
+  $("grid").querySelectorAll("[data-message-client]").forEach(b => b.onclick = () => {
+    activeMessageClientId = b.dataset.messageClient;
+    renderMessages();
+  });
+  if (activeMessageClientId) {
+    await sb.from("messages").update({ is_read: true })
+      .eq("sender_id", activeMessageClientId).eq("is_read", false);
+    if (!readOnly) {
+      $("replyAdminMessage").onsubmit = async e => {
+        e.preventDefault();
+        const body = $("adminMessageBody").value.trim();
+        if (!body) return;
+        const btn = $("sendAdminReply");
+        btn.disabled = true; btn.textContent = "Envoi…";
+        const { error: sendError } = await sb.from("messages").insert({
+          sender_id: user.id, recipient_id: activeMessageClientId,
+          subject: "Réponse ADEL INVEST", content: body
+        });
+        if (sendError) {
+          $("adminMessageError").textContent = "Envoi impossible : " + sendError.message;
+          btn.disabled = false; btn.textContent = "Envoyer la réponse";
+          return;
+        }
+        await renderMessages();
+      };
+      const waLink = $("openClientWhatsApp");
+      if (waLink) waLink.onclick = async e => {
+        e.preventDefault();
+        const draft = $("waJournalBody")?.value || "";
+        const win = window.open("about:blank", "_blank");
+        try {
+          await logWhatsAppContact(activeMessageClientId, cp.telephone, draft);
+          if (win) win.location.href = whatsappUrl(cp.telephone, draft);
+          else window.location.href = whatsappUrl(cp.telephone, draft);
+        } catch (err) {
+          if (win) win.close();
+          toast("Impossible d'inscrire le contact au journal : " + (err.message || err));
+        }
+      };
+      const waButton = $("sendWhatsAppFromPanel");
+      if (waButton) waButton.onclick = async () => {
+        const draft = $("waJournalBody").value.trim();
+        if (!draft) return toast("Rédigez votre message WhatsApp.");
+        const win = window.open("about:blank", "_blank");
+        waButton.disabled = true;
+        try {
+          await logWhatsAppContact(activeMessageClientId, cp.telephone, draft);
+          if (win) win.location.href = whatsappUrl(cp.telephone, draft);
+          else window.location.href = whatsappUrl(cp.telephone, draft);
+        } catch (err) {
+          if (win) win.close();
+          toast("Impossible d'inscrire le contact au journal : " + (err.message || err));
+        } finally { waButton.disabled = false; }
+      };
+    }
+  }
+}
+
+async function renderCommunicationJournal() {
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Journal des échanges clients</h4><p style="color:var(--mu)">Chargement du journal…</p></div>`;
+  const [jr, mr, pr] = await Promise.all([
+    sb.from("journal_communications").select("*").order("created_at", {ascending:false}).limit(2000),
+    sb.from("messages").select("*").order("created_at", {ascending:false}).limit(3000),
+    sb.from("profiles").select("id,prenom,nom,email,role")
+  ]);
+  if (jr.error || mr.error || pr.error) {
+    const err = jr.error || mr.error || pr.error;
+    $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Journal des échanges clients</h4><p class="err">${esc(err.message)}</p><p style="color:var(--mu)">Créez la table journal_communications et ses politiques RLS avec le script SQL fourni.</p></div>`;
+    return;
+  }
+  const profs = Object.fromEntries((pr.data || []).map(p => [p.id,p]));
+  const rows = [
+    ...(jr.data || []).map(r => ({...r, kind:"WhatsApp", clientId:r.client_user_id, actorId:r.supervisor_id, created_at:r.created_at, content:r.body, status:r.status || "Contact initié"})),
+    ...(mr.data || []).map(m => ({...m, kind:"Messagerie ADEL", clientId:clientOf(m, profs), actorId:m.sender_id, created_at:m.created_at, content:m.content, status:m.is_read ? "Lu" : "Non lu"}))
+  ].sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
+      <div><h4>Journal des échanges clients (${rows.length})</h4><p style="color:var(--mu)">Vue globale des messages internes et des prises de contact WhatsApp initiées par les superviseurs.</p></div>
+      <button class="btn o" id="refreshCommJournal">Actualiser</button>
+    </div>
+    <div style="overflow-x:auto"><table><thead><tr><th>Date</th><th>Client</th><th>Superviseur</th><th>Canal</th><th>Numéro</th><th>Message / objet</th><th>Statut</th></tr></thead><tbody>
+    ${rows.map(r => {
+      const c = profs[r.clientId] || {}, actor = profs[r.actorId] || {};
+      return `<tr><td>${esc(messageTime(r.created_at))}</td><td>${esc([c.prenom,c.nom].filter(Boolean).join(" ") || c.email || r.clientId || "—")}<small>${esc(c.email || "")}</small></td><td>${esc([actor.prenom,actor.nom].filter(Boolean).join(" ") || actor.email || "—")}</td><td>${esc(r.kind)}</td><td>${esc(r.phone || c.telephone || "—")}</td><td style="white-space:pre-wrap;min-width:220px">${esc(r.content || "")}</td><td>${esc(r.status)}</td></tr>`;
+    }).join("") || `<tr><td colspan="7" style="color:var(--mu)">Aucun échange enregistré.</td></tr>`}
+    </tbody></table></div>
+  </div>`;
+  $("refreshCommJournal").onclick = renderCommunicationJournal;
+}
+
+async function navigate(view) {
+  setActiveMenu(view);
+  const adm = isAdminSpace(), sa = space === "super_admin";
+  $("subHello").textContent = space === "super_admin" ? "Espace super administrateur"
+    : space === "admin" ? "Espace administrateur" : space === "lecteur" ? "Espace de supervision (lecture seule)" : "Bienvenue sur votre espace porteur de projet";
+  document.querySelectorAll('aside a[data-v="projet"],aside a[data-v="docs"]').forEach(a => a.classList.toggle("hide", adm));
+  $("mArch").classList.toggle("hide", !(sa || space === "lecteur")); $("mJour").classList.toggle("hide", !sa); $("mJournalMessages").classList.toggle("hide", !sa);
+  if (view === "dash" || view === "projet") {
+    if (adm) return renderAdmin();
+    return fiche ? renderDash() : renderNew();
+  }
+  if (view === "archivage") return (sa || space === "lecteur") ? renderArchivage() : navigate("dash");
+  if (view === "journal") return sa ? renderJournal() : navigate("dash");
+  if (view === "journal_messages") return sa ? renderCommunicationJournal() : navigate("dash");
+  if (view === "docs") return renderDocumentsPage();
+  if (view === "messages") return renderMessages();
+  if (view === "actualites") return renderDataPage("Actualités", "actualites", "Informations et actualités publiées sur ADEL INVEST.");
+  if (view === "support") return renderDataPage("Support", "support_tickets", "Suivi de vos demandes de support.");
+  if (view === "settings") return renderSettings();
+}
+document.querySelectorAll("aside a[data-v]").forEach(a => a.onclick = e => { e.preventDefault(); navigate(a.dataset.v); });
+$("out").onclick = async e => { e.preventDefault(); await sb.auth.signOut(); location.reload(); };
+
+async function start() {
+  if (recovering) { showForm("recovery"); return; }
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return;
+  user = session.user;
+  const p = await sb.from("profiles").select("*").eq("id", user.id).maybeSingle();
+  profile = p.data || {};
+  if (!profile.avatar_url && user.user_metadata?.avatar_url) profile.avatar_url = user.user_metadata.avatar_url;
+  if (profile.categorie_souhaitee) chosen = profile.categorie_souhaitee;
+  ["login", "signup", "sup", "recovery"].forEach(f => $(f).classList.add("hide")); $("app").classList.remove("hide");
+  const name = [profile.prenom, profile.nom].filter(Boolean).join(" ") || user.email;
+  $("hello").textContent = "Bonjour " + name;
+  const f = await sb.from("fiches").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(1);
+  fiche = f.data?.[0];
+  if (!fiche) {
+    try {
+      const k = "adel_pending_" + (user.email || "").toLowerCase(), raw = localStorage.getItem(k);
+      if (raw) {
+        const ins = await sb.from("fiches").insert({ user_id: user.id, ...JSON.parse(raw) }).select().limit(1);
+        if (!ins.error) { localStorage.removeItem(k); fiche = ins.data?.[0]; if (fiche) await archiver(fiche, { prenom: profile.prenom, nom: profile.nom, telephone: profile.telephone, email: user.email }); }
+      }
+    } catch {}
+  }
+  setupSpaceSwitcher();
+  navigate("dash");
+}
+
+function profCard() {
+  const name = [profile.prenom, profile.nom].filter(Boolean).join(" ") || user.email;
+  const ini = name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+  return `<div class="card prof"><div class="avw"><div class="av">${profile.avatar_url ? `<img src="${esc(profile.avatar_url)}" alt="Photo de profil">` : esc(ini)}</div><label class="cam" for="avatarIn" title="Ajouter ou changer ma photo">📷</label><input id="avatarIn" type="file" accept="image/*" class="hide"></div><h3 style="margin:4px 0">${esc(name)}</h3>
+  <span class="tag">Porteur de projet</span><p>✉ ${esc(user.email)}</p><p>☎ ${esc(profile.telephone || "—")}</p></div>`;
+}
+
+function renderNew() {
+  $("grid").innerHTML = profCard() + `<div class="card"><h4>Enregistrer mon projet foncier</h4>
+  <p style="margin:0;color:var(--mu)">Choisissez votre situation :</p>
+  <div class="cats">${Object.entries(CATS).map(([k, v]) =>
+    `<button type="button" class="cat ${k === chosen ? "on" : ""}" data-k="${k}"><span class="letter">${k}</span><b>${v[0]}</b><span>${v[1]}</span></button>`).join("")}</div>
+  <label>Titre du projet<input id="f_titre" placeholder="Ex. Projet agricole intégré de 50 ha"></label>
+  <label>Type de projet<input id="f_type" placeholder="Agriculture, habitat, élevage…"></label>
+  <label>Localisation<input id="f_loc" placeholder="Dakar, Sénégal"></label>
+  <label>Superficie (hectares)<input id="f_sup" type="number" min="0" step="0.01"></label>
+  <label>À propos de mon projet<textarea id="f_desc" rows="3"></textarea></label>
+  <div class="err" id="ferr"></div><button class="btn" id="save">Enregistrer mon projet</button></div>`;
+  document.querySelectorAll(".cat").forEach(b => b.onclick = () => { chosen = b.dataset.k; renderNew(); });
+  $("save").onclick = save;
+}
+
+async function save() {
+  const row = { user_id: user.id, categorie: chosen, titre: $("f_titre").value, type_projet: $("f_type").value,
+    localisation: $("f_loc").value, superficie: $("f_sup").value || null, description: $("f_desc").value, statut: "enregistre" };
+  if (!row.titre) { $("ferr").textContent = "Le titre est obligatoire."; return; }
+  const { data, error } = await sb.from("fiches").insert(row).select().single();
+  if (error) { $("ferr").textContent = "Erreur : " + error.message; return; }
+  await archiver(data, { prenom: profile.prenom, nom: profile.nom, telephone: profile.telephone, email: user.email });
+  start();
+}
+
+// ===== FICHE WORD (.docx, A4 portrait) =====
+const nom = u => [u.prenom, u.nom].filter(Boolean).join(" ") || "—";
+const label = s => (STEPS.find(x => x[0] === s) || [])[1] || s || "—";
+const catName = k => CATS[k]?.[0] || "—";
+async function buildDocx(r, c, names) {
+  const D = docx, GREEN = "0B6B3A", LIGHT = "E8F5EC", YEL = "F4C20D", W = 9638; // A4 (11906) - 2 x 2 cm de marges
+  const bd = { style: D.BorderStyle.SINGLE, size: 4, color: "DBE5DF" }, borders = { top: bd, bottom: bd, left: bd, right: bd };
+  const margins = { top: 80, bottom: 80, left: 120, right: 120 };
+  const t = (x, o = {}) => new D.TextRun({ text: String(x ?? ""), font: "Calibri", size: 22, ...o });
+  const kvRow = (k, v) => new D.TableRow({ children: [
+    new D.TableCell({ width: { size: 3000, type: D.WidthType.DXA }, borders, margins, shading: { type: D.ShadingType.CLEAR, fill: LIGHT, color: "auto" }, children: [new D.Paragraph({ children: [t(k, { bold: true, color: "084D2A" })] })] }),
+    new D.TableCell({ width: { size: W - 3000, type: D.WidthType.DXA }, borders, margins, children: [new D.Paragraph({ children: [t(v || "—")] })] })] });
+  const kv = rows => new D.Table({ width: { size: W, type: D.WidthType.DXA }, columnWidths: [3000, W - 3000], rows: rows.map(x => kvRow(x[0], x[1])) });
+  const h = x => new D.Paragraph({ spacing: { before: 300, after: 120 }, border: { bottom: { style: D.BorderStyle.SINGLE, size: 12, color: YEL, space: 2 } }, children: [t(x, { bold: true, size: 28, color: GREEN })] });
+  const idx = Math.max(0, STEPS.findIndex(s => s[0] === r.statut)), cw = [2409, 2409, 2410, 2410];
+  const stepsT = new D.Table({ width: { size: W, type: D.WidthType.DXA }, columnWidths: cw, rows: [new D.TableRow({ children: STEPS.map((s, i) =>
+    new D.TableCell({ width: { size: cw[i], type: D.WidthType.DXA }, borders: { top: { style: D.BorderStyle.SINGLE, size: 12, color: "FFFFFF" }, bottom: { style: D.BorderStyle.SINGLE, size: 12, color: "FFFFFF" }, left: { style: D.BorderStyle.SINGLE, size: 12, color: "FFFFFF" }, right: { style: D.BorderStyle.SINGLE, size: 12, color: "FFFFFF" } }, margins,
+      shading: { type: D.ShadingType.CLEAR, fill: i <= idx ? GREEN : "E5E9E7", color: "auto" },
+      children: [new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: [t((i + 1) + ". " + s[1], { size: 18, bold: true, color: i <= idx ? "FFFFFF" : "5D6F64" })] })] })) })] });
+  const header = new D.Header({ children: [new D.Paragraph({
+    shading: { type: D.ShadingType.CLEAR, fill: GREEN, color: "auto" },
+    border: { bottom: { style: D.BorderStyle.SINGLE, size: 24, color: YEL, space: 4 } }, spacing: { after: 120 },
+    children: [t("  ADEL INVEST", { bold: true, size: 36, color: "FFFFFF" }), t("    Ensemble pour un foncier sécurisé", { size: 18, color: "FFFFFF" })] })] });
+  const footer = new D.Footer({ children: [new D.Paragraph({ alignment: D.AlignmentType.CENTER, children: [
+    t("ADEL INVEST – Fiche projet foncier – Page ", { size: 16, color: "5D6F64" }),
+    new D.TextRun({ children: [D.PageNumber.CURRENT], font: "Calibri", size: 16, color: "5D6F64" }), t(" / ", { size: 16, color: "5D6F64" }),
+    new D.TextRun({ children: [D.PageNumber.TOTAL_PAGES], font: "Calibri", size: 16, color: "5D6F64" })] })] });
+  const doc = new D.Document({
+    creator: "ADEL INVEST", title: "Fiche projet – " + (r.titre || ""),
+    sections: [{ properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 1134, right: 1134, bottom: 1134, left: 1134, header: 567, footer: 567 } } },
+      headers: { default: header }, footers: { default: footer },
+      children: [
+        new D.Paragraph({ spacing: { before: 120, after: 60 }, children: [t("FICHE PROJET FONCIER", { bold: true, size: 20, color: "5D6F64" })] }),
+        new D.Paragraph({ spacing: { after: 40 }, children: [t(r.titre || "Projet", { bold: true, size: 40 })] }),
+        new D.Paragraph({ children: [t("Catégorie : " + catName(r.categorie), { color: "5D6F64" })] }),
+        h("Porteur de projet"), kv([["Nom complet", nom(c)], ["E-mail", c.email], ["Téléphone", c.telephone]]),
+        h("Le projet"), kv([["Type de projet", r.type_projet], ["Localisation", r.localisation], ["Superficie", r.superficie ? r.superficie + " hectares" : ""], ["Date d'enregistrement", fmt(r.created_at)], ["Statut actuel", label(r.statut)]]),
+        h("Avancement"), stepsT,
+        h("Description"), new D.Paragraph({ children: [t(r.description || "Aucune description.")] }),
+        h("Documents joints"),
+        ...((names && names.length) ? names.map(n => new D.Paragraph({ children: [t("• " + n.replace(/^\d+_/, ""))] })) : [new D.Paragraph({ children: [t("Aucun document.")] })]),
+        new D.Paragraph({ spacing: { before: 400 }, children: [t("Document généré le " + fmt(new Date()) + " – ADEL INVEST – contact@adel-invest.sn – +221 33 123 45 67", { size: 16, color: "5D6F64" })] })
+      ] }] });
+  return D.Packer.toBlob(doc);
+}
+
+// Archivage automatique de la fiche Word à chaque dépôt de projet
+async function archiver(f, client) {
+  try {
+    const blob = await buildDocx(f, client || {}, []);
+    const path = `${f.id}/fiche.docx`, nomF = "Fiche-" + safeFileName(f.titre || "projet") + ".docx";
+    const up = await sb.storage.from("archives").upload(path, blob, { contentType: DOCX_MIME, upsert: false });
+    if (up.error && !/exist|duplicate/i.test(up.error.message)) throw up.error;
+    await sb.from("archives").insert({ fiche_id: String(f.id), user_id: f.user_id, nom_fichier: nomF, chemin: path });
+  } catch (e) { console.warn("Archivage non effectué :", e); }
+}
+
+// Journal : chaque téléchargement du personnel est enregistré (qui, quoi, quand)
+async function logDl(fichier, ficheId, type) {
+  const { error } = await sb.rpc("log_telechargement", { p_fichier: fichier, p_fiche: ficheId ? String(ficheId) : null, p_type: type });
+  if (error) { toast("Téléchargement bloqué : journal indisponible (" + error.message + ")"); return false; }
+  return true;
+}
+
+// ===== ADMIN / SUPER ADMIN / SUPERVISION =====
+let ROWS = [], PROFS = [], isSup = false;
+const CATC = { A: "#0b6b3a", B: "#f4c20d", C: "#d62828", D: "#7cc89a" };
+const MOIS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+const num = v => parseFloat(String(v ?? "").replace(",", ".")) || 0;
+const ha = n => n.toLocaleString("fr-FR", { maximumFractionDigits: 1 });
+const pc = (a, b) => b ? Math.round(a / b * 100) : 0;
+function saveFile(blob, name) { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1500); }
+
+function histoHTML() {
+  const now = new Date(), months = [];
+  for (let i = 11; i >= 0; i--) { const d = new Date(now.getFullYear(), now.getMonth() - i, 1); months.push({ y: d.getFullYear(), m: d.getMonth(), t: 0, c: { A: 0, B: 0, C: 0, D: 0 } }); }
+  ROWS.forEach(r => { const d = new Date(r.created_at), m = months.find(x => x.y === d.getFullYear() && x.m === d.getMonth()); if (m && m.c[r.categorie] !== undefined) { m.c[r.categorie]++; m.t++; } });
+  const step = Math.max(1, Math.ceil(Math.max(...months.map(m => m.t)) / 4)), top = step * 4;
+  return `<div class="hist"><div class="yax">${[4, 3, 2, 1, 0].map(i => `<span>${i * step}</span>`).join("")}</div>
+  <div class="plot">${months.map(m => `<div class="col" title="${MOIS[m.m]} ${m.y} : ${m.t} projet(s)"><div class="stk">${Object.keys(CATC).map(k => m.c[k] ? `<i style="height:${m.c[k] / top * 100}%;background:${CATC[k]}" title="${esc(catName(k))} : ${m.c[k]}"></i>` : "").join("")}</div></div>`).join("")}</div>
+  <div class="labs">${months.map(m => `<small>${MOIS[m.m]}</small>`).join("")}</div></div>`;
+}
+
+async function renderAdmin() {
+  isSup = space === "super_admin";
+  const [f, p] = await Promise.all([sb.from("fiches").select("*").order("created_at", { ascending: false }), sb.from("profiles").select("*")]);
+  if (f.error || p.error) return toast("Erreur : " + (f.error || p.error).message);
+  PROFS = p.data;
+  const pm = Object.fromEntries(PROFS.map(x => [x.id, x]));
+  ROWS = f.data.map(x => ({ ...x, client: pm[x.user_id] || {} }));
+
+  const now = new Date(), prev = new Date(now.getFullYear(), now.getMonth() - 1, 1), DAY = 864e5;
+  const sameM = (r, o) => { const d = new Date(r.created_at); return d.getFullYear() === o.getFullYear() && d.getMonth() === o.getMonth(); };
+  const tot = ROWS.length, totHa = ROWS.reduce((a, r) => a + num(r.superficie), 0);
+  const m0 = ROWS.filter(r => sameM(r, now)).length, m1 = ROWS.filter(r => sameM(r, prev)).length;
+  const stN = STEPS.map(s => ROWS.filter(r => r.statut === s[0]).length);
+  const appr = stN[3], old = ROWS.filter(r => r.statut === "enregistre" && Date.now() - new Date(r.created_at) > 7 * DAY).length;
+  const week = ROWS.filter(r => Date.now() - new Date(r.created_at) <= 7 * DAY).length;
+  const inc = ROWS.filter(r => !(r.localisation || "").trim() || !num(r.superficie)).length;
+  const byCat = Object.keys(CATS).map(k => { const l = ROWS.filter(r => r.categorie === k); return { k, n: l.length, ha: l.reduce((a, r) => a + num(r.superficie), 0) }; });
+  const off = byCat.filter(x => x.k !== "B"), dem = byCat.find(x => x.k === "B");
+  const offN = off.reduce((a, x) => a + x.n, 0), offHa = off.reduce((a, x) => a + x.ha, 0);
+  let acc = 0; const ring = tot ? byCat.map(x => { const s = acc; acc += x.n / tot * 100; return `${CATC[x.k]} ${s}% ${acc}%`; }).join(",") : "var(--bd) 0 100%";
+  const loc = {}; ROWS.forEach(r => { const nm = (r.localisation || "Non renseignée").split(",")[0].trim() || "Non renseignée", k = nm.toLowerCase(); (loc[k] = loc[k] || { nm, n: 0, h: 0 }); loc[k].n++; loc[k].h += num(r.superficie); });
+  const topLoc = Object.values(loc).sort((a, b) => b.n - a.n || b.h - a.h).slice(0, 5);
+  const delta = m0 - m1, dTxt = delta === 0 ? "Stable vs mois dernier" : `<span class="${delta > 0 ? "up" : "dn"}">${delta > 0 ? "▲ +" : "▼ "}${delta}</span> vs mois dernier`;
+  const kpi = (c, l, v, s) => `<div class="kpi ${c}"><small>${l}</small><b>${v}</b><span>${s}</span></div>`;
+
+  $("grid").innerHTML = `<div class="dash">
+  <div class="card"><h4>Projets enregistrés par mois <small>12 derniers mois · par catégorie</small></h4>${histoHTML()}
+    <div class="legend">${Object.keys(CATS).map(k => `<span class="cn"><i class="dot" style="background:${CATC[k]}"></i>${esc(catName(k))}</span>`).join("")}</div></div>
+
+  <div class="kpis">
+    ${kpi("", "Projets enregistrés", tot, `${m0} ce mois · ${dTxt}`)}
+    ${kpi("y", "À traiter", stN[0], old ? `<span class="dn">${old} en attente depuis +7 jours</span>` : "Aucun retard de plus de 7 jours")}
+    ${kpi("l", "Superficie recensée", ha(totHa) + " ha", `${ha(offHa)} ha proposés · ${ha(dem.ha)} ha recherchés`)}
+    ${kpi("", "Projets approuvés", appr, `Taux d'approbation : ${pc(appr, tot)} %`)}
+    ${kpi("r", "Dossiers incomplets", inc, "Localisation ou superficie manquante")}
+    ${kpi("l", "Utilisateurs", PROFS.length, `${PROFS.filter(u => u.role === "porteur").length} porteurs de projet`)}
+  </div>
+
+  <div class="card c6"><h4>Répartition par catégorie <small>${tot} projet(s)</small></h4>
+    <div class="donut"><div class="ring" style="background:conic-gradient(${ring})"><div>${tot}<small>projets</small></div></div>
+    <div style="flex:1;min-width:210px">${byCat.map(x => `<div class="lg"><i class="dot" style="background:${CATC[x.k]}"></i><span>${esc(catName(x.k))}</span><span class="v"><b>${x.n}</b> · ${pc(x.n, tot)} % · ${ha(x.ha)} ha</span></div>`).join("")}</div></div></div>
+
+  <div class="card c6"><h4>Avancement des dossiers <small>entonnoir de validation</small></h4>
+    ${STEPS.map((s, i) => `<div class="lg"><i class="dot" style="background:${["#f4c20d", "#2fa84f", "#d62828", "#0b6b3a"][i]}"></i><span>${s[1]}</span><span class="v"><b>${stN[i]}</b> · ${pc(stN[i], tot)} %</span></div><div class="hb"><i style="width:${pc(stN[i], tot)}%;background:${["#f4c20d", "#2fa84f", "#d62828", "#0b6b3a"][i]}"></i></div>`).join("")}</div>
+
+  <div class="card c4"><h4>Offre et demande foncières</h4>
+    <div class="lg"><b>Terres proposées</b><span class="v">${offN} projets · ${ha(offHa)} ha</span></div><div class="hb"><i style="width:${pc(offN, tot)}%"></i></div>
+    <p class="sub">${esc(catName("A"))}, ${esc(catName("C"))}, ${esc(catName("D"))}</p>
+    <div class="lg"><b>Terres recherchées</b><span class="v">${dem.n} projets · ${ha(dem.ha)} ha</span></div><div class="hb"><i style="width:${pc(dem.n, tot)}%;background:var(--y)"></i></div>
+    <p class="sub">${esc(catName("B"))}</p>
+    <p style="margin:6px 0 0;font-size:14px"><b>Couverture :</b> ${dem.ha ? (offHa / dem.ha).toFixed(1) + " ha proposés pour 1 ha recherché" : "aucune demande chiffrée"}</p></div>
+
+  <div class="card c4"><h4>Principales localisations</h4>
+    ${topLoc.map(x => `<div class="lg"><span>${esc(x.nm)}</span><span class="v"><b>${x.n}</b> projet(s) · ${ha(x.h)} ha</span></div><div class="hb"><i style="width:${pc(x.n, topLoc[0].n)}%"></i></div>`).join("") || '<p class="sub">Aucune donnée.</p>'}</div>
+
+  <div class="card c4"><h4>Points d'attention</h4>
+    <div class="al ${old ? "x" : ""}"><b>${old}</b>Projets en attente d'étude depuis plus de 7 jours</div>
+    <div class="al ${inc ? "w" : ""}"><b>${inc}</b>Dossiers incomplets à compléter</div>
+    <div class="al"><b>${stN[2]}</b>Projets en validation, décision attendue</div>
+    <div class="al"><b>${week}</b>Nouveaux projets cette semaine</div></div>
+
+  <div class="card"><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+    <h4 style="margin:0">Liste des projets (<span id="cnt"></span>)</h4>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="q" placeholder="Rechercher un porteur, un projet…" style="margin:0;width:220px">
+    <select id="fc" style="margin:0;width:auto"><option value="">Toutes les catégories</option>${Object.keys(CATS).map(k => `<option value="${k}">${esc(catName(k))}</option>`).join("")}</select>
+    <select id="fs" style="margin:0;width:auto"><option value="">Tous les statuts</option>${STEPS.map(s => `<option value="${s[0]}">${s[1]}</option>`).join("")}</select>
+    <button class="btn" id="xl">Exporter tout (Excel)</button><button class="btn o" onclick="window.print()">Imprimer</button></div></div>
+    <div style="overflow-x:auto;margin-top:10px"><table id="tb"></table></div></div></div>`;
+  $("q").oninput = drawRows; $("fc").onchange = drawRows; $("fs").onchange = drawRows; $("xl").onclick = exportXlsx;
+  drawRows();
+  if (isSup) $("grid").querySelector(".dash").insertAdjacentHTML("beforeend", `<div class="card"><h4>Utilisateurs et rôles</h4><div style="overflow-x:auto"><table>${PROFS.map(u =>
+    `<tr><td>${esc(nom(u))}<small>${esc(u.email || "")}</small></td><td><select data-role="${esc(u.id)}" ${u.id === user.id ? "disabled" : ""}>${["porteur", "admin", "super_admin", "lecteur"].map(x => `<option ${x === u.role ? "selected" : ""}>${x}</option>`).join("")}</select></td></tr>`).join("")}</table></div></div>`);
+}
+
+function drawRows() {
+  const q = $("q").value.toLowerCase(), c = $("fc").value, s = $("fs").value;
+  const list = ROWS.filter(r => (!c || r.categorie === c) && (!s || r.statut === s) && JSON.stringify([r.titre, r.localisation, r.client.nom, r.client.prenom, r.client.email, catName(r.categorie)]).toLowerCase().includes(q));
+  $("cnt").textContent = list.length;
+  $("tb").innerHTML = "<tr>" + ["Porteur", "Catégorie", "Projet", "Localisation", "Ha", "Statut", "Date", ""].map(h => `<th>${h}</th>`).join("") + "</tr>" +
+    (list.map(r => `<tr><td>${esc(nom(r.client))}<small>${esc(r.client.email || "")}</small></td><td><span class="cn"><i class="dot" style="background:${CATC[r.categorie] || "var(--bd)"}"></i>${esc(catName(r.categorie))}</span></td><td>${esc(r.titre)}</td>
+    <td>${esc(r.localisation || "")}</td><td>${esc(r.superficie || "")}</td>
+    <td>${isSup ? `<select data-st="${esc(r.id)}">${STEPS.map(s => `<option value="${s[0]}" ${s[0] === r.statut ? "selected" : ""}>${s[1]}</option>`).join("")}</select>` : `<span class="chip s-${esc(r.statut)}">${esc(label(r.statut))}</span>`}</td>
+    <td>${fmt(r.created_at)}</td><td style="white-space:nowrap"><button class="btn o" data-w="${esc(r.id)}">Word</button> <button class="btn o" data-p="${esc(r.id)}">Pièces</button>${isSup ? ` <button class="btn d" data-x="${esc(r.id)}" title="Supprimer">✕</button>` : ""}</td></tr>`).join("") || '<tr><td colspan="8" style="color:var(--mu)">Aucun projet.</td></tr>');
+}
+
+async function exportXlsx() {
+  if (!ROWS.length) return toast("Aucun projet à exporter.");
+  if (!(await logDl("Export Excel de tous les projets", null, "export"))) return;
+  const proj = ROWS.map(r => ({ "Catégorie": catName(r.categorie), "Projet": r.titre, "Type de projet": r.type_projet, "Localisation": r.localisation,
+    "Superficie (ha)": num(r.superficie), "Statut": label(r.statut), "Date": fmt(r.created_at), "Prénom": r.client.prenom, "Nom": r.client.nom,
+    "E-mail": r.client.email, "Téléphone": r.client.telephone, "Description": r.description }));
+  const cli = PROFS.map(u => ({ "Prénom": u.prenom, "Nom": u.nom, "E-mail": u.email, "Téléphone": u.telephone, "Rôle": u.role, "Catégorie choisie": catName(u.categorie_souhaitee), "Inscrit le": fmt(u.created_at) }));
+  const syn = [...Object.keys(CATS).map(k => { const l = ROWS.filter(r => r.categorie === k); return { "Indicateur": "Catégorie : " + catName(k), "Projets": l.length, "Superficie (ha)": l.reduce((a, r) => a + num(r.superficie), 0) }; }),
+    ...STEPS.map(s => ({ "Indicateur": "Statut : " + s[1], "Projets": ROWS.filter(r => r.statut === s[0]).length, "Superficie (ha)": ROWS.filter(r => r.statut === s[0]).reduce((a, r) => a + num(r.superficie), 0) })),
+    { "Indicateur": "TOTAL", "Projets": ROWS.length, "Superficie (ha)": ROWS.reduce((a, r) => a + num(r.superficie), 0) }];
+  await xlsxStyled("ADEL-INVEST-projets-" + new Date().toISOString().slice(0, 10) + ".xlsx", [
+    { name: "Synthèse", title: "Synthèse des projets fonciers", rows: syn, widths: [44, 14, 18] },
+    { name: "Projets", title: "Liste des projets fonciers", rows: proj, widths: [32, 34, 22, 24, 16, 22, 13, 16, 16, 30, 18, 50] },
+    { name: "Clients", title: "Liste des utilisateurs", rows: cli, widths: [16, 16, 32, 18, 14, 32, 13] }]);
+}
+
+// Export Excel mis en forme : titre, en-têtes colorés, filtres, lignes alternées, volets figés
+async function xlsxStyled(fileName, sheets) {
+  const wb = new ExcelJS.Workbook(); wb.creator = "ADEL INVEST"; wb.created = new Date();
+  const thin = { style: "thin", color: { argb: "FFDBE5DF" } }, box = { top: thin, left: thin, bottom: thin, right: thin };
+  const STC = { "Projet enregistré": ["FFFFF4C2", "FF7A5C00"], "En cours d'étude": ["FFDFF2E5", "FF0B6B3A"], "Validation en cours": ["FFFDE2E2", "FFA31D1D"], "Projet approuvé": ["FF0B6B3A", "FFFFFFFF"] };
+  for (const s of sheets) {
+    const keys = Object.keys(s.rows[0] || {}), n = keys.length || 1;
+    const ws = wb.addWorksheet(s.name, { views: [{ state: "frozen", ySplit: 3, showGridLines: false }],
+      pageSetup: { orientation: "landscape", paperSize: 9, fitToPage: true, fitToWidth: 1, fitToHeight: 0, margins: { left: .4, right: .4, top: .5, bottom: .5, header: .2, footer: .2 } } });
+    ws.mergeCells(1, 1, 1, n);
+    const t = ws.getCell(1, 1); t.value = "ADEL INVEST – " + s.title;
+    t.font = { name: "Calibri", size: 16, bold: true, color: { argb: "FFFFFFFF" } };
+    t.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0B6B3A" } };
+    t.alignment = { vertical: "middle", horizontal: "left", indent: 1 }; ws.getRow(1).height = 32;
+    ws.mergeCells(2, 1, 2, n);
+    const st = ws.getCell(2, 1); st.value = "Ensemble pour un foncier sécurisé  ·  généré le " + new Date().toLocaleDateString("fr-FR") + " à " + new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }) + "  ·  " + s.rows.length + " ligne(s)";
+    st.font = { name: "Calibri", size: 10, italic: true, color: { argb: "FF084D2A" } };
+    st.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF4C20D" } };
+    st.alignment = { vertical: "middle", horizontal: "left", indent: 1 }; ws.getRow(2).height = 20;
+    const hr = ws.getRow(3); hr.height = 26;
+    keys.forEach((k, i) => { const c = hr.getCell(i + 1); c.value = k;
+      c.font = { name: "Calibri", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
+      c.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF084D2A" } };
+      c.alignment = { vertical: "middle", horizontal: "center", wrapText: true }; c.border = box;
+      ws.getColumn(i + 1).width = (s.widths || [])[i] || 20; });
+    s.rows.forEach((r, ri) => {
+      const row = ws.getRow(4 + ri), total = String(Object.values(r)[0] || "") === "TOTAL";
+      keys.forEach((k, i) => { const c = row.getCell(i + 1), v = r[k];
+        c.value = v === undefined || v === null || v === "" ? "—" : v;
+        c.font = { name: "Calibri", size: 10, bold: total, color: { argb: "FF14281D" } };
+        c.border = box; c.alignment = { vertical: "top", wrapText: true, horizontal: typeof v === "number" ? "right" : "left" };
+        c.fill = { type: "pattern", pattern: "solid", fgColor: { argb: total ? "FFE8F5EC" : ri % 2 ? "FFF4F7F5" : "FFFFFFFF" } };
+        if (typeof v === "number") c.numFmt = "#,##0.##";
+        if (STC[v]) { c.fill = { type: "pattern", pattern: "solid", fgColor: { argb: STC[v][0] } }; c.font = { name: "Calibri", size: 10, bold: true, color: { argb: STC[v][1] } }; c.alignment = { vertical: "top", horizontal: "center" }; } });
+    });
+    if (s.rows.length) ws.autoFilter = { from: { row: 3, column: 1 }, to: { row: 3 + s.rows.length, column: n } };
+  }
+  const buf = await wb.xlsx.writeBuffer();
+  saveFile(new Blob([buf], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), fileName);
+}
+
+async function exportDoc(r) {
+  const nomF = "Fiche-" + safeFileName(r.titre || "projet") + ".docx";
+  if (!(await logDl(nomF, r.id, "fiche_word"))) return;
+  const dl = await sb.storage.from(DOCS_BUCKET).list(`${r.user_id}/${r.id}`, { limit: 100 });
+  const names = (dl.data || []).filter(f => f.name && f.id).map(f => f.name);
+  saveFile(await buildDocx(r, r.client, names), nomF);
+}
+
+async function showPieces(r) {
+  const { data, error } = await sb.storage.from(DOCS_BUCKET).list(`${r.user_id}/${r.id}`, { limit: 100 });
+  if (error) return toast("Impossible de lister les pièces : " + error.message);
+  const files = (data || []).filter(f => f.name && f.id);
+  let dlg = $("piecesDlg");
+  if (!dlg) { dlg = document.createElement("dialog"); dlg.id = "piecesDlg";
+    dlg.style.cssText = "border:1px solid var(--bd);border-radius:12px;max-width:520px;width:92vw;background:var(--card);color:var(--ink)"; document.body.appendChild(dlg); }
+  dlg.innerHTML = `<h4 style="margin:0 0 10px;color:var(--g)">Pièces jointes – ${esc(r.titre)}</h4>` +
+    (files.length ? files.map((f, i) => `<div class="li"><div>${esc(f.name.replace(/^\d+_/, ""))}</div><button class="btn" data-pf="${i}">Télécharger</button></div>`).join("") : '<p style="color:var(--mu)">Aucune pièce jointe.</p>') +
+    `<p style="text-align:right;margin:12px 0 0"><button class="btn o" id="closePieces">Fermer</button></p>`;
+  $("closePieces").onclick = () => dlg.close();
+  dlg.querySelectorAll("button[data-pf]").forEach(b => b.onclick = async () => {
+    const f = files[Number(b.dataset.pf)];
+    if (!(await logDl(f.name.replace(/^\d+_/, ""), r.id, "document"))) return;
+    const s = await sb.storage.from(DOCS_BUCKET).createSignedUrl(`${r.user_id}/${r.id}/${f.name}`, 60, { download: f.name.replace(/^\d+_/, "") });
+    if (s.error) return toast("Ouverture impossible : " + s.error.message);
+    window.open(s.data.signedUrl, "_blank", "noopener,noreferrer");
+  });
+  dlg.showModal();
+}
+
+// ===== ARCHIVAGE (super admin : tout ; superviseur : lecture seule + téléchargement) =====
+let ARCH = [], PIECES = [], PIECES_LOADED = false, FICHES_ALL = [], PM_ALL = {}, archTab = "fiches";
+async function renderArchivage() {
+  archTab = "fiches"; PIECES_LOADED = false; PIECES = [];
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Archivage</h4><p style="color:var(--mu)">Chargement…</p></div>`;
+  const [a, f, p] = await Promise.all([sb.from("archives").select("*").order("created_at", { ascending: false }),
+    sb.from("fiches").select("*"), sb.from("profiles").select("id,prenom,nom,email,telephone")]);
+  if (a.error) { $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Archivage</h4><p class="err">${esc(a.error.message)}</p><p style="color:var(--mu)">Avez-vous exécuté le script SQL de sécurité ?</p></div>`; return; }
+  FICHES_ALL = f.data || []; PM_ALL = Object.fromEntries((p.data || []).map(x => [x.id, x]));
+  const fm = Object.fromEntries(FICHES_ALL.map(x => [String(x.id), x]));
+  ARCH = a.data.map(x => ({ ...x, f: fm[x.fiche_id] || {}, c: PM_ALL[x.user_id] || {} }));
+  drawArchShell();
+}
+function drawArchShell() {
+  const sa = space === "super_admin";
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+      <button class="btn ${archTab === "fiches" ? "" : "o"}" data-tab="fiches">Fiches Word (${ARCH.length})</button>
+      <button class="btn ${archTab === "pieces" ? "" : "o"}" data-tab="pieces">Pièces jointes${PIECES_LOADED ? " (" + PIECES.length + ")" : ""}</button>
+      ${sa ? `<button class="btn o" id="backfill" style="margin-left:auto">Archiver les projets existants</button>` : ""}
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+      <h4 style="margin:0">${archTab === "fiches" ? "Fiches Word remplies par les clients" : "Pièces jointes déposées par les clients"} (<span id="acnt"></span>)</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="aq" placeholder="Rechercher…" style="margin:0;width:200px">
+      <select id="ac" style="margin:0;width:auto"><option value="">Toutes les catégories</option>${Object.keys(CATS).map(k => `<option value="${k}">${esc(catName(k))}</option>`).join("")}</select>
+      <select id="as" style="margin:0;width:auto"><option value="d">Plus récentes d'abord</option><option value="a">Plus anciennes d'abord</option></select></div></div>
+    <div style="overflow-x:auto;margin-top:10px"><table id="atb"></table></div></div>`;
+  $("grid").querySelectorAll("button[data-tab]").forEach(b => b.onclick = async () => {
+    archTab = b.dataset.tab;
+    if (archTab === "pieces" && !PIECES_LOADED) { drawArchShell(); $("atb").innerHTML = "<tr><td>Chargement des pièces jointes…</td></tr>"; await loadPieces(); }
+    drawArchShell();
+  });
+  $("aq").oninput = drawArch; $("ac").onchange = drawArch; $("as").onchange = drawArch;
+  if (sa) $("backfill").onclick = backfillArchives;
+  drawArch();
+}
+async function loadPieces() {
+  const out = [];
+  for (let i = 0; i < FICHES_ALL.length; i += 10) {
+    await Promise.all(FICHES_ALL.slice(i, i + 10).map(async f => {
+      const r = await sb.storage.from(DOCS_BUCKET).list(`${f.user_id}/${f.id}`, { limit: 100 });
+      (r.data || []).filter(x => x.name && x.id).forEach(x => out.push({ f, c: PM_ALL[f.user_id] || {}, name: x.name, created_at: x.created_at || f.created_at, path: `${f.user_id}/${f.id}/${x.name}` }));
+    }));
+  }
+  PIECES = out; PIECES_LOADED = true;
+}
+function drawArch() {
+  const q = $("aq").value.toLowerCase(), c = $("ac").value, asc = $("as").value === "a";
+  const sort = (x, y) => (new Date(x.created_at) - new Date(y.created_at)) * (asc ? 1 : -1);
+  if (archTab === "fiches") {
+    const l = ARCH.filter(x => (!c || x.f.categorie === c) && JSON.stringify([x.f.titre, x.c.nom, x.c.prenom, x.c.email, x.nom_fichier]).toLowerCase().includes(q)).sort(sort);
+    $("acnt").textContent = l.length;
+    $("atb").innerHTML = "<tr>" + ["Date", "Porteur", "Catégorie", "Projet", "Fichier", ""].map(h => `<th>${h}</th>`).join("") + "</tr>" +
+      (l.map(x => `<tr><td>${fmt(x.created_at)}</td><td>${esc(nom(x.c))}<small>${esc(x.c.email || "")}</small></td><td>${esc(catName(x.f.categorie))}</td><td>${esc(x.f.titre || "—")}</td><td>${esc(x.nom_fichier)}</td><td><button class="btn" data-ar="${esc(x.id)}">Télécharger</button></td></tr>`).join("") || '<tr><td colspan="6" style="color:var(--mu)">Aucune fiche archivée.</td></tr>');
+  } else {
+    const l = PIECES.filter(x => (!c || x.f.categorie === c) && JSON.stringify([x.f.titre, x.c.nom, x.c.prenom, x.c.email, x.name]).toLowerCase().includes(q)).sort(sort);
+    $("acnt").textContent = l.length;
+    $("atb").innerHTML = "<tr>" + ["Date", "Porteur", "Catégorie", "Projet", "Fichier", ""].map(h => `<th>${h}</th>`).join("") + "</tr>" +
+      (l.map(x => `<tr><td>${fmt(x.created_at)}</td><td>${esc(nom(x.c))}<small>${esc(x.c.email || "")}</small></td><td>${esc(catName(x.f.categorie))}</td><td>${esc(x.f.titre || "—")}</td><td>${esc(x.name.replace(/^\d+_/, ""))}</td><td><button class="btn" data-ap="${PIECES.indexOf(x)}">Télécharger</button></td></tr>`).join("") || '<tr><td colspan="6" style="color:var(--mu)">Aucune pièce jointe.</td></tr>');
+  }
+}
+async function backfillArchives() {
+  const have = new Set(ARCH.map(a => String(a.fiche_id)));
+  const todo = FICHES_ALL.filter(f => !have.has(String(f.id)));
+  if (!todo.length) return toast("Tous les projets sont déjà archivés.");
+  if (!confirm(`Générer et archiver la fiche Word de ${todo.length} projet(s) existant(s) ?`)) return;
+  let ok = 0;
+  for (const f of todo) {
+    try {
+      const dl = await sb.storage.from(DOCS_BUCKET).list(`${f.user_id}/${f.id}`, { limit: 100 });
+      const names = (dl.data || []).filter(x => x.name && x.id).map(x => x.name);
+      const blob = await buildDocx(f, PM_ALL[f.user_id] || {}, names), path = `${f.id}/fiche.docx`;
+      const up = await sb.storage.from("archives").upload(path, blob, { contentType: DOCX_MIME, upsert: false });
+      if (up.error && !/exist|duplicate/i.test(up.error.message)) throw up.error;
+      const ins = await sb.from("archives").insert({ fiche_id: String(f.id), user_id: f.user_id, nom_fichier: "Fiche-" + safeFileName(f.titre || "projet") + ".docx", chemin: path });
+      if (ins.error) throw ins.error; ok++;
+    } catch (e) { console.warn("Archivage rattrapage :", e); }
+  }
+  toast(`${ok} / ${todo.length} projet(s) archivé(s).`); renderArchivage();
+}
+
+// ===== Ma fiche Word (côté client) =====
+async function loadMaFiche() {
+  const box = $("maFiche"); if (!box || !fiche) return;
+  const a = await sb.from("archives").select("*").eq("fiche_id", String(fiche.id)).order("created_at", { ascending: false }).limit(1);
+  const x = a.data?.[0];
+  box.innerHTML = x
+    ? `<div class="li"><div><b>📄 Ma fiche projet</b><small>${esc(x.nom_fichier)} · ${fmt(x.created_at)}</small></div><button class="btn" id="dlFiche" type="button">Télécharger</button></div>`
+    : `<div class="li"><div><b>📄 Ma fiche projet</b><small>Pas encore générée</small></div><button class="btn" id="mkFiche" type="button">Générer ma fiche</button></div>`;
+  if (x) $("dlFiche").onclick = async () => {
+    const s = await sb.storage.from("archives").createSignedUrl(x.chemin, 60, { download: x.nom_fichier });
+    if (s.error) return toast("Ouverture impossible : " + s.error.message);
+    window.open(s.data.signedUrl, "_blank", "noopener,noreferrer");
+  };
+  else $("mkFiche").onclick = async () => {
+    $("mkFiche").disabled = true;
+    await archiver(fiche, { prenom: profile.prenom, nom: profile.nom, telephone: profile.telephone, email: user.email });
+    loadMaFiche();
+  };
+}
+
+// ===== JOURNAL DES TÉLÉCHARGEMENTS (super admin) =====
+let JOUR = [];
+const jDate = d => new Date(d).toLocaleDateString("fr-FR", { weekday: "long", day: "2-digit", month: "long", year: "numeric" });
+const jHeure = d => new Date(d).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+async function renderJournal() {
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Journal des téléchargements</h4><p style="color:var(--mu)">Chargement…</p></div>`;
+  const { data, error } = await sb.from("journal_telechargements").select("*").order("created_at", { ascending: false }).limit(2000);
+  if (error) { $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><h4>Journal des téléchargements</h4><p class="err">${esc(error.message)}</p><p style="color:var(--mu)">Avez-vous exécuté le script SQL de sécurité ?</p></div>`; return; }
+  JOUR = data;
+  const who = [...new Map(JOUR.map(x => [x.email, x.nom_complet || x.email])).entries()];
+  $("grid").innerHTML = `<div class="card" style="grid-column:1/-1"><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+    <h4 style="margin:0">Journal des téléchargements (<span id="jcnt"></span>)</h4>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+    <select id="jw" style="margin:0;width:auto"><option value="">Toutes les personnes</option>${who.map(([e, n]) => `<option value="${esc(e)}">${esc(n)}</option>`).join("")}</select>
+    <input id="jd1" type="date" style="margin:0;width:auto"><input id="jd2" type="date" style="margin:0;width:auto">
+    <button class="btn" id="jxl">Exporter (Excel)</button></div></div>
+    <div style="overflow-x:auto;margin-top:10px"><table id="jtb"></table></div></div>`;
+  ["jw", "jd1", "jd2"].forEach(i => $(i).onchange = drawJour); $("jxl").onclick = exportJour; drawJour();
+}
+function jFiltered() {
+  const w = $("jw").value, d1 = $("jd1").value, d2 = $("jd2").value;
+  return JOUR.filter(x => (!w || x.email === w) && (!d1 || new Date(x.created_at) >= new Date(d1 + "T00:00:00")) && (!d2 || new Date(x.created_at) <= new Date(d2 + "T23:59:59")));
+}
+function drawJour() {
+  const l = jFiltered(); $("jcnt").textContent = l.length;
+  $("jtb").innerHTML = "<tr>" + ["Jour", "Heure", "Qui", "Rôle", "Fichier", "Type"].map(h => `<th>${h}</th>`).join("") + "</tr>" +
+    (l.map(x => `<tr><td>${esc(jDate(x.created_at))}</td><td>${esc(jHeure(x.created_at))}</td><td>${esc(x.nom_complet || "—")}<small>${esc(x.email || "")}</small></td><td>${esc(x.role || "")}</td><td>${esc(x.fichier || "")}</td><td>${esc(x.type || "")}</td></tr>`).join("") || '<tr><td colspan="6" style="color:var(--mu)">Aucun téléchargement enregistré.</td></tr>');
+}
+async function exportJour() {
+  const l = jFiltered(); if (!l.length) return toast("Rien à exporter.");
+  await xlsxStyled("ADEL-INVEST-journal-" + new Date().toISOString().slice(0, 10) + ".xlsx", [{ name: "Journal", title: "Journal des téléchargements",
+    rows: l.map(x => ({ "Jour": jDate(x.created_at), "Heure": jHeure(x.created_at), "Nom": x.nom_complet, "E-mail": x.email, "Rôle": x.role, "Fichier": x.fichier, "Type": x.type })),
+    widths: [26, 12, 24, 32, 14, 44, 14] }]);
+}
+
+$("grid").addEventListener("click", async e => {
+  const b = e.target.closest("button[data-w],button[data-x],button[data-p],button[data-ar],button[data-ap],button[data-tab]"); if (!b || b.dataset.tab) return;
+  if (b.dataset.w) { b.disabled = true; try { await exportDoc(ROWS.find(r => r.id === b.dataset.w)); } finally { b.disabled = false; } }
+  else if (b.dataset.p) { await showPieces(ROWS.find(r => r.id === b.dataset.p)); }
+  else if (b.dataset.ar) {
+    const x = ARCH.find(a => a.id === b.dataset.ar); if (!x) return;
+    b.disabled = true;
+    try {
+      if (!(await logDl(x.nom_fichier, x.fiche_id, "archive"))) return;
+      const s = await sb.storage.from("archives").createSignedUrl(x.chemin, 60, { download: x.nom_fichier });
+      if (s.error) return toast("Ouverture impossible : " + s.error.message);
+      window.open(s.data.signedUrl, "_blank", "noopener,noreferrer");
+    } finally { b.disabled = false; }
+  }
+  else if (b.dataset.ap) {
+    const x = PIECES[Number(b.dataset.ap)]; if (!x) return;
+    b.disabled = true;
+    try {
+      const fn = x.name.replace(/^\d+_/, "");
+      if (!(await logDl(fn, x.f.id, "document"))) return;
+      const s2 = await sb.storage.from(DOCS_BUCKET).createSignedUrl(x.path, 60, { download: fn });
+      if (s2.error) return toast("Ouverture impossible : " + s2.error.message);
+      window.open(s2.data.signedUrl, "_blank", "noopener,noreferrer");
+    } finally { b.disabled = false; }
+  }
+  else if (b.dataset.x && confirm("Supprimer définitivement ce projet ?")) {
+    const { error } = await sb.from("fiches").delete().eq("id", b.dataset.x);
+    if (error) return toast("Erreur : " + error.message);
+    renderAdmin();
+  }
+});
+$("grid").addEventListener("change", async e => {
+  const t = e.target;
+  if (t.dataset.st) {
+    const r = ROWS.find(x => x.id === t.dataset.st);
+    const { error } = await sb.from("fiches").update({ statut: t.value, updated_at: new Date().toISOString() }).eq("id", r.id);
+    if (error) { t.value = r.statut; return toast("Erreur : " + error.message); }
+    toast("Statut mis à jour.");
+    sb.from("notifications").insert({ user_id: r.user_id, message: "Votre projet est passé à l'étape : " + label(t.value) });
+    renderAdmin();
+  }
+  if (t.dataset.role) {
+    const { error } = await sb.from("profiles").update({ role: t.value }).eq("id", t.dataset.role);
+    toast(error ? "Erreur : " + error.message : "Rôle mis à jour.");
+  }
+});
+
+function shrink(file, size) {
+  return new Promise((ok, ko) => {
+    const img = new Image();
+    img.onload = () => {
+      const s = Math.min(img.width, img.height), c = document.createElement("canvas");
+      c.width = c.height = size;
+      c.getContext("2d").drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, size, size);
+      c.toBlob(b => b ? ok(b) : ko(new Error("Image illisible")), "image/jpeg", 0.85);
+    };
+    img.onerror = () => ko(new Error("Image illisible"));
+    img.src = URL.createObjectURL(file);
+  });
+}
+$("grid").addEventListener("change", async e => {
+  if (e.target.id !== "avatarIn" || !e.target.files[0]) return;
+  const file = e.target.files[0];
+  if (!file.type.startsWith("image/")) return toast("Choisissez une image (JPG ou PNG).");
+  try {
+    const blob = await shrink(file, 400), path = user.id + "/avatar.jpg";
+    const up = await sb.storage.from("avatars").upload(path, blob, { upsert: true, contentType: "image/jpeg" });
+    if (up.error) throw up.error;
+    const url = sb.storage.from("avatars").getPublicUrl(path).data.publicUrl + "?v=" + Date.now();
+    const r = await sb.from("profiles").update({ avatar_url: url }).eq("id", user.id).select("id");
+    const saved = !r.error && r.data && r.data.length > 0;
+    const m = await sb.auth.updateUser({ data: { avatar_url: url } });
+    if (m.error && !saved) throw m.error;
+    profile.avatar_url = url;
+    toast(saved ? "Photo enregistrée." : "Photo enregistrée sur votre compte. Pour qu'elle soit aussi visible par l'administration, appliquez le correctif SQL (table profiles).");
+    fiche ? renderDash() : renderNew();
+  } catch (err) { toast("Photo non enregistrée : " + err.message); }
+});
+
+async function renderDash() {
+  const idx = Math.max(0, STEPS.findIndex(s => s[0] === fiche.statut));
+  const cat = CATS[fiche.categorie]?.[0] || "—";
+  const folder = `${user.id}/${fiche.id}`;
+  const [docsResult, notifs] = await Promise.all([
+    sb.storage.from(DOCS_BUCKET).list(folder, { limit: 100, sortBy: { column: "created_at", order: "desc" } }),
+    sb.from("notifications").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(3)
+  ]);
+  const docsError = docsResult.error;
+  const docs = (docsResult.data || []).filter(f => f.name && f.id);
+  const steps = STEPS.map((s, i) => `<div class="st ${i < idx ? "ok" : i === idx ? "cur" : ""}"><i>${i < idx ? "✓" : i + 1}</i><span>${s[1]}</span></div>`).join("");
+  $("grid").innerHTML = profCard() + `<div id="projet">
+    <div class="proj">Mon projet foncier <span>✓ Projet enregistré</span></div>
+    <div class="card" style="margin-top:12px"><div class="pbody"><div class="rows">
+      <div><b>Titre du projet :</b>${esc(fiche.titre)}</div><div><b>Type de projet :</b>${esc(fiche.type_projet || "—")}</div>
+      <div><b>Catégorie :</b>${esc(cat)}</div><div><b>Localisation :</b>${esc(fiche.localisation || "—")}</div>
+      <div><b>Superficie :</b>${esc(fiche.superficie || "—")} hectares</div><div><b>Enregistré le :</b>${fmt(fiche.created_at)}</div></div>
+      <div class="acts"><button class="btn">Voir le détail de mon projet</button><button class="btn o" id="edit">Modifier mon projet</button>
+      <button class="btn o" id="addd">Joindre des documents</button><button class="btn d" id="del">Supprimer mon projet</button></div></div>
+      <div class="steps">${steps}</div></div></div>
+    <div class="three">
+      <div class="card" id="docs"><h4>Mes documents</h4><div id="maFiche"></div>${
+        docsError
+          ? `<p class="err">Erreur : ${esc(docsError.message)}</p>`
+          : docs.length
+            ? docs.map((d, i) => `<div class="li"><div>${esc(d.name.replace(/^\d+_/, ""))}<small>Déposé le ${fmt(d.created_at)}</small></div><button class="btn" type="button" data-dash-doc="${i}">Ouvrir</button></div>`).join("")
+            : '<p style="color:var(--mu)">Aucun document pour le moment.</p>'
+      }</div>
+      <div class="card"><h4>À propos de mon projet</h4><p>${esc(fiche.description || "Aucune description.")}</p>
+        <p style="border-top:1px solid var(--bd);padding-top:8px"><b>Contact ADEL INVEST</b><br>☎ +221 33 123 45 67<br>✉ contact@adel-invest.sn</p></div>
+      <div class="card"><h4>Mes notifications</h4>${(notifs.data || []).map(n => `<div class="li"><div>${esc(n.message)}<small>${fmt(n.created_at)}</small></div></div>`).join("") || '<p style="color:var(--mu)">Aucune notification.</p>'}</div>
+    </div>`;
+
+  $("grid").querySelectorAll("button[data-dash-doc]").forEach(button => {
+    button.addEventListener("click", async () => {
+      const file = docs[Number(button.dataset.dashDoc)];
+      if (!file) return;
+      button.disabled = true; button.textContent = "Préparation…";
+      const { data, error } = await sb.storage.from(DOCS_BUCKET).createSignedUrl(`${folder}/${file.name}`, 60);
+      button.disabled = false; button.textContent = "Ouvrir";
+      if (error) return toast("Ouverture impossible : " + error.message);
+      window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+    });
+  });
+
+  loadMaFiche();
+  $("del").onclick = async () => {
+    if (!confirm("Supprimer définitivement ce projet ?")) return;
+    await sb.from("fiches").delete().eq("id", fiche.id); start();
+  };
+  $("edit").onclick = async () => {
+    const t = prompt("Nouveau titre du projet :", fiche.titre);
+    if (t) { await sb.from("fiches").update({ titre: t, updated_at: new Date().toISOString() }).eq("id", fiche.id); start(); }
+  };
+  $("addd").onclick = () => navigate("docs");
+}
+drawSCats();
+start();
 </script>
 </body>
 </html>
