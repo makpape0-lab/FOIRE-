@@ -135,8 +135,9 @@ function imprimer(h){let d=$("pr");if(!d){d=document.createElement("div");d.id="
 const entete=t=>`<h1>FASECA-KB 2026 – ${t}</h1><p>${esc(CFG.dates)} · ${esc(CFG.lieu)} · édité le ${fmt(new Date())}</p>`;
 function fiche(r){const p=price(r.formule),l=(a,b)=>`<tr><th>${a}</th><td>${esc(b||"—")}</td></tr>`;
  imprimer(`${entete("Fiche d'inscription "+esc(r.numero||""))}<table>${l("Structure",r.organisation)}${l("Responsable",r.responsable)}${l("Téléphone",r.telephone)}${l("E-mail",r.email)}${l("Commune",r.commune)}${l("Secteur(s)",(r.secteurs||[]).join(", "))}${l("Produits / services",r.produits)}${l("Formule",pn(r.formule))}${l("Tarif",fcfa(p))}${l("Montant enregistré",fcfa(r.montant_verse))}${l("Reste à payer",HORS.includes(r.statut)?"—":fcfa(Math.max(0,p-(r.montant_verse||0))))}${l("Statut",r.statut)}${l("N° de stand",r.stand)}</table><p>Cette fiche récapitule votre dossier. La réservation n'est ferme qu'après confirmation du Comité. Contact : ${esc(CFG.tel)}.</p>`)}
-function badges(L){const b=L.filter(x=>RETENU.includes(x.statut));if(!b.length)return toast("Aucun dossier confirmé : pas de badge à imprimer.");
- imprimer(`<div class="badges">${b.flatMap(x=>[1,2].map(n=>`<div class="badge">FASECA-KB 2026<br>EXPOSANT<b>${esc(x.organisation)}</b>${n===1?esc(x.responsable):"Nom : ……………………"}<br>Stand : <strong>${esc(x.stand||"à attribuer")}</strong><br><small>${esc(x.numero)} · badge ${n}/2</small></div>`)).join("")}</div>`)}
+async function badges(L){const b=L.filter(x=>RETENU.includes(x.statut));if(!b.length)return toast("Aucun dossier confirmé : pas de badge à imprimer.");
+ const P=await Promise.all(b.map(async x=>{const p=x.details?.photo_badge;if(!p||!(x.photos||[]).includes(p))return "";try{const u=(await urls([p]))[0].u;if(!u)return "";const i=new Image();i.src=u;await i.decode();return u}catch{return ""}}));
+ imprimer(`<div class="badges">${b.flatMap((x,k)=>[1,2].map(n=>`<div class="badge">FASECA-KB 2026<br>EXPOSANT${n===1&&P[k]?`<img src="${esc(P[k])}" alt="" style="display:block;width:28mm;height:28mm;object-fit:cover;object-position:center 30%;margin:6px auto;border-radius:8px">`:""}<b>${esc(x.organisation)}</b>${n===1?esc(x.responsable):"Nom : ……………………"}<br>Stand : <strong>${esc(x.stand||"à attribuer")}</strong><br><small>${esc(x.numero)} · badge ${n}/2</small></div>`)).join("")}</div>`)}
 function wa(r){let n=String(r.telephone||"").replace(/\D/g,"").replace(/^00/,"");if(n.length===9)n="221"+n;const reste=Math.max(0,price(r.formule)-(r.montant_verse||0));
  const m=`Bonjour ${r.responsable}, FASECA-KB 2026, dossier ${r.numero} : statut « ${r.statut} ».`+(!HORS.includes(r.statut)&&reste?` Reste à payer : ${fcfa(reste)}, avant le ${CFG.solde}.`:"")+(r.stand?` Stand : ${r.stand}.`:"");
  return `https://wa.me/${n}?text=${encodeURIComponent(m)}`}
@@ -174,7 +175,7 @@ function form(){nav();
  <div data-s="3" class="hide"><p style="font-weight:600;margin:0">Formule choisie *</p><div class="packs" style="margin:8px 0 12px">${Object.entries(PK).map(([k,p])=>`<label class="pack"><input type="radio" name="formule" value="${k}" required><strong>${p.n}</strong><b>${fcfa(price(k))}</b><ul>${p.d.map(x=>`<li>${x}</li>`).join("")}</ul><small>Cible : ${p.c}<br>Réservation (50 %) : ${fcfa(price(k)/2)}</small></label>`).join("")}</div>
  <p class="mu" style="font-size:14px">Paiement : 50 % à la réservation, solde avant le ${esc(CFG.solde)}, ou en une fois. Espèces au Secrétariat de la Mairie ou mobile money au ${esc(CFG.tel)}.</p>
  <label>Mode de paiement prévu<select name="mode_paiement"><option value=""></option>${PAY.map(p=>`<option>${p}</option>`).join("")}</select></label>
- <div class="f2"><label>Photographie principale de présentation<input type="file" name="photo_main" accept="image/*"></label><label>Photos de vos produits / de votre activité (5 max.)<input type="file" name="photos" accept="image/*" multiple></label></div>
+ <div class="f2"><label>Votre photo (responsable) – elle figurera sur votre badge<input type="file" name="photo_main" accept="image/*"><small class="mu">Visage de face, bien éclairé. Facultatif.</small></label><label>Photos de vos produits / de votre activité (5 max.)<input type="file" name="photos" accept="image/*" multiple></label></div>
  <div id="acc"><h3>Votre accès (pour retrouver votre dossier)</h3><div class="f2"><label>E-mail *<input name="email" type="email" required autocomplete="email"></label><label>Mot de passe * (8 caractères min., lettres et chiffres)<span class="pwr"><input name="pw" type="password" required minlength="8" maxlength="72" autocomplete="new-password"><button type="button" class="btn o s" id="pt">Afficher</button></span><span class="meter" id="pm"><i></i></span><small class="mu"></small></label><label>Confirmer le mot de passe *<input name="pw2" type="password" required maxlength="72" autocomplete="new-password"></label></div></div>
  <div class="recap" id="rec" aria-live="polite"></div><p style="font-size:14px"><a href="#" id="vp">Comment mes données sont-elles utilisées ?</a></p><label style="display:flex;gap:8px"><input type="checkbox" name="ok" style="width:auto;margin-top:4px" required><span>Je certifie l'exactitude de ces informations et j'accepte leur utilisation par le Comité pour gérer ma participation. Le montant versé et le numéro de stand sont enregistrés par le Comité après réception du paiement ; la réservation n'est ferme qu'après sa confirmation.</span></label><input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
  <div class="err" id="e" role="alert"></div><div style="display:flex;gap:8px"><button type="button" class="btn o" id="pv">Précédent</button><button type="submit" class="btn" id="nx" style="flex:1">Suivant</button></div>
@@ -218,7 +219,8 @@ async function submit(){
  if(ins.error)return err("Enregistrement impossible : "+ins.error.message);
  const fl=[f.get("photo_main"),...f.getAll("photos")].filter(x=>x&&x.size);
  let manque=0;
- if(fl.length){try{const ph=await upPhotos(fl,user.id);manque=fl.length-ph.length;if(ph.length){const u=await sb.from("faseca_inscriptions").update({photos:ph}).eq("id",ins.data.id);if(u.error)manque=fl.length}}catch{manque=fl.length}}
+ if(fl.length){try{const moi=f.get("photo_main"),a=moi&&moi.size?await upPhotos([moi],user.id):[],autres=await upPhotos(f.getAll("photos").filter(x=>x&&x.size),user.id),ph=[...a,...autres];manque=fl.length-ph.length;
+  if(ph.length){const u=await sb.from("faseca_inscriptions").update({photos:ph,details:a.length?{...row.details,photo_badge:a[0]}:row.details}).eq("id",ins.data.id);if(u.error)manque=fl.length}}catch{manque=fl.length}}
  try{sessionStorage.removeItem(BR)}catch{}
  await boot();
  toast(manque?"Inscription enregistrée. Certaines photos n'ont pas été envoyées : ajoutez-les depuis votre espace.":"Inscription enregistrée. Bienvenue dans votre espace !")}
@@ -250,10 +252,57 @@ async function charger(){
  if(error)return v(`<div class="card err">Impossible de charger votre dossier : ${esc(error.message)}<br><button class="btn s" onclick="location.reload()">Réessayer</button></div>`);
  data?.[0]?dash(data[0]):form()}
 
+// ---- Badge exposant (image PNG à télécharger) ----
+async function badgeImage(r,nom,num,photo){
+ const im=new Image();im.src=FLYER;await im.decode();
+ const W=1016,H=1417,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");x.textAlign="center";x.textBaseline="middle";
+ const box=(a,b,w,h,col,ra=0)=>{x.fillStyle=col;x.beginPath();x.roundRect?x.roundRect(a,b,w,h,ra):x.rect(a,b,w,h);x.fill()};
+ // texte ajusté à la largeur : taille réduite puis coupure si nécessaire
+ const txt=(t,y,size,col,max=W-100,a=W/2,min=26)=>{t=String(t||"");const f=n=>x.font=`800 ${n}px Inter,"Segoe UI",Arial,sans-serif`;let n=size;f(n);while(n>min&&x.measureText(t).width>max)f(--n);if(x.measureText(t).width>max){while(t&&x.measureText(t+"…").width>max)t=t.slice(0,-1);t+="…"}x.fillStyle=col;x.fillText(t,a,y)};
+ box(0,0,W,H,"#fff");
+ const g=x.createLinearGradient(0,0,W,520);g.addColorStop(0,"#0f2a5c");g.addColorStop(.7,"#1a4b96");g.addColorStop(1,"#1b5e35");box(0,0,W,520,g);
+ const s=im.width*.178;x.save();x.beginPath();x.arc(W/2,180,140,0,7);x.fillStyle="#fff";x.fill();x.clip();x.drawImage(im,im.width*.012,0,s,s,W/2-140,40,280,280);x.restore();
+ txt("FOIRE FASECA-KB 2026",378,68,"#f2b705");txt("1ère édition · "+CFG.dates,442,36,"#fff");txt(CFG.lieu,488,34,"#fff");
+ if(photo){
+  box(0,520,W,110,"#f2b705");txt("EXPOSANT",577,72,"#0f2a5c");
+  // photo recadrée au carré (centrée, légèrement vers le haut pour garder le visage)
+  const t=340,px=(W-t)/2,py=650,m=Math.min(photo.naturalWidth,photo.naturalHeight);box(px-8,py-8,t+16,t+16,"#f2b705",36);
+  x.save();x.beginPath();x.roundRect?x.roundRect(px,py,t,t,28):x.rect(px,py,t,t);x.clip();x.drawImage(photo,(photo.naturalWidth-m)/2,(photo.naturalHeight-m)*.3,m,m,px,py,t,t);x.restore();
+  txt(nom,1040,58,"#14281d");txt(r.organisation,1100,40,"#1b5e35");
+  box(238,1135,540,100,"#e9f5ee",24);txt(r.stand?"STAND "+r.stand:"STAND à attribuer",1186,54,"#0f2a5c",500);
+  txt(`${r.numero||""} · badge ${num}/2`,1272,32,"#14281d");
+ }else{
+ box(0,520,W,150,"#f2b705");txt("EXPOSANT",598,96,"#0f2a5c");
+ txt(nom,760,76,"#14281d");txt(r.organisation,852,52,"#1b5e35");txt((r.secteurs||[]).join(" · "),920,34,"#5f7168");
+ box(238,970,540,230,"#e9f5ee",28);txt("STAND",1018,34,"#1b5e35");txt(r.stand||"À attribuer",1115,r.stand?110:62,"#0f2a5c",500);
+ txt(`${r.numero||""} · badge ${num}/2`,1250,36,"#14281d");
+ }
+ box(0,1305,W,18,"#2f8f55");box(0,1323,W,94,"#0f2a5c");txt("Personnel · à porter pendant toute la foire",1370,32,"#fff");
+ return new Promise((ok,ko)=>c.toBlob(b=>b?ok(b):ko(new Error("Image impossible à créer")),"image/png"))}
+function badgeInit(r){if(!$("bg"))return;let url,blob,photo=null,tour=0,choix=0;
+ const sansPhoto=()=>{choix++;photo=null;$("bph").value="";$("bsp").classList.add("hide")};
+ const maj=async()=>{const t=++tour,num=+$("bn").value,saisi=$("bnom").value.trim(),nom=saisi||(num===1?r.responsable:"");$("bdl").disabled=true;if(!nom){$("bg").removeAttribute("src");return}
+  const b=await badgeImage(r,nom,num,photo);if(t!==tour)return;blob=b;URL.revokeObjectURL(url);url=URL.createObjectURL(b);$("bg").src=url;$("bdl").disabled=false};
+ const lire=u=>new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=ko;i.src=u});
+ // photo enregistrée dans le dossier (badge du responsable)
+ const duDossier=async()=>{const c=++choix,pb=r.details?.photo_badge;if(!pb||!(r.photos||[]).includes(pb))return;
+  try{const x=await sb.storage.from("faseca-photos").download(pb);if(x.error)throw x.error;const u=URL.createObjectURL(x.data),i=await lire(u);URL.revokeObjectURL(u);if(c!==choix||$("bn").value!=="1")return;photo=i;$("bsp").classList.remove("hide");await maj()}catch{toast("Votre photo n'a pas pu être chargée.")}};
+ const enregistrer=async f=>{const ancienne=r.details?.photo_badge,reste=(r.photos||[]).filter(x=>x!==ancienne);
+  if(reste.length>=6)return toast("6 photos maximum : supprimez-en une dans l'onglet Photos.");
+  const n=await upPhotos([f],user.id);if(!n.length)return toast("La photo n'a pas pu être enregistrée.");
+  const photos=[n[0],...reste],details={...r.details,photo_badge:n[0]},x=await sb.from("faseca_inscriptions").update({photos,details}).eq("id",r.id);if(x.error)return toast("Erreur : "+x.error.message);
+  if(ancienne)await sb.storage.from("faseca-photos").remove([ancienne]);r.photos=photos;r.details=details;dash(r);toast("Photo enregistrée dans votre dossier.")};
+ $("bph").onchange=async e=>{const f=e.target.files[0],c=++choix;if(!f)return;const u=URL.createObjectURL(f);
+  try{if(!/^image\//.test(f.type)||f.size>15e6)throw 0;const i=await lire(u);if(c!==choix)return;photo=i;$("bsp").classList.remove("hide");await maj();if($("bn").value==="1"&&!PREVIEW)await enregistrer(f)}catch{sansPhoto();maj();toast("Photo illisible ou trop lourde : choisissez une image JPG ou PNG de moins de 15 Mo.")}finally{URL.revokeObjectURL(u)}};
+ $("bsp").onclick=()=>{sansPhoto();maj()};
+ $("bn").onchange=()=>{sansPhoto();$("bnom").value=$("bn").value==="1"?r.responsable:"";maj();if($("bn").value==="1")duDossier()};$("bnom").oninput=maj;
+ $("bdl").onclick=()=>{const a=document.createElement("a"),u=URL.createObjectURL(blob);a.href=u;a.download=`badge-${r.numero||"exposant"}-${$("bn").value}.png`;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500)};
+ maj();duDossier()}
+
 // ---- Espace exposant ----
 function dash(r){const p=price(r.formule),i=PATH.indexOf(r.statut),horsListe=["Liste d'attente","Refusée"].includes(r.statut),reste=horsListe?0:Math.max(0,p-(r.montant_verse||0)),d=r.details||{},row=(a,b)=>b?`<div><b>${a}</b><span>${esc(b)}</span></div>`:"";
  const suite=r.statut==="Refusée"?"":r.statut==="Liste d'attente"?`Votre demande est sur liste d'attente. Pour toute question, appelez le Comité au ${esc(CFG.tel)}.`:d.declaration&&reste?"Votre paiement déclaré est en attente de vérification par le Comité.":!reste?`Votre participation est entièrement payée.${r.stand?"":" Le numéro de stand vous sera indiqué ici."}`:(r.montant_verse||0)<p/2?`Réglez la réservation de <b>${fcfa(p/2-(r.montant_verse||0))}</b>, puis déclarez votre paiement.`:`Réglez le solde de <b>${fcfa(reste)}</b> avant le ${esc(CFG.solde)}.`;
- const onglets=[["dossier","Mon dossier"],...(horsListe?[]:[["paiement","Paiement"]]),["photos","Photos"],["aide","Aide"]];
+ const onglets=[["dossier","Mon dossier"],...(horsListe?[]:[["paiement","Paiement"],["badge","Badge"]]),["photos","Photos"],["aide","Aide"]];
  v(`<div class="card hello"><div><p>Bienvenue, <b>${esc(r.responsable)}</b></p><h2>${esc(r.organisation)}</h2><p>Dossier <b>${esc(r.numero||"")}</b> · inscrit le ${fmt(r.created_at)}</p><p>${esc(CFG.dates)}<br>${esc(CFG.lieu)}</p></div>${affiche(FLYER,"Affiche officielle de la foire FASECA-KB 2026").replace('class="aff"','class="aff card-aff"')}</div>
  <div class="card">
  ${horsListe?"":`<div class="steps">${PATH.map((s,j)=>{const fait=j<i||r.statut==="Soldée";return `<div class="st ${fait?"ok":j===i?"cur":""}"><i>${fait?"✓":j+1}</i><span>${s}</span></div>`}).join("")}</div>`}
@@ -264,6 +313,8 @@ function dash(r){const p=price(r.formule),i=PATH.indexOf(r.statut),horsListe=["L
  <section data-o="dossier">
  ${r.statut==="Refusée"?"":`<div class="card row"><button class="btn" id="imf" type="button">Imprimer / enregistrer ma fiche (PDF)</button></div>`}
  <div class="card info"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><h3>Mes informations</h3><button class="btn s" id="ed">Modifier mes informations</button></div>${row("Entreprise / activité",r.organisation)}${row("Responsable",r.responsable)}${row("Secteur(s)",(r.secteurs||[]).join(", "))}${row("Téléphone / WhatsApp",r.telephone)}${row("Commune de provenance",r.commune)}${row("E-mail (identifiant)",r.email||user.email)}${row("Formule",pn(r.formule)+" – "+fcfa(p))}${row("Produits / services",r.produits)}${row("Paiement prévu",r.mode_paiement)}${XF.map(x=>row(x[1],d[x[0]])).join("")}</div>
+ </section><section data-o="badge">
+ ${RETENU.includes(r.statut)?`<div class="card"><h3>Mon badge exposant</h3><div class="f2"><label>Badge<select id="bn"><option value="1">Badge 1 – responsable</option><option value="2">Badge 2 – accompagnant</option></select></label><label>Nom et prénom sur le badge<input id="bnom" maxlength="60" value="${esc(r.responsable)}"></label></div><label>Votre photo (facultatif) – visage de face, bien éclairé<input type="file" id="bph" accept="image/*"></label><p class="mu" style="font-size:13px;margin-top:-8px">Badge 1 : la photo de votre dossier est reprise automatiquement ; en choisir une autre la remplace. Badge 2 : la photo de l'accompagnant n'est pas enregistrée.</p><p><button type="button" class="btn s o hide" id="bsp">Créer le badge sans photo</button></p><img id="bg" alt="Aperçu du badge" style="display:block;width:100%;max-width:340px;margin:0 auto 14px;border-radius:14px;box-shadow:var(--sh)"><button class="btn" id="bdl" type="button" style="width:100%" disabled>Télécharger le badge (image)</button></div>`:`<div class="card"><h3>Mon badge exposant</h3><p>Votre badge sera téléchargeable dès que le Comité aura confirmé votre réservation.</p></div>`}
  </section><section data-o="photos">
  <div class="card"><h3>Mes photographies</h3><div class="ph" id="ph"></div><label style="margin-top:12px">Ajouter des photographies<input type="file" id="pa" accept="image/*" multiple></label></div>
  </section><section data-o="paiement">
@@ -274,10 +325,12 @@ function dash(r){const p=price(r.formule),i=PATH.indexOf(r.statut),horsListe=["L
  <div class="card"><p style="margin:0">Contacter le Comité : <a href="tel:${esc(String(CFG.tel).replace(/[^+\d]/g,""))}">${esc(CFG.tel)}</a></p></div></section>`);
  const onglet=n=>{if(!onglets.some(o=>o[0]===n))n="dossier";OT=n;document.querySelectorAll("section[data-o]").forEach(x=>x.classList.toggle("hide",x.dataset.o!==n));document.querySelectorAll(".mtabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.go===n))};onglet(OT);
  document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{onglet(b.dataset.go);if(b.closest(".next"))document.querySelector(".mtabs").scrollIntoView({behavior:"smooth"})});
- const ph=async()=>{const L=await urls(r.photos);$("ph").innerHTML=L.map((x,k)=>x.u?`<div><img src="${x.u}" alt="Photo ${k+1}"><button class="btn d s" data-d="${k}" title="Supprimer">✕</button></div>`:"").join("")||'<p class="mu">Aucune photographie.</p>'},sv=()=>sb.from("faseca_inscriptions").update({photos:r.photos}).eq("id",r.id);ph();
- $("ph").onclick=async e=>{const b=e.target.closest("[data-d]");if(!b||!confirm("Supprimer cette photographie ?"))return;const p=r.photos[+b.dataset.d];await sb.storage.from("faseca-photos").remove([p]);r.photos=r.photos.filter(x=>x!==p);await sv();ph()};
+ const ph=async()=>{const L=await urls(r.photos);$("ph").innerHTML=L.map((x,k)=>x.u?`<div><img src="${x.u}" alt="Photo ${k+1}">${x.p===r.details?.photo_badge?'<small class="ok">Photo du badge</small>':""}<button class="btn d s" data-d="${k}" title="Supprimer">✕</button></div>`:"").join("")||'<p class="mu">Aucune photographie.</p>'},sv=()=>sb.from("faseca_inscriptions").update({photos:r.photos}).eq("id",r.id);ph();
+ $("ph").onclick=async e=>{const b=e.target.closest("[data-d]");if(!b||!confirm("Supprimer cette photographie ?"))return;const p=r.photos[+b.dataset.d];await sb.storage.from("faseca-photos").remove([p]);r.photos=r.photos.filter(x=>x!==p);
+  if(r.details?.photo_badge===p){const details={...r.details};delete details.photo_badge;const x=await sb.from("faseca_inscriptions").update({photos:r.photos,details}).eq("id",r.id);if(x.error)return toast("Erreur : "+x.error.message);r.details=details;return dash(r)}await sv();ph()};
  $("pa").onchange=async e=>{const libre=6-(r.photos||[]).length;if(libre<=0){e.target.value="";return toast("6 photos maximum : supprimez-en une d'abord.")}const n=await upPhotos([...e.target.files].slice(0,libre),user.id);e.target.value="";if(n.length){r.photos=[...(r.photos||[]),...n];await sv();ph();toast("Photos ajoutées.")}};
- $("ed").onclick=()=>{modal(`<form id="ef"><h3>Modifier mes informations</h3>${body(r).replace(/ hide/g,"")}<div class="err" id="ee"></div><button class="btn">Enregistrer</button></form>`);$("ef").onsubmit=async e=>{e.preventDefault();const f=new FormData($("ef"));if(!f.getAll("secteurs").length)return $("ee").textContent="Choisissez au moins un secteur.";const c=collect(f);if(d.declaration)c.details.declaration=d.declaration;const x=await sb.from("faseca_inscriptions").update({...c,updated_at:new Date().toISOString()}).eq("id",r.id);if(x.error)return $("ee").textContent=x.error.message;$("md").close();toast("Informations mises à jour.");boot()}};
+ $("ed").onclick=()=>{modal(`<form id="ef"><h3>Modifier mes informations</h3>${body(r).replace(/ hide/g,"")}<div class="err" id="ee"></div><button class="btn">Enregistrer</button></form>`);$("ef").onsubmit=async e=>{e.preventDefault();const f=new FormData($("ef"));if(!f.getAll("secteurs").length)return $("ee").textContent="Choisissez au moins un secteur.";const c=collect(f);if(d.declaration)c.details.declaration=d.declaration;if(d.photo_badge)c.details.photo_badge=d.photo_badge;const x=await sb.from("faseca_inscriptions").update({...c,updated_at:new Date().toISOString()}).eq("id",r.id);if(x.error)return $("ee").textContent=x.error.message;$("md").close();toast("Informations mises à jour.");boot()}};
+ badgeInit(r);
  if($("imf"))$("imf").onclick=()=>fiche(r);
  if($("dp"))$("dp").onsubmit=async e=>{e.preventDefault();const f=new FormData($("dp")),dec={montant:Number(f.get("m")),mode:f.get("mo"),ref:String(f.get("ref")).trim(),date:new Date().toISOString()};if(!dec.ref||!(dec.montant>0))return toast("Indiquez le montant et la référence.");const x=await sb.from("faseca_inscriptions").update({details:{...d,declaration:dec},updated_at:new Date().toISOString()}).eq("id",r.id);if(x.error)return toast("Erreur : "+x.error.message);toast("Déclaration envoyée au Comité.");boot()};
  $("pwf").onsubmit=async e=>{e.preventDefault();const p=new FormData($("pwf")).get("p");if(!pwOK(p))return toast("Mot de passe trop faible : 8 caractères, lettres et chiffres.");const x=await sb.auth.updateUser({password:p});toast(x.error?"Erreur : "+x.error.message:"Mot de passe modifié.");e.target.reset()};
@@ -332,6 +385,7 @@ async function detail(id){const r=ROWS.find(x=>x.id===id),d=r.details||{},row=(a
  $("de").onclick=()=>{modal(`<form id="ef"><h3>Modifier le dossier ${esc(r.numero)}</h3>${body(r).replace(/ hide/g,"")}<div class="f2"><label>Statut<select name="statut">${STAT.map(s=>`<option ${s===r.statut?"selected":""}>${s}</option>`).join("")}</select></label><label>Formule<select name="formule">${Object.keys(PK).map(k=>`<option value="${k}" ${k===r.formule?"selected":""}>${pn(k)}</option>`).join("")}</select></label><label>Montant versé (Fcfa)<input type="number" min="0" step="500" name="montant_verse" value="${Number(r.montant_verse)||0}"></label><label>N° de stand<input name="stand" maxlength="20" value="${esc(r.stand||"")}"></label><label class="w">Notes<textarea name="notes" rows="2" maxlength="600">${esc(r.notes||"")}</textarea></label></div><div class="err" id="ee"></div><button class="btn">Enregistrer</button></form>`);
   $("ef").onsubmit=async e=>{e.preventDefault();const f=new FormData($("ef")),u={...collect(f),statut:f.get("statut"),formule:f.get("formule"),montant_verse:Number(f.get("montant_verse"))||0,stand:String(f.get("stand")).trim(),notes:String(f.get("notes")).trim(),updated_at:new Date().toISOString()};
    if(u.statut==="Stand attribué"&&!u.stand)return $("ee").textContent="Indiquez le numéro de stand.";if(d.declaration)u.details.declaration=d.declaration;
+   if(d.photo_badge)u.details.photo_badge=d.photo_badge;
    if(u.montant_verse<0||u.montant_verse>price(u.formule))return $("ee").textContent="Le montant versé doit être compris entre 0 et le tarif de la formule.";
    if(u.stand&&!HORS.includes(u.statut)&&ROWS.some(o=>o.id!==id&&!HORS.includes(o.statut)&&String(o.stand||"").trim().toLowerCase()===u.stand.toLowerCase()))return $("ee").textContent="Ce numéro de stand est déjà attribué.";
    const x=await sb.from("faseca_inscriptions").update(u).eq("id",id);if(x.error)return $("ee").textContent=x.error.message;$("md").close();toast("Dossier mis à jour (journalisé).");admin()}};
